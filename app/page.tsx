@@ -321,52 +321,6 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Beneficios Cards - FULL RESPONSIVE */}
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
-              {[
-                { 
-                  icon: Truck, 
-                  title: 'Logística 360°',
-                  description: 'Cobertura total en toda la Gran Caracas con transporte especializado',
-                  color: 'from-red-600 to-red-500',
-                  iconBg: 'bg-red-600'
-                },
-                { 
-                  icon: Shield, 
-                  title: 'Certificación Total',
-                  description: 'Cumplimos con todas las normas sanitarias y de seguridad alimentaria',
-                  color: 'from-blue-600 to-blue-500',
-                  iconBg: 'bg-blue-600'
-                },
-                { 
-                  icon: Clock, 
-                  title: 'Puntualidad Extrema',
-                  description: 'Cumplimos horarios de entrega sin excusas. Tu equipo come a tiempo, siempre',
-                  color: 'from-gray-600 to-gray-700',
-                  iconBg: 'bg-gray-600'
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ y: -10 }}
-                  className="relative group"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-20 rounded-2xl sm:rounded-3xl blur-xl transition-all duration-300`} />
-                  <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-white/30 transition-all h-full">
-                    <div className={`w-12 h-12 sm:w-16 sm:h-16 ${item.iconBg} rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform`}>
-                      <item.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-white mb-3 sm:mb-4">{item.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{item.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
             {/* Texto descriptivo - FULL RESPONSIVE */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -395,8 +349,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Por Qué Nos Eligen - FULL RESPONSIVE */}
+      {/* Nuestra Propuesta Gastronómica - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 bg-zinc-900 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+        </div>
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 px-2 sm:px-4 break-words">
+                NUESTRA PROPUESTA <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">GASTRONÓMICA</span>
+              </h2>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 via-blue-600/10 to-red-600/10 rounded-2xl sm:rounded-3xl blur-2xl" />
+              <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-12 md:p-16">
+                <p className="text-base sm:text-xl md:text-2xl leading-relaxed text-gray-300">
+                  Nuestra cocina ofrece <span className="text-white font-bold">menús variados y equilibrados</span> elaborados con ingredientes de primera. 
+                  Cocina del día, <span className="text-red-500 font-bold">opciones vegetarianas y especiales</span> según necesidad, 
+                  y <span className="text-blue-500 font-bold">vajilla desechable premium</span> incluida. 
+                  Cada plato llega recién preparado y listo para tu equipo.
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Por qué elegir a Duvan - FULL RESPONSIVE */}
+      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -421,7 +414,7 @@ export default function Home() {
                 <span className="text-white font-bold text-sm sm:text-base">VENTAJAS COMPETITIVAS</span>
               </motion.div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 px-2 sm:px-4 break-words">
-                ¿POR QUÉ NOS <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">ELIGEN?</span>
+                POR QUÉ ELEGIR A <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">DUVAN</span>
               </h2>
               <p className="text-base sm:text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto px-4">
                 Empresas líderes confían en nosotros día a día
@@ -499,6 +492,74 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Misión - FULL RESPONSIVE */}
+      <section className="py-16 sm:py-24 md:py-32 bg-zinc-900 relative overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 sm:mb-8 px-2 break-words">
+              NUESTRA <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">MISIÓN</span>
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed">
+              Transformar la alimentación corporativa en una experiencia memorable, con sabor de hogar y eficiencia en cada entrega.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Beneficios al contratarnos - FULL RESPONSIVE */}
+      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+        </div>
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="max-w-7xl mx-auto"
+          >
+            <div className="text-center mb-12 sm:mb-16 md:mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 px-2 sm:px-4 break-words">
+                BENEFICIOS AL <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">CONTRATARNOS</span>
+              </h2>
+            </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+              {[
+                { icon: Truck, title: 'Logística 360°', description: 'Cobertura total en toda la Gran Caracas con transporte especializado', color: 'from-red-600 to-red-500', iconBg: 'bg-red-600' },
+                { icon: Shield, title: 'Certificación Total', description: 'Cumplimos con todas las normas sanitarias y de seguridad alimentaria', color: 'from-blue-600 to-blue-500', iconBg: 'bg-blue-600' },
+                { icon: Clock, title: 'Puntualidad Extrema', description: 'Cumplimos horarios de entrega sin excusas. Tu equipo come a tiempo, siempre', color: 'from-gray-600 to-gray-700', iconBg: 'bg-gray-600' },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  className="relative group"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-20 rounded-2xl sm:rounded-3xl blur-xl transition-all duration-300`} />
+                  <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-white/30 transition-all h-full">
+                    <div className={`w-12 h-12 sm:w-16 sm:h-16 ${item.iconBg} rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform`}>
+                      <item.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black text-white mb-3 sm:mb-4">{item.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{item.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Testimonios - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900">
         <div className="container mx-auto px-4 sm:px-6">
@@ -568,7 +629,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Calculadora - FULL RESPONSIVE */}
+      {/* Nuestras Opciones - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 bg-zinc-900">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
@@ -580,10 +641,10 @@ export default function Home() {
             >
               <div className="text-center mb-8 sm:mb-12">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 px-2 sm:px-4 break-words">
-                  ENCUENTRA TU <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">PLAN IDEAL</span>
+                  NUESTRAS <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">OPCIONES</span>
                 </h2>
                 <p className="text-base sm:text-xl md:text-2xl text-gray-400 px-4">
-                  Descubre qué plan se adapta mejor a tu empresa
+                  Encuentra el plan que se adapta a tu empresa
                 </p>
               </div>
               <CalculadoraPedido />
@@ -680,7 +741,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA / Contacto - FULL RESPONSIVE */}
+      {/* Promedio de comidas diarias - FULL RESPONSIVE */}
+      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6 px-2 break-words">
+              PROMEDIO DE <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">COMIDAS DIARIAS</span>
+            </h2>
+            <p className="text-2xl sm:text-3xl md:text-4xl font-black text-white">
+              <span className="text-red-500">3.000</span> a <span className="text-blue-500">6.000</span> comidas diarias
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Eslogan - FULL RESPONSIVE */}
+      <section className="py-16 sm:py-24 md:py-32 bg-zinc-900 relative overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <blockquote className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white leading-relaxed italic">
+              &ldquo;Sabor de hogar, eficiencia corporativa en cada entrega.&rdquo;
+            </blockquote>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contactos - FULL RESPONSIVE */}
       <section id="cotizacion" className="py-16 sm:py-24 md:py-32 bg-gradient-to-br from-red-600 via-blue-600 to-zinc-900 relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div 
@@ -701,11 +797,10 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 sm:mb-6 break-words px-2">
-                <span className="block">SOLICITA UNA</span>
-                <span className="block">COTIZACIÓN</span>
+                <span className="block">CONTACTOS</span>
               </h2>
               <p className="text-base sm:text-xl md:text-2xl text-white/80 mb-8 sm:mb-12 px-2 sm:px-4">
-                Respuesta garantizada en menos de 24 horas
+                Solicita una cotización — respuesta en menos de 24 horas
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12 w-full min-w-0">
