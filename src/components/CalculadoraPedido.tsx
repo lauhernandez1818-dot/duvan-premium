@@ -43,8 +43,22 @@ const planes: Plan[] = [
     iconColor: 'text-blue-400',
   },
   {
-    name: 'Plan Enterprise',
+    name: 'Plan Grande',
     minPersonas: 501,
+    maxPersonas: 2000,
+    precioReferencia: 'Desde $6.50/persona',
+    beneficios: [
+      'Menús premium personalizados',
+      'Múltiples puntos de entrega',
+      'Gestor de cuenta prioritario',
+      'Reportes mensuales',
+    ],
+    gradient: 'from-amber-600 to-orange-500',
+    iconColor: 'text-amber-400',
+  },
+  {
+    name: 'Plan Enterprise',
+    minPersonas: 2001,
     maxPersonas: 6000,
     precioReferencia: 'Cotización personalizada',
     beneficios: [
@@ -158,15 +172,15 @@ export default function CalculadoraPedido() {
               </div>
               <div className="flex flex-col items-center">
                 <div className="w-0.5 h-3 bg-gray-600" />
-                <span className="text-xs text-gray-500 mt-1">150</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-0.5 h-3 bg-gray-600" />
                 <span className="text-xs text-gray-500 mt-1">500</span>
               </div>
               <div className="flex flex-col items-center">
                 <div className="w-0.5 h-3 bg-gray-600" />
-                <span className="text-xs text-gray-500 mt-1">6000</span>
+                <span className="text-xs text-gray-500 mt-1">2K</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="w-0.5 h-3 bg-gray-600" />
+                <span className="text-xs text-gray-500 mt-1">6K</span>
               </div>
             </div>
           </div>
@@ -178,21 +192,28 @@ export default function CalculadoraPedido() {
           </div>
         </div>
 
-        {/* Todos los planes - FULL RESPONSIVE */}
-        <div className="grid grid-cols-3 gap-1 sm:gap-4 mb-4 sm:mb-6 min-w-0 w-full">
+        {/* Todos los planes - clicables para cambiar sin usar la barra */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-4 mb-4 sm:mb-6 min-w-0 w-full">
           {planes.map((plan, index) => {
             const isRecomendado = plan === planRecomendado;
+            const personaRepresentativa = Math.min(
+              plan.minPersonas + Math.floor((plan.maxPersonas - plan.minPersonas) / 2),
+              plan.maxPersonas
+            );
             return (
-              <motion.div
+              <motion.button
+                type="button"
                 key={plan.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className={`relative rounded-lg sm:rounded-2xl p-1.5 sm:p-4 border-2 transition-all min-w-0 ${
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setCantidadPersonas(personaRepresentativa)}
+                className={`relative rounded-lg sm:rounded-2xl p-1.5 sm:p-4 border-2 transition-all min-w-0 text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 ${
                   isRecomendado 
                     ? 'border-white bg-white/10 scale-[1.02] sm:scale-105' 
-                    : 'border-white/10 bg-white/5 opacity-50'
+                    : 'border-white/10 bg-white/5 opacity-70 hover:opacity-100 hover:border-white/30'
                 }`}
               >
                 {isRecomendado && (
@@ -208,7 +229,7 @@ export default function CalculadoraPedido() {
                 )}
                 <h4 className="font-black text-white text-[9px] sm:text-sm mb-0.5 sm:mb-1 truncate">{plan.name}</h4>
                 <p className="text-[8px] sm:text-xs text-gray-400 truncate">{plan.minPersonas}-{plan.maxPersonas}</p>
-              </motion.div>
+              </motion.button>
             );
           })}
         </div>

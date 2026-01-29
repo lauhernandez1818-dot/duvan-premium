@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   Phone,
-  Mail,
   Award,
   Users,
   Clock,
@@ -22,7 +21,6 @@ import {
   Sparkles,
   Heart,
   ChevronRight,
-  MessageCircleIcon
 } from 'lucide-react';
 import CalculadoraPedido from '@/src/components/CalculadoraPedido';
 import Link from 'next/link';
@@ -181,11 +179,11 @@ export default function Home() {
                 <span className="block">DE <span className="text-red-600">ALTO</span> <span className="text-blue-600">IMPACTO</span></span>
               </h1>
               
-              {/* Tagline en dos líneas */}
+              {/* Tagline - mensaje de valor sin repetir números */}
               <div className="text-sm sm:text-2xl md:text-3xl text-white mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-2 sm:px-4 break-words">
                 <p className="mb-2">
-                  De <span className="font-bold">3,000 a 6,000 comidas diarias</span> con 
-                  <span className="text-red-500 font-bold"> excelencia garantizada</span>
+                  <span className="font-bold">Alimentación corporativa de alto impacto</span>
+                  <span className="text-red-500 font-bold"> con excelencia garantizada</span>
                 </p>
                 <p>
                   en la Gran Caracas
@@ -343,7 +341,7 @@ export default function Home() {
                 { 
                   icon: Clock, 
                   title: 'Puntualidad Extrema',
-                  description: '15 años cumpliendo horarios sin excusas. Tu equipo come a tiempo, siempre',
+                  description: 'Cumplimos horarios de entrega sin excusas. Tu equipo come a tiempo, siempre',
                   color: 'from-gray-600 to-gray-700',
                   iconBg: 'bg-gray-600'
                 },
@@ -381,14 +379,14 @@ export default function Home() {
                 <div className="max-w-4xl mx-auto">
                   <p className="text-base sm:text-2xl md:text-3xl leading-relaxed text-gray-300 mb-6 sm:mb-8">
                     Somos <span className="text-white font-bold">líderes en alimentación corporativa</span> en la Gran Caracas. 
-                    Nuestra <span className="text-red-500 font-bold">infraestructura de clase mundial</span> y compromiso con la 
-                    excelencia nos permite servir entre <span className="text-blue-500 font-bold">3,000 y 6,000 comidas diarias</span>, 
-                    manteniendo siempre los más altos estándares de calidad, frescura y puntualidad.
+                    Atendemos a <span className="text-red-500 font-bold">bancos, clínicas, industrias y empresas</span> de todos los tamaños, 
+                    con menús personalizados, trazabilidad total y <span className="text-blue-500 font-bold">normas sanitarias certificadas</span>. 
+                    Calidad, frescura y puntualidad en cada entrega.
                   </p>
                   <p className="text-sm sm:text-xl text-gray-400 leading-relaxed">
-                    Detrás de cada comida hay un equipo apasionado por la excelencia. Con más de 15 años 
-                    de experiencia, nuestros fundadores y su equipo se dedican diariamente a transformar 
-                    la alimentación corporativa en una experiencia memorable.
+                    Detrás de cada comida hay un equipo apasionado por la excelencia. Nuestros fundadores y su equipo 
+                    se dedican diariamente a transformar la alimentación corporativa en una experiencia memorable, 
+                    con instalaciones preparadas y procesos que priorizan la seguridad y el sabor.
                   </p>
                 </div>
               </div>
@@ -436,7 +434,7 @@ export default function Home() {
                   number: '01',
                   icon: TrendingUp,
                   title: 'Capacidad Comprobada',
-                  description: '3,000 a 6,000 comidas diarias con la misma calidad desde el primer hasta el último plato',
+                  description: 'Escala sin sacrificar calidad: desde empresas medianas hasta grandes operaciones. Misma excelencia desde el primer hasta el último plato.',
                   gradient: 'from-red-600 via-red-500 to-orange-500',
                   shadowColor: 'shadow-red-600/50',
                 },
@@ -444,7 +442,7 @@ export default function Home() {
                   number: '02',
                   icon: Clock,
                   title: 'Puntualidad Total',
-                  description: '15 años cumpliendo horarios de entrega sin excusas. Tu equipo come a tiempo, siempre',
+                  description: 'Horarios de entrega cumplidos sin excusas. Tu equipo come a tiempo, siempre.',
                   gradient: 'from-blue-600 via-blue-500 to-cyan-500',
                   shadowColor: 'shadow-blue-600/50',
                 },
@@ -785,6 +783,10 @@ export default function Home() {
                 <Phone className="w-4 h-4 flex-shrink-0" />
                 <span className="text-xs sm:text-base">+58 424-1520170</span>
               </a>
+              <Link href="/galeria" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors min-h-[44px] justify-center sm:justify-start">
+                <ChefHat className="w-4 h-4 flex-shrink-0" />
+                <span className="text-xs sm:text-base">Galería</span>
+              </Link>
               <div className="flex items-center gap-2 text-gray-400 justify-center sm:justify-start">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
                 <span className="text-xs sm:text-base">Gran Caracas, Venezuela</span>
