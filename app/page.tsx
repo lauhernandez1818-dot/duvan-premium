@@ -809,3 +809,4 @@ export default function Home() {
     </div>
   );
 }
+// Actualización diseño Duvan 2026
