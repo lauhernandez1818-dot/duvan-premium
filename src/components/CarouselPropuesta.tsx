@@ -113,7 +113,6 @@ export default function CarouselPropuesta() {
                 width: '100%',
                 minWidth: '100vw',
                 height: '100%',
-                minHeight: '100vh',
                 minHeight: '100dvh',
                 backgroundColor: '#18181b',
               }}
