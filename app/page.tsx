@@ -23,6 +23,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import CalculadoraPedido from '@/src/components/CalculadoraPedido';
+import CarouselPropuesta from '@/src/components/CarouselPropuesta';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRef } from 'react';
@@ -93,15 +94,22 @@ export default function Home() {
         </div>
       </motion.a>
 
-      {/* Hero Section - ESPECTACULAR */}
+      {/* Hero Section - video de fondo + overlay */}
       <section ref={heroRef} className="relative overflow-hidden bg-black min-h-screen flex items-center">
-        {/* Background - estático en móvil para evitar lag, animación suave en desktop */}
+        {/* Video de fondo */}
         <div className="absolute inset-0">
-          {/* Orbes de gradiente - sin animación pesada (reduce lag en teléfono) */}
-          <div className="absolute top-20 left-20 w-[500px] h-[500px] bg-red-600/40 rounded-full blur-3xl" />
-          <div className="absolute top-40 right-20 w-[600px] h-[600px] bg-blue-600/40 rounded-full blur-3xl" />
-          {/* Grid pattern overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:100px_100px]" />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-hidden
+          >
+            <source src="/videos/video1.mp4" type="video/mp4" />
+          </video>
+          {/* Overlay negro 50% para que el título resalte */}
+          <div className="absolute inset-0 bg-black/50" aria-hidden />
         </div>
 
         {/* Floating navigation - animación rápida para menos lag */}
@@ -367,23 +375,53 @@ export default function Home() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 px-2 sm:px-4 break-words">
                 NUESTRA PROPUESTA <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">GASTRONÓMICA</span>
               </h2>
+              <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto px-4">
+                Menús variados, ingredientes de primera y servicio premium
+              </p>
             </div>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative w-full max-w-[100vw] min-w-0 px-2 sm:px-4"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 via-blue-600/10 to-red-600/10 rounded-2xl sm:rounded-3xl blur-2xl" />
-              <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-12 md:p-16">
-                <p className="text-base sm:text-xl md:text-2xl leading-relaxed text-gray-300">
-                  Nuestra cocina ofrece <span className="text-white font-bold">menús variados y equilibrados</span> elaborados con ingredientes de primera. 
-                  Cocina del día, <span className="text-red-500 font-bold">opciones vegetarianas y especiales</span> según necesidad, 
-                  y <span className="text-blue-500 font-bold">vajilla desechable premium</span> incluida. 
-                  Cada plato llega recién preparado y listo para tu equipo.
-                </p>
-              </div>
+              <CarouselPropuesta />
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Sección Calidad - Higiene y servicio premium */}
+      <section className="py-16 sm:py-24 md:py-32 bg-zinc-900 relative overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6 px-2 break-words">
+                HIGIENE Y <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">SERVICIO PREMIUM</span>
+              </h2>
+              <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto px-4">
+                Preparación con los más altos estándares de higiene y calidad
+              </p>
+            </div>
+            <div className="p-1 sm:p-1.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
+              <div className="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-video bg-black">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                  aria-hidden
+                >
+                  <source src="/videos/video2.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
