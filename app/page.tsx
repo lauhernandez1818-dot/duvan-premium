@@ -152,8 +152,8 @@ export default function Home() {
           transition={{ duration: 0.25 }}
           className="absolute top-0 left-0 right-0 z-50"
         >
-          <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-6 max-w-[100vw]">
-            <div className="flex items-center justify-between gap-2 sm:gap-4 backdrop-blur-xl bg-gray-900/90 border border-white/10 rounded-full px-3 sm:px-6 md:px-8 py-2.5 sm:py-4 min-w-0">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 py-3 sm:py-6 max-w-[100vw] min-w-0">
+            <div className="flex items-center justify-between gap-2 sm:gap-4 min-[800px]:gap-4 backdrop-blur-xl bg-gray-900/90 border border-white/10 rounded-full px-3 sm:px-6 md:px-8 min-[800px]:px-6 py-2.5 sm:py-4 min-w-0">
               <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
                 {/* Logo con fondo claro para que se vea bien sobre oscuro */}
                 <div className="relative w-9 h-9 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg sm:rounded-xl bg-white p-1 sm:p-1.5 shadow-md">
@@ -188,7 +188,7 @@ export default function Home() {
         {/* Hero Content - FULL RESPONSIVE */}
         <motion.div 
           style={{ opacity: heroOpacity, scale: heroScale }}
-          className="relative z-10 container mx-auto px-3 sm:px-4 md:px-6 pt-28 sm:pt-40 pb-16 sm:pb-32 max-w-[100vw] min-w-0"
+          className="relative z-10 container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 pt-28 sm:pt-40 min-[800px]:pt-36 pb-16 sm:pb-32 max-w-[100vw] min-w-0"
         >
           <div className="max-w-7xl mx-auto text-center min-w-0">
             <motion.div
@@ -716,10 +716,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonios - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-7xl mx-auto">
+      {/* Testimonios - FULL RESPONSIVE (800x600 en adelante) */}
+      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
+          <div className="max-w-7xl mx-auto min-w-0">
             <div className="text-center mb-12 sm:mb-16 md:mb-20">
               <motion.div
                 initial={{ scale: 0 }}
@@ -735,7 +735,7 @@ export default function Home() {
               </h2>
             </div>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 min-[800px]:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 min-[800px]:gap-6">
               {[
                 {
                   quote: "Llevamos 3 años con Inversiones Duvan y la calidad nunca ha bajado. Nuestros 500 empleados almuerzan a tiempo todos los días y la comida siempre está caliente y deliciosa.",
@@ -785,10 +785,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Nuestras Opciones - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 bg-zinc-900">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
+      {/* Nuestras Opciones - FULL RESPONSIVE (800x600 en adelante) */}
+      <section className="py-16 sm:py-24 md:py-32 bg-zinc-900 overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
+          <div className="max-w-5xl mx-auto min-w-0">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -809,10 +809,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Proceso - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-7xl mx-auto">
+      {/* Proceso - FULL RESPONSIVE (800x600 en adelante) */}
+      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
+          <div className="max-w-7xl mx-auto min-w-0">
             <div className="text-center mb-12 sm:mb-16 md:mb-20">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-6 px-2 sm:px-4 break-words">
                 CÓMO <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">TRABAJAMOS</span>
@@ -820,7 +820,7 @@ export default function Home() {
               <p className="text-base sm:text-xl md:text-2xl text-gray-400 px-4">Proceso simple y transparente</p>
             </div>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 min-[800px]:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 min-[800px]:gap-6">
               {[
                 { icon: MessageCircle, title: 'Cotización', description: 'Nos cuentas tus necesidades y en 24h recibes propuesta personalizada', color: 'from-red-600 to-red-500' },
                 { icon: Calendar, title: 'Planificación', description: 'Definimos menú, horarios y logística adaptados a tu empresa', color: 'from-blue-600 to-blue-500' },

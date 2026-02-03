@@ -73,7 +73,7 @@ export default function GaleriaPage() {
 
       {/* Header/Navigation - FULL RESPONSIVE */}
       <nav className="sticky top-0 z-40 bg-zinc-900/80 backdrop-blur-xl border-b border-white/10">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 max-w-[100vw] min-w-0">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 py-3 sm:py-4 max-w-[100vw] min-w-0">
           <div className="flex items-center justify-between gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-1 overflow-hidden">
               <div className="relative w-9 h-9 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg sm:rounded-xl bg-white p-1 sm:p-1.5 shadow-md">
@@ -120,7 +120,7 @@ export default function GaleriaPage() {
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 relative z-10 max-w-[100vw] min-w-0">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -143,8 +143,8 @@ export default function GaleriaPage() {
 
       {/* Gallery Grid - FULL RESPONSIVE */}
       <section className="py-12 sm:py-16 md:py-20 bg-zinc-900 overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 max-w-[100vw] min-w-0">
-          <div className="grid grid-cols-1 gap-4 sm:gap-8 max-w-4xl mx-auto w-full min-w-0">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
+          <div className="grid grid-cols-1 min-[800px]:grid-cols-2 gap-4 sm:gap-6 min-[800px]:gap-6 max-w-4xl mx-auto w-full min-w-0">
             {imagenes.map((imagen, index) => (
               <motion.div
                 key={imagen.id}
@@ -233,7 +233,7 @@ export default function GaleriaPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="relative w-[90%] h-[70vh] sm:w-[85%] sm:h-[80vh] md:h-[85vh] mx-auto"
+              className="relative w-[90%] min-[800px]:w-[85%] h-[70vh] sm:h-[80vh] min-[800px]:h-[80vh] mx-auto max-w-[100vw]"
               onClick={(e) => e.stopPropagation()}
             >
               <Image

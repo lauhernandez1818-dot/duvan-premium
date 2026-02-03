@@ -88,7 +88,7 @@ export default function CalculadoraPedido() {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="relative overflow-hidden rounded-xl sm:rounded-3xl bg-gradient-to-br from-gray-800 via-zinc-900 to-gray-800 p-4 sm:p-8 md:p-12 shadow-2xl border border-white/10 w-full max-w-[100vw] min-w-0"
+      className="relative overflow-hidden rounded-xl sm:rounded-3xl bg-gradient-to-br from-gray-800 via-zinc-900 to-gray-800 p-4 sm:p-6 md:p-8 min-[800px]:p-6 shadow-2xl border border-white/10 w-full max-w-[100%] min-w-0"
     >
       {/* Animated background effects */}
       <div className="absolute inset-0">
@@ -193,7 +193,7 @@ export default function CalculadoraPedido() {
         </div>
 
         {/* Todos los planes - clicables para cambiar sin usar la barra */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-4 mb-4 sm:mb-6 min-w-0 w-full">
+        <div className="grid grid-cols-2 min-[800px]:grid-cols-4 gap-2 sm:gap-4 min-[800px]:gap-4 mb-4 sm:mb-6 min-w-0 w-full">
           {planes.map((plan, index) => {
             const isRecomendado = plan === planRecomendado;
             const personaRepresentativa = Math.min(

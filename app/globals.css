@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Resoluciones PC: desde 800x600 en adelante */
+  --safe-padding: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 @theme inline {
@@ -10,6 +12,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Breakpoint PC: 800px en adelante (800x600, 1024x768, 1280x720, 1920x1080, etc.) */
+  --breakpoint-pc: 800px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,6 +26,13 @@
 html {
   overflow-x: hidden;
   max-width: 100vw;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body {
@@ -31,4 +42,11 @@ body {
   overflow-x: hidden;
   max-width: 100vw;
   min-width: 0;
+}
+
+/* Contenedores seguros para todas las resoluciones PC (800px+) */
+@media (min-width: 800px) {
+  .container {
+    max-width: 100%;
+  }
 }

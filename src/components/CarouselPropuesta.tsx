@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
@@ -26,6 +26,7 @@ export default function CarouselPropuesta() {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -41,19 +42,20 @@ export default function CarouselPropuesta() {
   useEffect(() => {
     if (lightboxIndex !== null) {
       const scrollY = window.scrollY ?? document.documentElement.scrollTop;
+      scrollPositionRef.current = scrollY;
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = '0';
       document.body.style.right = '0';
     } else {
-      const prevScrollY = document.body.style.top;
+      const savedY = scrollPositionRef.current;
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.left = '';
       document.body.style.right = '';
-      if (prevScrollY) window.scrollTo(0, parseInt(prevScrollY || '0', 10) * -1);
+      window.scrollTo(0, savedY);
     }
     return () => {
       document.body.style.overflow = '';
@@ -65,7 +67,7 @@ export default function CarouselPropuesta() {
   }, [lightboxIndex]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto min-w-0 overflow-hidden">
+    <div className="w-full max-w-[min(100%,56rem)] mx-auto min-w-0 overflow-hidden">
       {/* Borde paleta marca: wrapper con gradiente rojo-azul */}
       <div className="p-1 sm:p-1.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
         <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-gray-900" ref={emblaRef}>
@@ -73,19 +75,23 @@ export default function CarouselPropuesta() {
             {imagenes.map((img, index) => (
               <div
                 key={index}
-                className="flex-[0_0_100%] min-w-0 relative aspect-[4/3] sm:aspect-video group cursor-pointer"
+                className="flex-[0_0_100%] min-w-0 relative aspect-[4/3] sm:aspect-video group cursor-pointer overflow-hidden"
                 onClick={() => setLightboxIndex(index)}
               >
                 <Image
                   src={img.src}
                   alt={img.alt}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
                   sizes="(max-width: 768px) 100vw, 80vw"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
+                {/* Overlay con pointer-events-none para que el hover se detecte en el grupo y la animación se vea */}
+                <div
+                  className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 ease-out flex items-center justify-center pointer-events-none"
+                  aria-hidden
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border-2 border-white/40 scale-90 group-hover:scale-100">
                     <Maximize2 className="w-5 h-5 text-white" />
                     <span className="text-white font-semibold text-sm">Ver en grande</span>
                   </div>
