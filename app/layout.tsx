@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,6 +12,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#18181b",
+};
+
 export const metadata: Metadata = {
   title: "Inversiones Duvan | Almuerzos Corporativos en Caracas",
   description: "Líderes en alimentación corporativa en la Gran Caracas. Servimos de 3,000 a 6,000 comidas diarias con 15+ años de experiencia. Calidad, frescura y puntualidad garantizada.",
@@ -23,7 +27,6 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_VE",
   },
-  themeColor: "#18181b",
   icons: {
     icon: "/imagenes/logo-duvan.png",
   },

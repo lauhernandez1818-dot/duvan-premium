@@ -29,8 +29,11 @@ export default function CarouselPropuesta() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-    emblaApi.on('select', () => setSelectedIndex(emblaApi.selectedScrollSnap()));
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on('select', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
   }, [emblaApi]);
 
   const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
@@ -182,7 +185,7 @@ export default function CarouselPropuesta() {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setLightboxIndex((prev) => (prev === 0 ? imagenes.length - 1 : prev - 1));
+                  setLightboxIndex((prev) => (prev == null ? 0 : prev === 0 ? imagenes.length - 1 : prev - 1));
                 }}
                 className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
                 aria-label="Foto anterior"
@@ -198,7 +201,7 @@ export default function CarouselPropuesta() {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setLightboxIndex((prev) => (prev === imagenes.length - 1 ? 0 : prev + 1));
+                  setLightboxIndex((prev) => (prev == null ? 0 : prev === imagenes.length - 1 ? 0 : prev + 1));
                 }}
                 className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
                 aria-label="Foto siguiente"

@@ -487,7 +487,7 @@ export default function Home() {
                 bottom: 0,
                 width: '100%',
                 minWidth: '100vw',
-                height: '100%',
+                  height: '100%',
                 minHeight: '100dvh',
                 backgroundColor: '#18181b',
               }}
@@ -772,7 +772,7 @@ export default function Home() {
                         <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-500 text-yellow-500" />
                       ))}
                     </div>
-                    <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed italic">"{testimonial.quote}"</p>
+                    <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 leading-relaxed italic">&quot;{testimonial.quote}&quot;</p>
                     <div className="border-t border-white/10 pt-4">
                       <p className="font-bold text-white text-base sm:text-lg">{testimonial.author}</p>
                       <p className="text-sm sm:text-base text-gray-400">{testimonial.company}</p>
