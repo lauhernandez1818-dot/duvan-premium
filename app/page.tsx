@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import {
   Phone,
   Award,
@@ -21,18 +21,23 @@ import {
   Sparkles,
   Heart,
   ChevronRight,
+  Maximize2,
+  X,
 } from 'lucide-react';
 import CalculadoraPedido from '@/src/components/CalculadoraPedido';
 import CarouselPropuesta from '@/src/components/CarouselPropuesta';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
 const WHATSAPP_URL = `https://wa.me/584241520170?text=${encodeURIComponent(WHATSAPP_MSG)}`;
 
 export default function Home() {
   const heroRef = useRef(null);
+  const videoCalidadRef = useRef<HTMLVideoElement>(null);
+  const [showVideoCalidadLightbox, setShowVideoCalidadLightbox] = useState(false);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -40,6 +45,34 @@ export default function Home() {
 
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+
+  useEffect(() => {
+    if (!showVideoCalidadLightbox) return;
+    const scrollY = window.scrollY ?? document.documentElement.scrollTop;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    const t = setTimeout(() => {
+      videoCalidadRef.current?.requestFullscreen().catch(() => {});
+    }, 150);
+    return () => {
+      clearTimeout(t);
+      const prevScrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      if (prevScrollY) window.scrollTo(0, parseInt(prevScrollY || '0', 10) * -1);
+    };
+  }, [showVideoCalidadLightbox]);
+
+  const closeVideoLightbox = () => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    setShowVideoCalidadLightbox(false);
+  };
 
   return (
         <div className="min-h-screen bg-black overflow-x-hidden w-full max-w-[100vw] min-w-0">
@@ -409,22 +442,108 @@ export default function Home() {
               </p>
             </div>
             <div className="p-1 sm:p-1.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
-              <div className="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-video bg-black">
+              <div
+                className="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-video bg-black group cursor-pointer"
+                onClick={() => setShowVideoCalidadLightbox(true)}
+              >
                 <video
                   autoPlay
                   muted
                   loop
                   playsInline
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   aria-hidden
                 >
                   <source src="/videos/video2.mp4" type="video/mp4" />
                 </video>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-3 border border-white/30">
+                    <Maximize2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    <span className="text-white font-semibold text-sm sm:text-base">Ver en pantalla completa</span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Lightbox video Calidad - portal a body, fondo opaco tapa todo */}
+      {typeof document !== 'undefined' &&
+        showVideoCalidadLightbox &&
+        createPortal(
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              role="dialog"
+              aria-modal="true"
+              className="fixed z-[9999] flex items-center justify-center overflow-hidden pointer-events-auto"
+              style={{
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                width: '100%',
+                minWidth: '100vw',
+                height: '100%',
+                minHeight: '100vh',
+                minHeight: '100dvh',
+                backgroundColor: '#18181b',
+              }}
+              onClick={closeVideoLightbox}
+            >
+              {/* Capa de fondo que tapa todo: no se ve nada de la página */}
+              <div
+                className="absolute inset-0 z-0"
+                style={{
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: '100vw',
+                  height: '100dvh',
+                  minHeight: '100vh',
+                  backgroundColor: '#18181b',
+                }}
+                aria-hidden
+              />
+              <button
+                type="button"
+                onClick={closeVideoLightbox}
+                className="absolute top-3 right-3 sm:top-6 sm:right-6 z-[70] w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all border border-white/20"
+                aria-label="Cerrar"
+              >
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </button>
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="relative w-full h-[90vh] sm:h-[85vh] max-w-5xl mx-auto bg-black rounded-xl overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <video
+                  ref={videoCalidadRef}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-contain"
+                  controls
+                >
+                  <source src="/videos/video2.mp4" type="video/mp4" />
+                </video>
+              </motion.div>
+              <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm z-[70]">
+                Higiene y servicio premium
+              </p>
+            </motion.div>
+          </AnimatePresence>,
+          document.body
+        )}
 
       {/* Por qué elegir a Duvan - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
