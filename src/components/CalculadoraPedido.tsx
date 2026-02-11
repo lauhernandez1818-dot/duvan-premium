@@ -88,7 +88,7 @@ export default function CalculadoraPedido() {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="relative overflow-hidden rounded-xl sm:rounded-3xl bg-gradient-to-br from-gray-800 via-zinc-900 to-gray-800 p-4 sm:p-6 md:p-8 min-[800px]:p-6 shadow-2xl border border-white/10 w-full max-w-[100%] min-w-0"
+      className="relative overflow-hidden rounded-xl sm:rounded-3xl bg-gradient-to-br from-gray-800 via-zinc-900 to-gray-800 p-4 sm:p-6 md:p-8 min-[800px]:p-6 xl:p-10 min-[1920px]:p-12 shadow-2xl border border-white/10 w-full max-w-[100%] min-w-0"
     >
       {/* Animated background effects */}
       <div className="absolute inset-0">
@@ -121,27 +121,27 @@ export default function CalculadoraPedido() {
             <Calculator className="w-5 h-5 sm:w-8 sm:h-8 text-white" />
           </motion.div>
           <div className="min-w-0">
-            <h3 className="text-base sm:text-2xl md:text-3xl lg:text-4xl font-black text-white truncate sm:whitespace-normal">
+            <h3 className="text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl min-[1920px]:text-6xl font-black text-white truncate sm:whitespace-normal">
               CALCULADORA DE PLAN
             </h3>
-            <p className="text-gray-400 text-[10px] sm:text-sm md:text-base mt-1 font-medium truncate sm:whitespace-normal">
+            <p className="text-gray-400 text-[10px] sm:text-sm md:text-base xl:text-lg min-[1920px]:text-xl mt-1 font-medium truncate sm:whitespace-normal">
               Descubre tu plan ideal en segundos
             </p>
           </div>
         </div>
 
         {/* Slider Section - FULL RESPONSIVE */}
-        <div className="mb-6 sm:mb-8 bg-white/5 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-3">
-            <label className="text-base sm:text-lg md:text-xl font-bold text-white flex items-center gap-2">
-              <Users className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
-              <span className="text-sm sm:text-base md:text-lg">Cantidad de Personas</span>
+        <div className="mb-6 sm:mb-8 xl:mb-10 min-[1920px]:mb-12 bg-white/5 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 xl:p-10 min-[1920px]:p-12 border border-white/20">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 xl:mb-8 gap-3 xl:gap-4">
+            <label className="text-base sm:text-lg md:text-xl xl:text-2xl min-[1920px]:text-3xl font-bold text-white flex items-center gap-2 xl:gap-3">
+              <Users className="w-5 h-5 sm:w-6 sm:h-6 xl:w-7 xl:h-7 min-[1920px]:w-8 min-[1920px]:h-8 text-red-600" />
+              <span className="text-sm sm:text-base md:text-lg xl:text-xl min-[1920px]:text-2xl">Cantidad de Personas</span>
             </label>
             <motion.span 
               key={cantidadPersonas}
               initial={{ scale: 1.2, color: '#dc2626' }}
               animate={{ scale: 1, color: '#ffffff' }}
-              className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-red-600 via-blue-600 to-red-600 bg-clip-text text-transparent"
+              className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black bg-gradient-to-r from-red-600 via-blue-600 to-red-600 bg-clip-text text-transparent"
             >
               {cantidadPersonas}
             </motion.span>
@@ -193,7 +193,7 @@ export default function CalculadoraPedido() {
         </div>
 
         {/* Todos los planes - clicables para cambiar sin usar la barra */}
-        <div className="grid grid-cols-2 min-[800px]:grid-cols-4 gap-2 sm:gap-4 min-[800px]:gap-4 mb-4 sm:mb-6 min-w-0 w-full">
+        <div className="grid grid-cols-2 min-[800px]:grid-cols-4 gap-2 sm:gap-4 min-[800px]:gap-4 xl:gap-6 min-[1920px]:gap-8 mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 min-w-0 w-full">
           {planes.map((plan, index) => {
             const isRecomendado = plan === planRecomendado;
             const personaRepresentativa = Math.min(
@@ -227,7 +227,7 @@ export default function CalculadoraPedido() {
                     <span className="sm:hidden">TOP</span>
                   </motion.div>
                 )}
-                <h4 className="font-black text-white text-[9px] sm:text-sm mb-0.5 sm:mb-1 truncate">{plan.name}</h4>
+                <h4 className="font-black text-white text-[9px] sm:text-sm xl:text-base min-[1920px]:text-lg mb-0.5 sm:mb-1 xl:mb-2 truncate">{plan.name}</h4>
                 <p className="text-[8px] sm:text-xs text-gray-400 truncate">{plan.minPersonas}-{plan.maxPersonas}</p>
               </motion.button>
             );
@@ -244,29 +244,29 @@ export default function CalculadoraPedido() {
           >
             <div className={`absolute -inset-1 bg-gradient-to-r ${planRecomendado.gradient} opacity-30 rounded-2xl sm:rounded-3xl blur-xl`} />
             
-            <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border-2 border-white/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8">
-              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                <TrendingUp className="w-6 h-6 sm:w-7 sm:h-7 text-green-400" />
-                <h4 className="text-xl sm:text-2xl md:text-3xl font-black text-white">
+            <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border-2 border-white/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 xl:p-10 min-[1920px]:p-12">
+              <div className="flex items-center gap-2 sm:gap-3 xl:gap-4 mb-4 sm:mb-6 xl:mb-8">
+                <TrendingUp className="w-6 h-6 sm:w-7 sm:h-7 xl:w-8 xl:h-8 min-[1920px]:w-10 min-[1920px]:h-10 text-green-400" />
+                <h4 className="text-xl sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-black text-white">
                   TU PLAN IDEAL
                 </h4>
               </div>
               
-              <div className={`bg-gradient-to-r ${planRecomendado.gradient} rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 shadow-2xl`}>
-                <h5 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2 sm:mb-3">
+              <div className={`bg-gradient-to-r ${planRecomendado.gradient} rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 xl:p-10 min-[1920px]:p-12 mb-4 sm:mb-6 xl:mb-8 shadow-2xl`}>
+                <h5 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl min-[1920px]:text-6xl font-black text-white mb-2 sm:mb-3 xl:mb-4">
                   {planRecomendado.name}
                 </h5>
-                <p className="text-white/90 text-xl sm:text-2xl md:text-3xl font-black mb-2">
+                <p className="text-white/90 text-xl sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-black mb-2 xl:mb-3">
                   {planRecomendado.precioReferencia}
                 </p>
-                <p className="text-white/70 text-xs sm:text-sm md:text-base font-medium">
+                <p className="text-white/70 text-xs sm:text-sm md:text-base xl:text-lg min-[1920px]:text-xl font-medium">
                   Perfecto para {planRecomendado.minPersonas} - {planRecomendado.maxPersonas} personas
                 </p>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
-                <h6 className="font-black text-white text-base sm:text-lg md:text-xl mb-3 sm:mb-4 flex items-center gap-2">
-                  <CheckIcon className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
+              <div className="space-y-3 sm:space-y-4 xl:space-y-5 min-[1920px]:space-y-6">
+                <h6 className="font-black text-white text-base sm:text-lg md:text-xl xl:text-2xl min-[1920px]:text-3xl mb-3 sm:mb-4 xl:mb-5 flex items-center gap-2 xl:gap-3">
+                  <CheckIcon className="w-4 h-4 sm:w-5 sm:h-5 xl:w-6 xl:h-6 min-[1920px]:w-7 min-[1920px]:h-7 text-green-400" />
                   BENEFICIOS INCLUIDOS
                 </h6>
                 {planRecomendado.beneficios.map((beneficio, index) => (
@@ -275,12 +275,12 @@ export default function CalculadoraPedido() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-2 sm:gap-3 bg-white/5 rounded-lg sm:rounded-xl p-2 sm:p-3 hover:bg-white/10 transition-all"
+                    className="flex items-start gap-2 sm:gap-3 xl:gap-4 bg-white/5 rounded-lg sm:rounded-xl p-2 sm:p-3 xl:p-4 hover:bg-white/10 transition-all"
                   >
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md sm:rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 shadow-lg">
-                      <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 xl:w-7 xl:h-7 min-[1920px]:w-8 min-[1920px]:h-8 rounded-md sm:rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4 xl:w-5 xl:h-5 min-[1920px]:w-6 min-[1920px]:h-6 text-white" />
                     </div>
-                    <span className="text-gray-200 text-xs sm:text-sm md:text-base font-medium leading-relaxed">{beneficio}</span>
+                    <span className="text-gray-200 text-xs sm:text-sm md:text-base xl:text-lg min-[1920px]:text-xl font-medium leading-relaxed">{beneficio}</span>
                   </motion.div>
                 ))}
               </div>
@@ -291,7 +291,7 @@ export default function CalculadoraPedido() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full mt-6 sm:mt-8 bg-gradient-to-r from-red-600 to-blue-600 text-white font-black py-4 sm:py-5 px-4 sm:px-6 rounded-xl sm:rounded-2xl hover:shadow-2xl hover:shadow-blue-600/50 transition-all duration-300 text-sm sm:text-base md:text-lg flex items-center justify-center touch-manipulation"
+                className="w-full mt-6 sm:mt-8 xl:mt-10 min-[1920px]:mt-12 bg-gradient-to-r from-red-600 to-blue-600 text-white font-black py-4 sm:py-5 xl:py-6 min-[1920px]:py-8 px-4 sm:px-6 xl:px-8 min-[1920px]:px-10 rounded-xl sm:rounded-2xl hover:shadow-2xl hover:shadow-blue-600/50 transition-all duration-300 text-sm sm:text-base md:text-lg xl:text-xl min-[1920px]:text-2xl flex items-center justify-center touch-manipulation"
               >
                 <span className="hidden sm:inline">SOLICITAR {planRecomendado.name.toUpperCase()}</span>
                 <span className="sm:hidden">SOLICITAR PLAN</span>

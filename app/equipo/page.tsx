@@ -1,29 +1,81 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { X, ChevronLeft, ChevronRight, Maximize2, Home, UtensilsCrossed, Phone } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Maximize2, Home, Users, Phone } from 'lucide-react';
 import Link from 'next/link';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
 const WHATSAPP_URL = `https://wa.me/584241520170?text=${encodeURIComponent(WHATSAPP_MSG)}`;
 
-const imagenes = [
-  { id: 1, src: '/imagenes/Sobrenosotros (1).webp', alt: 'Inversiones Duvan - Instalaciones 1' },
-  { id: 2, src: '/imagenes/Sobrenosotros (2).webp', alt: 'Inversiones Duvan - Instalaciones 2' },
-  { id: 3, src: '/imagenes/Sobrenosotros (3).webp', alt: 'Inversiones Duvan - Instalaciones 3' },
-  { id: 4, src: '/imagenes/Sobrenosotros (4).webp', alt: 'Inversiones Duvan - Instalaciones 4' },
-  { id: 5, src: '/imagenes/Sobrenosotros (5).webp', alt: 'Inversiones Duvan - Instalaciones 5' },
-  { id: 6, src: '/imagenes/Sobrenosotros (6).webp', alt: 'Inversiones Duvan - Instalaciones 6' },
-  { id: 7, src: '/imagenes/Sobrenosotros (7).webp', alt: 'Inversiones Duvan - Instalaciones 7' },
-  { id: 8, src: '/imagenes/Sobrenosotros (8).webp', alt: 'Inversiones Duvan - Instalaciones 8' },
-  { id: 9, src: '/imagenes/Sobrenosotros (9).webp', alt: 'Inversiones Duvan - Instalaciones 9' },
-  { id: 10, src: '/imagenes/Sobrenosotros (10).webp', alt: 'Inversiones Duvan - Instalaciones 10' },
+// Array del equipo de trabajo (orden alfabético)
+const equipoTrabajo = [
+  {
+    id: 1,
+    nombre: 'Ayudantes de Cocina',
+    imagen: '/imagenes/Ayudantes-de-cocina.webp',
+    descripcion: 'Apoyo fundamental en la preparación diaria, asegurando eficiencia y organización en cada proceso culinario.',
+  },
+  {
+    id: 2,
+    nombre: 'Carnicería',
+    imagen: '/imagenes/Carniceria.webp',
+    descripcion: 'Selección y preparación de carnes de primera calidad, garantizando frescura y los más altos estándares.',
+  },
+  {
+    id: 3,
+    nombre: 'Cocineros Principales',
+    imagen: '/imagenes/Cocineros-principales.webp',
+    descripcion: 'Líderes culinarios que transforman ingredientes frescos en platos excepcionales con técnicas profesionales.',
+  },
+  {
+    id: 4,
+    nombre: 'Frutería',
+    imagen: '/imagenes/Panaderia-pasteleria-y-fruteria.webp',
+    descripcion: 'Selección y preparación de frutas frescas para complementos saludables y postres naturales.',
+  },
+  {
+    id: 5,
+    nombre: 'Hortalizas',
+    imagen: '/imagenes/Hortalizas.webp',
+    descripcion: 'Manejo especializado de vegetales frescos, asegurando calidad y nutrición en cada preparación.',
+  },
+  {
+    id: 6,
+    nombre: 'Inventario',
+    imagen: '/imagenes/Inventario.webp',
+    descripcion: 'Control y gestión de suministros para mantener disponibilidad constante y optimizar recursos.',
+  },
+  {
+    id: 7,
+    nombre: 'Panadería Pastelería',
+    imagen: '/imagenes/Panaderia-pasteleria-y-fruteria.webp',
+    descripcion: 'Elaboración artesanal de panes frescos y postres que complementan cada menú con calidad premium.',
+  },
+  {
+    id: 8,
+    nombre: 'Personal de Empaque y Distribución',
+    imagen: '/imagenes/Personal-de-empanque-y-distribucion.webp',
+    descripcion: 'Empaque profesional y distribución eficiente, garantizando que cada comida llegue en perfectas condiciones.',
+  },
+  {
+    id: 9,
+    nombre: 'Servicios Generales',
+    imagen: '/imagenes/Servicios-generales.webp',
+    descripcion: 'Mantenimiento y limpieza de instalaciones, asegurando un ambiente sanitario óptimo en todas las áreas.',
+  },
+  {
+    id: 10,
+    nombre: 'Transportista',
+    imagen: '/imagenes/Transportistas.webp',
+    descripcion: 'Logística especializada con transporte térmico para entregas puntuales manteniendo la temperatura ideal.',
+  },
 ];
 
-export default function GaleriaPage() {
+export default function EquipoPage() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const scrollPositionRef = useRef(0);
 
   const openLightbox = (index: number) => {
     setSelectedImage(index);
@@ -35,19 +87,47 @@ export default function GaleriaPage() {
 
   const nextImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % imagenes.length);
+      setSelectedImage((selectedImage + 1) % equipoTrabajo.length);
     }
   };
 
   const prevImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage((selectedImage - 1 + imagenes.length) % imagenes.length);
+      setSelectedImage((selectedImage - 1 + equipoTrabajo.length) % equipoTrabajo.length);
     }
   };
 
+  // Efecto para manejar scroll cuando se abre/cierra el lightbox
+  useEffect(() => {
+    if (selectedImage !== null) {
+      const scrollY = window.scrollY ?? document.documentElement.scrollTop;
+      scrollPositionRef.current = scrollY;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+    } else {
+      const savedY = scrollPositionRef.current;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      window.scrollTo(0, savedY);
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+    };
+  }, [selectedImage]);
+
   return (
     <div className="min-h-screen bg-zinc-900 overflow-x-hidden w-full max-w-[100vw] min-w-0">
-      {/* Botón Flotante WhatsApp - mismo que en home */}
+      {/* Botón Flotante WhatsApp */}
       <motion.a
         href={WHATSAPP_URL}
         target="_blank"
@@ -71,7 +151,7 @@ export default function GaleriaPage() {
         </div>
       </motion.a>
 
-      {/* Header/Navigation - FULL RESPONSIVE */}
+      {/* Header/Navigation */}
       <nav className="sticky top-0 z-40 bg-zinc-900/80 backdrop-blur-xl border-b border-white/10">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 py-3 sm:py-4 xl:py-5 min-[1920px]:py-6 max-w-[100vw] min-w-0">
           <div className="flex items-center justify-between gap-2 min-w-0">
@@ -86,7 +166,6 @@ export default function GaleriaPage() {
                   priority
                 />
               </div>
-              {/* Pantallas pequeñas: 2 líneas. Pantallas grandes (sm+): 1 línea "Inversiones Duvan" */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1 min-w-0 leading-tight">
                 <span className="text-[11px] sm:text-xl font-black text-white whitespace-nowrap">INVERSIONES</span>
                 <span className="text-[11px] sm:text-xl font-black bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent whitespace-nowrap">DUVAN</span>
@@ -128,14 +207,14 @@ export default function GaleriaPage() {
           >
             <div className="flex items-center justify-center gap-3 xl:gap-4 mb-6 xl:mb-8 min-[1920px]:mb-10">
               <div className="w-10 h-10 sm:w-16 sm:h-16 xl:w-20 xl:h-20 min-[1920px]:w-24 min-[1920px]:h-24 bg-gradient-to-br from-red-600 to-blue-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-2xl flex-shrink-0">
-                <UtensilsCrossed className="w-5 h-5 sm:w-8 sm:h-8 xl:w-10 xl:h-10 min-[1920px]:w-12 min-[1920px]:h-12 text-white" />
+                <Users className="w-5 h-5 sm:w-8 sm:h-8 xl:w-10 xl:h-10 min-[1920px]:w-12 min-[1920px]:h-12 text-white" />
               </div>
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 sm:px-4 break-words">
-              NUESTRA <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">GALERÍA</span>
+              NUESTRO <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">EQUIPO DE TRABAJO</span>
             </h1>
             <p className="text-sm sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 max-w-3xl xl:max-w-4xl min-[1920px]:max-w-5xl mx-auto px-2 sm:px-4 break-words">
-              Conoce nuestras instalaciones, equipo y procesos de clase mundial
+              Profesionales especializados en cada área para garantizar la excelencia
             </p>
           </motion.div>
         </div>
@@ -145,9 +224,9 @@ export default function GaleriaPage() {
       <section className="py-12 sm:py-16 md:py-20 xl:py-32 min-[1920px]:py-40 bg-zinc-900 overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
           <div className="grid grid-cols-1 min-[800px]:grid-cols-2 gap-4 sm:gap-6 min-[800px]:gap-6 xl:gap-8 min-[1920px]:gap-10 max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto w-full min-w-0">
-            {imagenes.map((imagen, index) => (
+            {equipoTrabajo.map((area, index) => (
               <motion.div
-                key={imagen.id}
+                key={area.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -156,12 +235,13 @@ export default function GaleriaPage() {
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 opacity-0 group-hover:opacity-30 rounded-2xl blur-xl transition-all duration-300" />
                 <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border border-white/10 rounded-2xl overflow-hidden group-hover:border-white/30 transition-all">
-                  <div className="relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden">
+                  <div className="relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden bg-gray-900 flex items-center justify-center">
                     <Image
-                      src={imagen.src}
-                      alt={imagen.alt}
+                      src={area.imagen}
+                      alt={`Inversiones Duvan - ${area.nombre}`}
                       fill
                       className="object-contain transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 800px) 100vw, 50vw"
                     />
                     {/* Overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-8">
@@ -177,14 +257,14 @@ export default function GaleriaPage() {
                   <div className="p-6 bg-gradient-to-br from-gray-800 to-zinc-900 border-t border-white/10">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg flex items-center justify-center">
-                        <UtensilsCrossed className="w-5 h-5 text-white" />
+                        <Users className="w-5 h-5 text-white" />
                       </div>
                       <div>
                         <h3 className="text-lg sm:text-xl font-bold text-white">
-                          Imagen {imagen.id} de {imagenes.length}
+                          {area.nombre}
                         </h3>
                         <p className="text-gray-400 text-sm sm:text-base">
-                          Inversiones Duvan - Instalaciones
+                          {area.descripcion}
                         </p>
                       </div>
                     </div>
@@ -214,14 +294,14 @@ export default function GaleriaPage() {
               <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </button>
 
-            {/* Info superior - Más limpia */}
+            {/* Info superior */}
             <div className="absolute top-3 left-3 sm:top-6 sm:left-6 z-50 flex items-center gap-2 sm:gap-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                <UtensilsCrossed className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
               <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2">
                 <span className="text-white font-bold text-xs sm:text-sm">
-                  Foto {selectedImage + 1}/{imagenes.length}
+                  {selectedImage + 1} de {equipoTrabajo.length}
                 </span>
               </div>
             </div>
@@ -237,17 +317,16 @@ export default function GaleriaPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={imagenes[selectedImage].src}
-                alt={imagenes[selectedImage].alt}
+                src={equipoTrabajo[selectedImage].imagen}
+                alt={`Inversiones Duvan - ${equipoTrabajo[selectedImage].nombre}`}
                 fill
                 className="object-contain"
                 priority
               />
             </motion.div>
 
-            {/* Controles inferiores - Alternativa elegante */}
+            {/* Controles inferiores */}
             <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 sm:gap-6">
-              {/* Botón Anterior - Estilo barra inferior */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -258,14 +337,12 @@ export default function GaleriaPage() {
                 <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:-translate-x-0.5 transition-transform" />
               </button>
 
-              {/* Contador central mejorado */}
               <div className="bg-gradient-to-r from-red-600/80 to-blue-600/80 backdrop-blur-xl border border-white/30 rounded-xl sm:rounded-2xl px-4 sm:px-8 py-2 sm:py-3 shadow-2xl">
                 <span className="text-white font-black text-sm sm:text-lg">
-                  {selectedImage + 1} <span className="text-white/70 font-normal">de</span> {imagenes.length}
+                  {selectedImage + 1} <span className="text-white/70 font-normal">de</span> {equipoTrabajo.length}
                 </span>
               </div>
 
-              {/* Botón Siguiente - Estilo barra inferior */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -275,13 +352,6 @@ export default function GaleriaPage() {
               >
                 <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:translate-x-0.5 transition-transform" />
               </button>
-            </div>
-
-            {/* Instructions - Solo Desktop */}
-            <div className="hidden md:flex absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 gap-4 text-white/60 text-xs">
-              <span>← → Teclado</span>
-              <span className="text-white/40">•</span>
-              <span>ESC Cerrar</span>
             </div>
           </motion.div>
         )}
@@ -299,6 +369,7 @@ export default function GaleriaPage() {
           tabIndex={0}
         />
       )}
+
     </div>
   );
 }

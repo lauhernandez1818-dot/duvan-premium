@@ -8,10 +8,20 @@ import { ChevronLeft, ChevronRight, Maximize2, X, UtensilsCrossed } from 'lucide
 import { motion, AnimatePresence } from 'framer-motion';
 
 const imagenes = [
-  { src: '/imagenes/imagen1.jpeg', alt: 'Inversiones Duvan - Propuesta gastronómica 1' },
-  { src: '/imagenes/imagen2.jpeg', alt: 'Inversiones Duvan - Propuesta gastronómica 2' },
-  { src: '/imagenes/imagen3.jpeg', alt: 'Inversiones Duvan - Propuesta gastronómica 3' },
-  { src: '/imagenes/imagen4.jpeg', alt: 'Inversiones Duvan - Propuesta gastronómica 4' },
+  { src: '/imagenes/comida1.webp', alt: 'Inversiones Duvan - Comida 1' },
+  { src: '/imagenes/comida2.webp', alt: 'Inversiones Duvan - Comida 2' },
+  { src: '/imagenes/comida3.webp', alt: 'Inversiones Duvan - Comida 3' },
+  { src: '/imagenes/comida4.webp', alt: 'Inversiones Duvan - Comida 4' },
+  { src: '/imagenes/comida5.webp', alt: 'Inversiones Duvan - Comida 5' },
+  { src: '/imagenes/comida6.webp', alt: 'Inversiones Duvan - Comida 6' },
+  { src: '/imagenes/comida7.webp', alt: 'Inversiones Duvan - Comida 7' },
+  { src: '/imagenes/comida8.webp', alt: 'Inversiones Duvan - Comida 8' },
+  { src: '/imagenes/comida9.webp', alt: 'Inversiones Duvan - Comida 9' },
+  { src: '/imagenes/comida10.webp', alt: 'Inversiones Duvan - Comida 10' },
+  { src: '/imagenes/comida11.webp', alt: 'Inversiones Duvan - Comida 11' },
+  { src: '/imagenes/comida12.webp', alt: 'Inversiones Duvan - Comida 12' },
+  { src: '/imagenes/comida13.webp', alt: 'Inversiones Duvan - Comida 13' },
+  { src: '/imagenes/comida14.webp', alt: 'Inversiones Duvan - Comida 14' },
 ];
 
 export default function CarouselPropuesta() {
@@ -67,9 +77,9 @@ export default function CarouselPropuesta() {
   }, [lightboxIndex]);
 
   return (
-    <div className="w-full max-w-[min(100%,56rem)] mx-auto min-w-0 overflow-hidden">
+    <div className="w-full max-w-[min(100%,56rem)] xl:max-w-[min(100%,70rem)] min-[1920px]:max-w-[min(100%,80rem)] mx-auto min-w-0 overflow-hidden">
       {/* Borde paleta marca: wrapper con gradiente rojo-azul */}
-      <div className="p-1 sm:p-1.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
+      <div className="p-1 sm:p-1.5 xl:p-2 min-[1920px]:p-2.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
         <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-gray-900" ref={emblaRef}>
           <div className="flex touch-pan-y">
             {imagenes.map((img, index) => (
