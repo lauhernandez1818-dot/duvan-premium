@@ -305,7 +305,7 @@ export default function Home() {
                   >
                     {/* Glow effect al hover */}
                     <div className={`absolute -inset-1 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-30 rounded-xl sm:rounded-2xl blur-xl transition-all duration-500`} />
-                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-2 sm:p-6 xl:p-8 min-[1920px]:p-10 group-hover:border-white/30 transition-all h-full min-w-0">
+                    <div className="relative bg-white/5 backdrop-blur-sm border-2 border-white/35 rounded-xl sm:rounded-2xl p-2 sm:p-6 xl:p-8 min-[1920px]:p-10 group-hover:border-white/50 transition-all h-full min-w-0">
                       <stat.icon className="w-4 h-4 sm:w-8 sm:h-8 xl:w-10 xl:h-10 min-[1920px]:w-12 min-[1920px]:h-12 text-white mx-auto mb-1 sm:mb-3 xl:mb-4 group-hover:scale-110 transition-transform duration-300" />
                       <div className="text-lg sm:text-4xl md:text-5xl xl:text-6xl min-[1920px]:text-7xl font-black text-white mb-0.5 sm:mb-1 xl:mb-2 truncate">{stat.value}</div>
                       <div className="text-[10px] sm:text-sm xl:text-base min-[1920px]:text-lg text-gray-400 font-medium truncate">{stat.label}</div>
@@ -343,7 +343,7 @@ export default function Home() {
                   href="#cotizacion"
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative w-full sm:w-auto max-w-full flex items-center justify-center gap-2 sm:gap-3 xl:gap-4 bg-white/10 backdrop-blur-xl border-2 border-white/20 text-white px-4 sm:px-10 xl:px-12 min-[1920px]:px-16 py-3 sm:py-6 xl:py-7 min-[1920px]:py-8 rounded-xl sm:rounded-2xl font-black text-sm sm:text-xl xl:text-2xl min-[1920px]:text-3xl hover:bg-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl min-h-[48px] touch-manipulation"
+                  className="group relative w-full sm:w-auto max-w-full flex items-center justify-center gap-2 sm:gap-3 xl:gap-4 bg-white/5 backdrop-blur-sm border-2 border-white/35 text-white px-4 sm:px-10 xl:px-12 min-[1920px]:px-16 py-3 sm:py-6 xl:py-7 min-[1920px]:py-8 rounded-xl sm:rounded-2xl font-black text-sm sm:text-xl xl:text-2xl min-[1920px]:text-3xl hover:bg-white/10 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl min-h-[48px] touch-manipulation"
                 >
                   <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-300" />
                   <span className="hidden sm:inline">SOLICITAR COTIZACIÓN</span>
