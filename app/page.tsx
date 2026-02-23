@@ -379,14 +379,11 @@ export default function Home() {
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-red-600/20 to-blue-600/20 backdrop-blur-xl border border-red-500/30 rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-6 sm:mb-8"
+                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-red-600/20 to-blue-600/20 backdrop-blur-xl border border-red-600/30 rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-6 sm:mb-8"
               >
-                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
                 <span className="text-white font-bold text-sm sm:text-base">QUIÉNES SOMOS</span>
               </motion.div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 sm:px-4 break-words">
-                SOBRE <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">NOSOTROS</span>
-              </h2>
               <p className="text-base sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 max-w-3xl xl:max-w-4xl min-[1920px]:max-w-5xl mx-auto px-4">
                 Líderes en alimentación corporativa desde hace más de una década
               </p>
@@ -430,7 +427,7 @@ export default function Home() {
                 <div className="max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto">
                   <p className="text-base sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl leading-relaxed text-gray-300 mb-6 sm:mb-8 xl:mb-10 min-[1920px]:mb-12">
                     Somos <span className="text-white font-bold">líderes en alimentación corporativa</span> en la Gran Caracas. 
-                    Atendemos a <span className="text-red-500 font-bold">bancos, clínicas, industrias y empresas</span> de todos los tamaños, 
+                    Atendemos a <span className="text-red-500 font-bold">bancos, clínicas, industria, empresas pequeñas y medianas, entes e instituciones</span>,
                     con menús personalizados, trazabilidad total y <span className="text-blue-500 font-bold">normas sanitarias certificadas</span>. 
                     Calidad, frescura y puntualidad en cada entrega.
                   </p>
@@ -658,7 +655,7 @@ export default function Home() {
                 <span className="text-white font-bold text-sm sm:text-base">VENTAJAS COMPETITIVAS</span>
               </motion.div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 sm:px-4 break-words">
-                POR QUÉ ELEGIR A <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">DUVAN</span>
+                ¿POR QUÉ ELEGIR A <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">DUVAN</span>?
               </h2>
               <p className="text-base sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 max-w-3xl xl:max-w-4xl min-[1920px]:max-w-5xl mx-auto px-4">
                 Empresas líderes confían en nosotros día a día
@@ -842,6 +839,18 @@ export default function Home() {
                   author: "Director de Operaciones",
                   company: "Industria Manufacturera",
                   gradient: 'from-gray-600 to-gray-700',
+                },
+                {
+                  quote: "Somos una empresa mediana y necesitábamos un proveedor confiable. La puntualidad y la variedad del menú nos convencieron desde el primer día. Muy recomendables.",
+                  author: "Coordinador de Compras",
+                  company: "Empresa de Servicios - 150 empleados",
+                  gradient: 'from-red-600 to-red-500',
+                },
+                {
+                  quote: "Como institución pública exigimos higiene y trazabilidad. Inversiones Duvan cumple con todos los estándares y nuestro personal está muy satisfecho con la calidad.",
+                  author: "Jefe de Administración",
+                  company: "Ente Gubernamental - Gran Caracas",
+                  gradient: 'from-blue-600 to-blue-500',
                 },
               ].map((testimonial, index) => (
                 <motion.div

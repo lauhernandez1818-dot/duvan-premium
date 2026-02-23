@@ -8,20 +8,20 @@ import { ChevronLeft, ChevronRight, Maximize2, X, UtensilsCrossed } from 'lucide
 import { motion, AnimatePresence } from 'framer-motion';
 
 const imagenes = [
-  { src: '/imagenes/comida1.webp', alt: 'Inversiones Duvan - Comida 1' },
-  { src: '/imagenes/comida2.webp', alt: 'Inversiones Duvan - Comida 2' },
-  { src: '/imagenes/comida3.webp', alt: 'Inversiones Duvan - Comida 3' },
-  { src: '/imagenes/comida4.webp', alt: 'Inversiones Duvan - Comida 4' },
-  { src: '/imagenes/comida5.webp', alt: 'Inversiones Duvan - Comida 5' },
-  { src: '/imagenes/comida6.webp', alt: 'Inversiones Duvan - Comida 6' },
-  { src: '/imagenes/comida7.webp', alt: 'Inversiones Duvan - Comida 7' },
-  { src: '/imagenes/comida8.webp', alt: 'Inversiones Duvan - Comida 8' },
-  { src: '/imagenes/comida9.webp', alt: 'Inversiones Duvan - Comida 9' },
-  { src: '/imagenes/comida10.webp', alt: 'Inversiones Duvan - Comida 10' },
-  { src: '/imagenes/comida11.webp', alt: 'Inversiones Duvan - Comida 11' },
-  { src: '/imagenes/comida12.webp', alt: 'Inversiones Duvan - Comida 12' },
-  { src: '/imagenes/comida13.webp', alt: 'Inversiones Duvan - Comida 13' },
-  { src: '/imagenes/comida14.webp', alt: 'Inversiones Duvan - Comida 14' },
+  { src: '/imagenes/comida1.webp', alt: 'Inversiones Duvan - Comida 1', label: null as string | null, video: null as string | null },
+  { src: '/imagenes/comida2.webp', alt: 'Inversiones Duvan - Comida 2', label: null, video: null },
+  { src: '/imagenes/comida3.webp', alt: 'Inversiones Duvan - Comida 3', label: null, video: null },
+  { src: '/imagenes/comida4.webp', alt: 'Inversiones Duvan - Comida 4', label: null, video: null },
+  { src: '/imagenes/comida5.webp', alt: 'Inversiones Duvan - Comida 5', label: null, video: null },
+  { src: '/imagenes/comida6.webp', alt: 'Inversiones Duvan - Comida 6', label: null, video: null },
+  { src: '/imagenes/comida7.webp', alt: 'Inversiones Duvan - Comida 7', label: null, video: null },
+  { src: '/imagenes/Hamburguesa.webp', alt: 'Hamburguesa Duvan', label: 'Hamburguesa Duvan', video: '/videos/HamburguesaV.mp4' },
+  { src: '/imagenes/comida9.webp', alt: 'Inversiones Duvan - Comida 9', label: null, video: null },
+  { src: '/imagenes/comida10.webp', alt: 'Inversiones Duvan - Comida 10', label: null, video: null },
+  { src: '/imagenes/comida11.webp', alt: 'Inversiones Duvan - Comida 11', label: null, video: null },
+  { src: '/imagenes/comida12.webp', alt: 'Inversiones Duvan - Comida 12', label: null, video: null },
+  { src: '/imagenes/comida13.webp', alt: 'Inversiones Duvan - Comida 13', label: null, video: null },
+  { src: '/imagenes/comida14.webp', alt: 'Inversiones Duvan - Comida 14', label: null, video: null },
 ];
 
 export default function CarouselPropuesta() {
@@ -37,6 +37,7 @@ export default function CarouselPropuesta() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const scrollPositionRef = useRef(0);
+  const prevLightboxRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -50,9 +51,14 @@ export default function CarouselPropuesta() {
   const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
 
   useEffect(() => {
-    if (lightboxIndex !== null) {
-      const scrollY = window.scrollY ?? document.documentElement.scrollTop;
-      scrollPositionRef.current = scrollY;
+    const wasOpen = prevLightboxRef.current !== null;
+    const isOpen = lightboxIndex !== null;
+    if (isOpen) {
+      if (!wasOpen) {
+        const scrollY = window.scrollY ?? document.documentElement.scrollTop;
+        scrollPositionRef.current = scrollY;
+      }
+      const scrollY = scrollPositionRef.current;
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
@@ -65,8 +71,11 @@ export default function CarouselPropuesta() {
       document.body.style.top = '';
       document.body.style.left = '';
       document.body.style.right = '';
-      window.scrollTo(0, savedY);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, savedY);
+      });
     }
+    prevLightboxRef.current = lightboxIndex;
     return () => {
       document.body.style.overflow = '';
       document.body.style.position = '';
@@ -77,15 +86,15 @@ export default function CarouselPropuesta() {
   }, [lightboxIndex]);
 
   return (
-    <div className="w-full max-w-[min(100%,56rem)] xl:max-w-[min(100%,70rem)] min-[1920px]:max-w-[min(100%,80rem)] mx-auto min-w-0 overflow-hidden">
+    <div className="w-full max-w-[min(100%,64rem)] xl:max-w-[min(100%,76rem)] min-[1920px]:max-w-[min(100%,88rem)] mx-auto min-w-0 overflow-hidden">
       {/* Borde paleta marca: wrapper con gradiente rojo-azul */}
-      <div className="p-1 sm:p-1.5 xl:p-2 min-[1920px]:p-2.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
+      <div className="p-1.5 sm:p-2 xl:p-2.5 min-[1920px]:p-3 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
         <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-gray-900" ref={emblaRef}>
           <div className="flex touch-pan-y">
             {imagenes.map((img, index) => (
               <div
                 key={index}
-                className="flex-[0_0_100%] min-w-0 relative aspect-[4/3] sm:aspect-video group cursor-pointer overflow-hidden"
+                className="flex-[0_0_100%] min-w-0 relative aspect-[4/3] sm:aspect-[16/10] group cursor-pointer overflow-hidden"
                 onClick={() => setLightboxIndex(index)}
               >
                 <Image
@@ -93,9 +102,17 @@ export default function CarouselPropuesta() {
                   alt={img.alt}
                   fill
                   className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
-                  sizes="(max-width: 768px) 100vw, 80vw"
+                  sizes="(max-width: 768px) 100vw, 85vw"
                   priority={index === 0}
                 />
+                {/* Etiqueta tipo "Hamburguesa Duvan" cuando existe */}
+                {img.label && (
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-10 flex justify-center pointer-events-none">
+                    <span className="bg-gradient-to-r from-red-600/90 to-blue-600/90 backdrop-blur-md text-white font-black text-sm sm:text-base px-4 py-2 rounded-xl border border-white/30 shadow-xl">
+                      {img.label}
+                    </span>
+                  </div>
+                )}
                 {/* Overlay con pointer-events-none para que el hover se detecte en el grupo y la animación se vea */}
                 <div
                   className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 ease-out flex items-center justify-center pointer-events-none"
@@ -177,22 +194,35 @@ export default function CarouselPropuesta() {
               </div>
             </div>
 
-            {/* Imagen - un poco más pequeña */}
+            {/* Imagen y opcionalmente video (ej. Hamburguesa Duvan) */}
             <motion.div
               key={lightboxIndex}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="relative w-[90%] max-w-4xl h-[60vh] sm:h-[70vh] md:h-[75vh] mx-auto"
+              className="relative w-[90%] max-w-4xl mx-auto flex flex-col items-center gap-4 overflow-y-auto max-h-[85vh] py-4"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={imagenes[lightboxIndex].src}
-                alt={imagenes[lightboxIndex].alt}
-                fill
-                className="object-contain"
-              />
+              <div className="relative w-full flex-[0_0_auto] h-[50vh] sm:h-[60vh] min-h-[200px]">
+                <Image
+                  src={imagenes[lightboxIndex].src}
+                  alt={imagenes[lightboxIndex].alt}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              {imagenes[lightboxIndex].video && (
+                <div className="w-full max-w-2xl flex-shrink-0 rounded-xl overflow-hidden bg-black/40 border border-white/20">
+                  <p className="text-white font-semibold text-center py-2 text-sm">{imagenes[lightboxIndex].label ?? 'Video'}</p>
+                  <video
+                    src={imagenes[lightboxIndex].video!}
+                    controls
+                    className="w-full max-h-[35vh] object-contain"
+                    playsInline
+                  />
+                </div>
+              )}
             </motion.div>
 
             {/* Controles inferiores - como galería, paleta rojo/azul */}
