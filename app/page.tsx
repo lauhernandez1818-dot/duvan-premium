@@ -405,7 +405,7 @@ export default function Home() {
                   >
                     <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     <ChefHat className="relative w-6 h-6 sm:w-7 sm:h-7 group-hover:rotate-12 transition-transform duration-500" />
-                    <span className="relative">VER GALERÍA COMPLETA</span>
+                    <span className="relative">VER GALERÍA</span>
                     <ChevronRight className="relative w-6 h-6 sm:w-7 sm:h-7 group-hover:translate-x-2 transition-transform" />
                   </motion.button>
                 </Link>
@@ -990,6 +990,29 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Botón Ver Catálogo - debajo de FAQs, antes del eslogan */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mt-12 sm:mt-16 md:mt-20"
+            >
+              <Link href="/catalogo">
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border-2 border-white/30 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black text-lg sm:text-xl transition-all overflow-hidden"
+                >
+                  <Maximize2 className="relative w-6 h-6 sm:w-7 sm:h-7" />
+                  <span className="relative">VER CATÁLOGO</span>
+                  <ChevronRight className="relative w-6 h-6 sm:w-7 sm:h-7 group-hover:translate-x-2 transition-transform" />
+                </motion.button>
+              </Link>
+              <p className="text-gray-400 mt-4 text-sm sm:text-base">
+                Platos, información y videos en un solo lugar
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -1139,6 +1162,10 @@ export default function Home() {
                 <MapPin className="w-4 h-4 xl:w-5 xl:h-5 min-[1920px]:w-6 min-[1920px]:h-6 flex-shrink-0" />
                 <span className="text-xs sm:text-base xl:text-lg min-[1920px]:text-xl">Gran Caracas, Venezuela</span>
               </div>
+              <Link href="/catalogo" className="flex items-center gap-2 xl:gap-3 text-gray-400 hover:text-white transition-colors min-h-[44px] justify-center sm:justify-start">
+                <Maximize2 className="w-4 h-4 xl:w-5 xl:h-5 min-[1920px]:w-6 min-[1920px]:h-6 flex-shrink-0" />
+                <span className="text-xs sm:text-base xl:text-lg min-[1920px]:text-xl">Catálogo</span>
+              </Link>
             </div>
           </div>
           <div className="border-t border-white/10 mt-6 sm:mt-8 xl:mt-10 min-[1920px]:mt-12 pt-6 sm:pt-8 xl:pt-10 min-[1920px]:pt-12 text-center text-gray-400 text-xs sm:text-base xl:text-lg min-[1920px]:text-xl break-words px-2">
