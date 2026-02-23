@@ -279,8 +279,7 @@ export default function Home() {
               {/* Tagline - mensaje de valor sin repetir números */}
               <div className="text-sm sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl text-white mb-8 sm:mb-12 xl:mb-16 min-[1920px]:mb-20 max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto leading-relaxed font-light px-2 sm:px-4 break-words">
                 <p className="mb-2">
-                  <span className="font-bold">Alimentación corporativa de alto impacto</span>
-                  <span className="text-red-500 font-bold"> con excelencia garantizada</span>
+                  <span className="font-bold">Somos tu mejor opción</span>
                 </p>
                 <p>
                   en la Gran Caracas
@@ -464,7 +463,7 @@ export default function Home() {
                   >
                     <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     <Users className="relative w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform duration-500" />
-                    <span className="relative">NUESTRO EQUIPO DE TRABAJO</span>
+                    <span className="relative">CONOCE MÁS DE NOSOTROS</span>
                     <ChevronRight className="relative w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform" />
                   </motion.button>
                 </Link>
