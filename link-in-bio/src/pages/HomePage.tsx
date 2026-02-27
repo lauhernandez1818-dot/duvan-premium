@@ -20,7 +20,7 @@ export function HomePage() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 200, damping: 20, duration: 0.5 }}
-            className="inline-flex items-center justify-center w-20 h-20 min-[380px]:w-24 min-[380px]:h-24 sm:w-28 sm:h-28 rounded-full border-[3px] border-amber-500 bg-white/95 shadow-xl overflow-hidden ring-2 ring-amber-400/40 p-1.5 sm:p-2"
+            className="inline-flex items-center justify-center w-20 h-20 min-[380px]:w-24 min-[380px]:h-24 sm:w-28 sm:h-28 rounded-full border-[3px] border-white/60 bg-white/95 shadow-xl overflow-hidden ring-2 ring-white/25 p-1.5 sm:p-2"
           >
             <img
               src={config.logoUrl}

@@ -30,17 +30,17 @@ const listItemVariants = {
 };
 
 const buttonClass =
-  'link-btn group relative w-full flex items-center gap-3 sm:gap-4 bg-white/98 backdrop-blur-sm border-2 border-amber-500/90 rounded-2xl py-3.5 sm:py-4 px-4 sm:px-5 font-bold text-gray-900 shadow-lg hover:shadow-xl hover:border-amber-400 hover:bg-amber-50/90 active:scale-[0.98] transition-all duration-200 touch-manipulation min-h-[52px] sm:min-h-[56px] overflow-hidden';
+  'link-btn group relative w-full flex items-center gap-3 sm:gap-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl py-3.5 sm:py-4 px-4 sm:px-5 font-bold text-white shadow-lg hover:shadow-xl hover:border-white/40 hover:bg-white/10 active:scale-[0.98] transition-all duration-200 touch-manipulation min-h-[52px] sm:min-h-[56px] overflow-hidden';
 
 export function LinkButton({ item, icon, index }: LinkButtonProps) {
   const isInternal = item.to != null;
 
   const content = (
     <>
-      <span className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-600/20 flex items-center justify-center text-amber-700 group-hover:bg-amber-600/30 group-hover:scale-105 transition-all duration-200">
+      <span className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-black/40 flex items-center justify-center text-white group-hover:bg-black/60 group-hover:scale-105 transition-all duration-200">
         {icon}
       </span>
-      <span className="flex-1 text-left text-sm sm:text-base text-gray-900">{item.label}</span>
+      <span className="flex-1 text-left text-sm sm:text-base text-white">{item.label}</span>
     </>
   );
 
