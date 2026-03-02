@@ -1,5 +1,5 @@
 /**
- * Comidas especiales (ordenado).
+ * Comidas especiales (orden: Salmón Grillé, Pollo al Horno, Brochetas Mixtas).
  */
 
 export interface ComidaEspecialItem {
@@ -13,28 +13,21 @@ export interface ComidaEspecialItem {
 
 export const comidasEspeciales: ComidaEspecialItem[] = [
   {
-    id: 'hamburguesa-duvan',
-    title: 'Hamburguesa Duvan',
-    image: '/imagenes/Hamburguesa.webp',
-    descripcion: 'La joya de la corona. Carne premium, queso fundido y pan artesanal.',
-    video: '/videos/HamburguesaV.mp4',
-  },
-  {
-    id: 'pescado-frito-patacones',
-    title: 'Pescado Frito con Patacones',
-    image: '/imagenes/comida5.webp',
-    descripcion: 'Crujiente Pescado del día con patacones de la casa y ensalada de aguacate.',
-  },
-  {
     id: 'salmon-grille',
     title: 'Salmón Grillé',
     image: '/imagenes/comida9.webp',
     descripcion: 'Salmón rosado sellado a la perfección con puré cremoso y maduro horneado.',
   },
   {
-    id: 'carne-gratinada-pure',
-    title: 'Carne Gratinada con Puré',
-    image: '/imagenes/comida2.webp',
-    descripcion: 'Cortes de res bañados en una capa generosa de queso fundido y pimientos, acompañados de nuestro puré insignia.',
+    id: 'pollo-horno-vegetales',
+    title: 'Pollo al Horno con Vegetales',
+    image: '/imagenes/comida11.webp',
+    descripcion: 'Opción fit: Pechuga jugosa con vainitas y papas rústicas.',
+  },
+  {
+    id: 'brochetas-mixtas',
+    title: 'Brochetas Mixtas',
+    image: '/imagenes/comida12.webp',
+    descripcion: 'Pinchetas de pollo y vegetales con yuca y embutidos.',
   },
 ];

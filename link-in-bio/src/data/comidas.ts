@@ -1,6 +1,6 @@
 /**
  * Comidas normales: platos con foto y descripción de contenido.
- * Rutas de imágenes en /imagenes/ (public).
+ * "Todo lo demás" (Ensalada César, Arroz con Mariscos, Salteado, Pescado Plancha, Arroz Mixto, Pollo Hierbas, Hamburguesa Duvan, Pescado Frito, Carne Gratinada).
  */
 
 export interface PlatoComida {
@@ -26,25 +26,11 @@ export const comidasNormales: PlatoComida[] = [
       'Paella marinera con el sabor auténtico del mar y toques de limón.',
   },
   {
-    id: 'pollo-horno-vegetales',
-    title: 'Pollo al Horno con Vegetales',
-    image: '/imagenes/comida11.webp',
-    contiene:
-      'Opción fit: Pechuga jugosa con vainitas y papas rústicas.',
-  },
-  {
     id: 'salteado-carne',
     title: 'Salteado de Carne',
     image: '/imagenes/comida10.webp',
     contiene:
       'Tiras de res al wok con vegetales y papas doradas.',
-  },
-  {
-    id: 'brochetas-mixtas',
-    title: 'Brochetas Mixtas',
-    image: '/imagenes/comida12.webp',
-    contiene:
-      'Pinchetas de pollo y vegetales con yuca y embutidos.',
   },
   {
     id: 'pescado-plancha',
@@ -66,5 +52,25 @@ export const comidasNormales: PlatoComida[] = [
     image: '/imagenes/comida6.webp',
     contiene:
       'Muslos de pollo al chimichurri con papas naturales.',
+  },
+  {
+    id: 'hamburguesa-duvan',
+    title: 'Hamburguesa Duvan',
+    image: '/imagenes/Hamburguesa.webp',
+    contiene: 'La joya de la corona. Carne premium, queso fundido y pan artesanal.',
+  },
+  {
+    id: 'pescado-frito-patacones',
+    title: 'Pescado Frito con Patacones',
+    image: '/imagenes/comida5.webp',
+    contiene:
+      'Crujiente Pescado del día con patacones de la casa y ensalada de aguacate.',
+  },
+  {
+    id: 'carne-gratinada-pure',
+    title: 'Carne Gratinada con Puré',
+    image: '/imagenes/comida2.webp',
+    contiene:
+      'Cortes de res bañados en una capa generosa de queso fundido y pimientos, acompañados de nuestro puré insignia.',
   },
 ];

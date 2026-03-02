@@ -16,31 +16,39 @@ interface LinkButtonProps {
 }
 
 const listItemVariants = {
-  hidden: { opacity: 0, x: -28 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
-    x: 0,
+    y: 0,
     transition: {
-      delay: 0.35 + i * 0.1,
+      delay: i * 0.08,
       type: 'spring',
-      stiffness: 260,
-      damping: 22,
+      stiffness: 200,
+      damping: 24,
     },
   }),
 };
 
 const buttonClass =
-  'link-btn group relative w-full flex items-center gap-3 sm:gap-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl py-3.5 sm:py-4 px-4 sm:px-5 font-bold text-white shadow-lg hover:shadow-xl hover:border-white/40 hover:bg-white/10 active:scale-[0.98] transition-all duration-200 touch-manipulation min-h-[52px] sm:min-h-[56px] overflow-hidden';
+  'link-btn group relative w-full flex items-center gap-4 sm:gap-5 rounded-2xl overflow-hidden ' +
+  'border border-white/20 bg-white/[0.07] backdrop-blur-xl ' +
+  'py-4 sm:py-5 px-5 sm:px-6 font-semibold text-white ' +
+  'shadow-[0_4px_0_0_rgba(255,255,255,0.06),0_20px 40px -12px rgba(0,0,0,0.5),0_0_0_1px rgba(255,255,255,0.05)] ' +
+  'hover:border-white/35 hover:bg-white/[0.12] hover:shadow-[0_4px_0_0_rgba(255,255,255,0.08),0_28px 50px -12px rgba(0,0,0,0.55),0_0_0_1px rgba(255,255,255,0.08)] ' +
+  'active:scale-[0.99] active:shadow-[0_2px_0_0_rgba(255,255,255,0.06),0_12px 24px -8px rgba(0,0,0,0.5)] ' +
+  'transition-all duration-300 ease-out touch-manipulation min-h-[56px] sm:min-h-[60px]';
 
 export function LinkButton({ item, icon, index }: LinkButtonProps) {
   const isInternal = item.to != null;
 
   const content = (
     <>
-      <span className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-black/40 flex items-center justify-center text-white group-hover:bg-black/60 group-hover:scale-105 transition-all duration-200">
+      <span className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center text-white bg-white/10 border border-white/20 shadow-inner group-hover:bg-white/20 group-hover:border-white/30 group-hover:scale-105 transition-all duration-300">
         {icon}
       </span>
-      <span className="flex-1 text-left text-sm sm:text-base text-white">{item.label}</span>
+      <span className="flex-1 text-left text-sm sm:text-base font-medium tracking-wide text-white/95 group-hover:text-white">
+        {item.label}
+      </span>
     </>
   );
 
@@ -53,7 +61,11 @@ export function LinkButton({ item, icon, index }: LinkButtonProps) {
       className="list-none"
     >
       {isInternal ? (
-        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+        <motion.div
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.98, y: 0 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        >
           <Link to={item.to!} className={buttonClass}>
             {content}
           </Link>
@@ -63,8 +75,9 @@ export function LinkButton({ item, icon, index }: LinkButtonProps) {
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.98, y: 0 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
           className={buttonClass}
         >
           {content}
