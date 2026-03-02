@@ -1,27 +1,49 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { comidasNormales } from '@/data/comidas';
+import { comidasNormales, type PlatoComida } from '@/data/comidas';
 import { itemStagger, lightboxOverlay, lightboxCard } from '@/lib/motion';
 
 const pageTitle = 'Menú Diario';
 const pageSubtitle = 'Sección saludable y viandas. Cada plato listo para servir en tu empresa.';
 
+type Slide = { tipo: 'image' | 'video'; plato: PlatoComida };
+
 export function ComidaPage() {
+  const slides: Slide[] = useMemo(
+    () =>
+      comidasNormales.flatMap<Slide>((plato) =>
+        plato.video
+          ? [
+              { tipo: 'image', plato },
+              { tipo: 'video', plato },
+            ]
+          : [{ tipo: 'image', plato }],
+      ),
+    [],
+  );
+
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const openLightbox = (index: number) => setActiveIndex(index);
+  const openLightbox = (platoIndex: number) => {
+    const firstSlide = slides.findIndex(
+      (s) => s.plato.id === comidasNormales[platoIndex].id && s.tipo === 'image',
+    );
+    setActiveIndex(firstSlide === -1 ? 0 : firstSlide);
+  };
+
   const closeLightbox = () => setActiveIndex(null);
   const goPrev = () => {
     if (activeIndex === null) return;
-    setActiveIndex((prev) => (prev === 0 ? comidasNormales.length - 1 : (prev ?? 0) - 1));
+    setActiveIndex((prev) => (prev === 0 ? slides.length - 1 : (prev ?? 0) - 1));
   };
   const goNext = () => {
     if (activeIndex === null) return;
-    setActiveIndex((prev) => (prev === comidasNormales.length - 1 ? 0 : (prev ?? 0) + 1));
+    setActiveIndex((prev) => (prev === slides.length - 1 ? 0 : (prev ?? 0) + 1));
   };
 
-  const current = activeIndex !== null ? comidasNormales[activeIndex] : null;
+  const currentSlide = activeIndex !== null ? slides[activeIndex] : null;
+  const current = currentSlide?.plato ?? null;
 
   return (
     <div className="pt-14 pb-16 px-[var(--page-padding-x)]">
@@ -73,7 +95,7 @@ export function ComidaPage() {
       </main>
 
       <AnimatePresence>
-        {current && activeIndex !== null && (
+        {current && currentSlide && activeIndex !== null && (
           <motion.div
             className="fixed inset-0 z-40 bg-black/90 flex items-center justify-center px-4"
             initial={lightboxOverlay.initial}
@@ -99,12 +121,23 @@ export function ComidaPage() {
                 <X className="w-6 h-6" />
               </button>
               <div className="rounded-2xl border border-white/10 bg-zinc-900/95 overflow-hidden">
-                <div className="bg-black">
-                  <img
-                    src={current.image}
-                    alt={current.title}
-                    className="w-full max-h-[65vh] object-contain"
-                  />
+                <div className="bg-black flex justify-center">
+                  {currentSlide.tipo === 'video' && current.video ? (
+                    <video
+                      src={current.video}
+                      controls
+                      playsInline
+                      className="max-h-[65vh] w-auto object-contain aspect-[9/16]"
+                    >
+                      Tu navegador no soporta video.
+                    </video>
+                  ) : (
+                    <img
+                      src={current.image}
+                      alt={current.title}
+                      className="w-full max-h-[65vh] object-contain"
+                    />
+                  )}
                 </div>
                 <div className="p-4">
                   <h2 className="text-white font-semibold text-lg">{current.title}</h2>
@@ -117,7 +150,7 @@ export function ComidaPage() {
                     >
                       ← Anterior
                     </button>
-                    <span>{activeIndex + 1} / {comidasNormales.length}</span>
+                    <span>{activeIndex + 1} / {slides.length}</span>
                     <button
                       type="button"
                       onClick={goNext}
@@ -126,6 +159,11 @@ export function ComidaPage() {
                       Siguiente →
                     </button>
                   </div>
+                  {currentSlide.tipo === 'image' && current.video && (
+                    <p className="mt-2 text-[11px] text-white/50">
+                      Siguiente: video de preparación
+                    </p>
+                  )}
                 </div>
               </div>
             </motion.div>
