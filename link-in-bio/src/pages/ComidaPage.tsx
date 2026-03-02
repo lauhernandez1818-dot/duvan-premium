@@ -6,30 +6,22 @@ import { comidasNormales } from '@/data/comidas';
 export function ComidaPage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const openLightbox = (index: number) => {
-    setActiveIndex(index);
-  };
-
-  const closeLightbox = () => {
-    setActiveIndex(null);
-  };
-
+  const openLightbox = (index: number) => setActiveIndex(index);
+  const closeLightbox = () => setActiveIndex(null);
   const goPrev = () => {
     if (activeIndex === null) return;
     setActiveIndex((prev) =>
-      prev === null ? prev : prev === 0 ? comidasNormales.length - 1 : prev - 1,
+      prev === 0 ? comidasNormales.length - 1 : (prev ?? 0) - 1,
     );
   };
-
   const goNext = () => {
     if (activeIndex === null) return;
     setActiveIndex((prev) =>
-      prev === null ? prev : prev === comidasNormales.length - 1 ? 0 : prev + 1,
+      prev === comidasNormales.length - 1 ? 0 : (prev ?? 0) + 1,
     );
   };
 
-  const current =
-    activeIndex !== null ? comidasNormales[activeIndex] : null;
+  const current = activeIndex !== null ? comidasNormales[activeIndex] : null;
 
   return (
     <div className="pt-14 pb-12 px-[var(--page-padding-x)]">
@@ -57,7 +49,7 @@ export function ComidaPage() {
                 <img
                   src={plato.image}
                   alt={plato.title}
-                  className="w-full aspect-video object-cover"
+                  className="w-full h-auto object-contain"
                 />
                 <div className="p-4">
                   <h2 className="text-white font-bold text-lg">{plato.title}</h2>
@@ -101,7 +93,6 @@ export function ComidaPage() {
               >
                 <X className="w-6 h-6" />
               </button>
-
               <div className="bg-zinc-900/90 border border-white/15 rounded-2xl overflow-hidden shadow-2xl">
                 <div className="relative bg-black">
                   <img
@@ -114,24 +105,12 @@ export function ComidaPage() {
                   <h2 className="text-white font-bold text-lg">{current.title}</h2>
                   <p className="text-gray-300 text-sm mt-1">{current.contiene}</p>
                   <div className="flex items-center justify-between mt-4 text-[11px] text-gray-300">
-                    <button
-                      type="button"
-                      onClick={goPrev}
-                      className="flex items-center gap-1 text-xs font-semibold text-white bg-white/10 border border-white/25 rounded-full px-3 py-1"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                      Anterior
+                    <button type="button" onClick={goPrev} className="flex items-center gap-1 text-xs font-semibold text-white bg-white/10 border border-white/25 rounded-full px-3 py-1">
+                      <ChevronLeft className="w-4 h-4" /> Anterior
                     </button>
-                    <span>
-                      {activeIndex + 1} / {comidasNormales.length}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={goNext}
-                      className="flex items-center gap-1 text-xs font-semibold text-white bg-white/10 border border-white/25 rounded-full px-3 py-1"
-                    >
-                      Siguiente
-                      <ChevronRight className="w-4 h-4" />
+                    <span>{activeIndex + 1} / {comidasNormales.length}</span>
+                    <button type="button" onClick={goNext} className="flex items-center gap-1 text-xs font-semibold text-white bg-white/10 border border-white/25 rounded-full px-3 py-1">
+                      Siguiente <ChevronRight className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

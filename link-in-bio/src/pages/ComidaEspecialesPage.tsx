@@ -22,7 +22,6 @@ export function ComidaEspecialesPage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const openLightbox = (index: number) => {
-    // Siempre abrimos en la foto (primer slide del item)
     const baseIndex = slides.findIndex(
       (slide) => slide.item.id === comidasEspeciales[index].id && slide.tipo === 'image',
     );
@@ -77,13 +76,11 @@ export function ComidaEspecialesPage() {
                 className="list-none"
               >
                 <article className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
-                  <div className="relative">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full aspect-video object-cover"
-                    />
-                  </div>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-auto object-contain"
+                  />
 
                   <div className="p-4">
                     <h2 className="text-white font-bold text-lg">{item.title}</h2>
@@ -136,13 +133,13 @@ export function ComidaEspecialesPage() {
               </button>
 
               <div className="bg-zinc-900/90 border border-white/15 rounded-2xl overflow-hidden shadow-2xl">
-                <div className="relative bg-black">
+                <div className="relative bg-black flex justify-center">
                   {currentSlide.tipo === 'video' && current.video ? (
                     <video
                       src={current.video}
                       controls
                       playsInline
-                      className="w-full aspect-video max-h-[65vh] object-contain bg-black"
+                      className="max-h-[65vh] w-auto object-contain bg-black aspect-[9/16]"
                     >
                       Tu navegador no soporta video.
                     </video>
