@@ -16,7 +16,7 @@ export function VideoPreview({ videoUrl, label = 'Preview', className = '' }: Vi
         loop
         muted
         playsInline
-        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[120px] h-[68px] rounded-lg border-2 border-amber-500 object-cover shadow-xl pointer-events-none z-20 ${className}`}
+        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[120px] h-[68px] rounded-lg border-2 border-blue-500 object-cover shadow-xl pointer-events-none z-20 ${className}`}
         aria-hidden
       />
     );
@@ -24,7 +24,7 @@ export function VideoPreview({ videoUrl, label = 'Preview', className = '' }: Vi
 
   return (
     <div
-      className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[120px] h-[68px] rounded-lg border-2 border-amber-500/80 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-200 flex items-center justify-center text-amber-800 font-bold text-[10px] shadow-xl pointer-events-none z-20 animate-pulse ${className}`}
+      className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[120px] h-[68px] rounded-lg border-2 border-blue-500/80 bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200 flex items-center justify-center text-blue-800 font-bold text-[10px] shadow-xl pointer-events-none z-20 animate-pulse ${className}`}
       aria-hidden
     >
       {label}

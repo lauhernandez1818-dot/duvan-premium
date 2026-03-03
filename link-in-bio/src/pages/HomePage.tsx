@@ -19,14 +19,14 @@ export function HomePage() {
         className="pointer-events-none absolute inset-0 bg-[url('/imagenes/comida7.webp')] bg-cover bg-center scale-105"
         aria-hidden="true"
       />
-      {/* Gradiente catálogo: ámbar dorado arriba, transición rica */}
+      {/* Gradiente catálogo: azul Duvan arriba, transición rica */}
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-amber-900/40 from-0% via-amber-950/60 via-30% via-black/80 via-60% to-black to-100%"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-blue-900/40 from-0% via-blue-950/60 via-30% via-black/80 via-60% to-black to-100%"
         aria-hidden="true"
       />
-      {/* Resplandor dorado superior - efecto "wow" */}
+      {/* Resplandor azul superior - efecto "wow" */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_50%_-10%,rgba(251,191,36,0.2),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_50%_-10%,rgba(59,130,246,0.2),transparent_60%)]"
         aria-hidden="true"
       />
       <div
@@ -52,10 +52,10 @@ export function HomePage() {
             transition={{ type: 'spring', stiffness: 180, damping: 18, delay: 0.1 }}
             className="relative inline-flex items-center justify-center w-24 h-24 min-[380px]:w-28 min-[380px]:h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden"
           >
-            {/* Anillo dorado premium */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-300/30 via-amber-500/15 to-amber-700/5 blur-3xl scale-110" aria-hidden />
-            <div className="absolute inset-0 rounded-full border-2 border-amber-300/50 shadow-[0_0_50px_rgba(251,191,36,0.3),0_0_100px_rgba(245,158,11,0.15)]" aria-hidden />
-            <div className="relative w-full h-full rounded-full border-2 border-amber-300/40 bg-gradient-to-br from-white to-amber-50/90 p-2.5 sm:p-3 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]">
+            {/* Anillo azul premium */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-300/30 via-blue-500/15 to-blue-700/5 blur-3xl scale-110" aria-hidden />
+            <div className="absolute inset-0 rounded-full border-2 border-blue-300/50 shadow-[0_0_50px_rgba(59,130,246,0.3),0_0_100px_rgba(37,99,235,0.15)]" aria-hidden />
+            <div className="relative w-full h-full rounded-full border-2 border-blue-300/40 bg-gradient-to-br from-white to-blue-50/90 p-2.5 sm:p-3 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]">
               <img
                 src={config.logoUrl}
                 alt="Logo Inversiones Duvan"
@@ -63,7 +63,7 @@ export function HomePage() {
                 onError={(e) => {
                   const target = e.currentTarget;
                   target.onerror = null;
-                  target.src = `https://placehold.co/112x112/fef3c7/d97706?text=DUVAN`;
+                  target.src = `https://placehold.co/112x112/93c5fd/1d4ed8?text=DUVAN`;
                 }}
               />
             </div>
@@ -76,7 +76,7 @@ export function HomePage() {
             className="mt-5 sm:mt-6 text-2xl min-[380px]:text-3xl sm:text-4xl font-semibold tracking-[0.12em] uppercase px-2"
             style={{
               fontFamily: 'var(--font-display), Georgia, serif',
-              background: 'linear-gradient(180deg, #fff 0%, #fef3c7 50%, #fde68a 100%)',
+              background: 'linear-gradient(180deg, #fff 0%, #dbeafe 50%, #93c5fd 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -89,7 +89,7 @@ export function HomePage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.45 }}
-            className="text-sm min-[380px]:text-base sm:text-lg text-amber-100 font-medium mt-2 tracking-wide px-1"
+            className="text-sm min-[380px]:text-base sm:text-lg text-blue-100 font-medium mt-2 tracking-wide px-1"
           >
             {config.subtitle}
           </motion.p>
@@ -98,7 +98,7 @@ export function HomePage() {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.45, duration: 0.5 }}
-            className="mx-auto mt-4 w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent origin-center rounded-full"
+            className="mx-auto mt-4 w-24 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent origin-center rounded-full"
             aria-hidden
           />
         </header>
@@ -109,10 +109,10 @@ export function HomePage() {
           transition={{ delay: 0.5, duration: 0.4 }}
           className="text-center mb-5 sm:mb-6"
         >
-          <p className="text-[11px] tracking-[0.4em] uppercase text-amber-300 font-semibold">
+          <p className="text-[11px] tracking-[0.4em] uppercase text-blue-300 font-semibold">
             Bienvenido
           </p>
-          <p className="mt-1.5 text-xs text-amber-200/90">
+          <p className="mt-1.5 text-xs text-blue-200/90">
             Toca un botón para interactuar
           </p>
         </motion.div>
@@ -143,7 +143,7 @@ export function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="mt-8 sm:mt-10 text-center text-[11px] text-amber-400 tracking-widest uppercase font-medium"
+          className="mt-8 sm:mt-10 text-center text-[11px] text-blue-400 tracking-widest uppercase font-medium"
         >
           Almuerzos que inspiran
         </motion.p>

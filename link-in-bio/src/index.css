@@ -3,11 +3,11 @@
 :root {
   --background: #0c0a09;
   --foreground: #fafafa;
-  --accent: #f59e0b;
-  --accent-soft: #fbbf24;
-  --accent-deep: #d97706;
-  --accent-glow: rgba(245, 158, 11, 0.35);
-  --accent-glow-strong: rgba(251, 191, 36, 0.2);
+  --accent: #2563eb;
+  --accent-soft: #3b82f6;
+  --accent-deep: #1d4ed8;
+  --accent-glow: rgba(37, 99, 235, 0.35);
+  --accent-glow-strong: rgba(59, 130, 246, 0.2);
   --font-display: "Cormorant Garamond", Georgia, serif;
   --safe-padding: clamp(0.75rem, 4vw, 1.5rem);
   --page-padding-x: clamp(0.5rem, 2.5vw, 1rem);
