@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { MapPin, UtensilsCrossed, Sparkles, Cake, ChefHat } from 'lucide-react';
 import { config } from '@/config';
 import { LinkButton } from '@/components/LinkButton';
+import { FloatingParticles } from '@/components/FloatingParticles';
 
 const iconById: Record<string, React.ReactNode> = {
   ubicacion: <MapPin className="w-5 h-5" aria-hidden />,
@@ -38,6 +39,8 @@ export function HomePage() {
         className="pointer-events-none absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.6)]"
         aria-hidden="true"
       />
+      {/* Partículas flotantes - efecto premium */}
+      <FloatingParticles />
 
       <motion.main
         initial={{ opacity: 0, y: 24 }}
@@ -52,9 +55,11 @@ export function HomePage() {
             transition={{ type: 'spring', stiffness: 180, damping: 18, delay: 0.1 }}
             className="relative inline-flex items-center justify-center w-24 h-24 min-[380px]:w-28 min-[380px]:h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden"
           >
+            {/* Glow pulsante detrás del logo */}
+            <div className="absolute inset-0 rounded-full bg-blue-400/40 blur-3xl scale-150 animate-[pulse-glow_3s_ease-in-out_infinite]" aria-hidden />
             {/* Anillo azul premium */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-300/30 via-blue-500/15 to-blue-700/5 blur-3xl scale-110" aria-hidden />
-            <div className="absolute inset-0 rounded-full border-2 border-blue-300/50 shadow-[0_0_50px_rgba(59,130,246,0.3),0_0_100px_rgba(37,99,235,0.15)]" aria-hidden />
+            <div className="absolute inset-0 rounded-full border-2 border-blue-300/50 shadow-[0_0_50px_rgba(59,130,246,0.4),0_0_100px_rgba(37,99,235,0.2)]" aria-hidden />
             <div className="relative w-full h-full rounded-full border-2 border-blue-300/40 bg-gradient-to-br from-white to-blue-50/90 p-2.5 sm:p-3 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]">
               <img
                 src={config.logoUrl}
@@ -73,14 +78,16 @@ export function HomePage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.5 }}
-            className="mt-5 sm:mt-6 text-2xl min-[380px]:text-3xl sm:text-4xl font-semibold tracking-[0.12em] uppercase px-2"
+            className="mt-5 sm:mt-6 text-2xl min-[380px]:text-3xl sm:text-4xl font-bold tracking-[0.14em] uppercase px-2"
             style={{
               fontFamily: 'var(--font-display), Georgia, serif',
-              background: 'linear-gradient(180deg, #fff 0%, #dbeafe 50%, #93c5fd 100%)',
+              background: 'linear-gradient(135deg, #fff 0%, #bfdbfe 25%, #93c5fd 50%, #60a5fa 75%, #3b82f6 100%)',
+              backgroundSize: '200% 200%',
+              animation: 'gradient-shift 4s ease infinite',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
-              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
+              filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.6)) drop-shadow(0 0 20px rgba(59,130,246,0.3))',
             }}
           >
             {config.title}
@@ -93,12 +100,12 @@ export function HomePage() {
           >
             {config.subtitle}
           </motion.p>
-          {/* Línea dorada */}
+          {/* Línea decorativa con brillo */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.45, duration: 0.5 }}
-            className="mx-auto mt-4 w-24 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent origin-center rounded-full"
+            className="mx-auto mt-4 w-32 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent origin-center rounded-full shadow-[0_0_12px_rgba(59,130,246,0.6)]"
             aria-hidden
           />
         </header>
@@ -143,7 +150,7 @@ export function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="mt-8 sm:mt-10 text-center text-[11px] text-blue-400 tracking-widest uppercase font-medium"
+          className="mt-8 sm:mt-10 text-center text-[11px] text-blue-300 tracking-[0.35em] uppercase font-semibold drop-shadow-[0_0_8px_rgba(59,130,246,0.4)]"
         >
           Almuerzos que inspiran
         </motion.p>

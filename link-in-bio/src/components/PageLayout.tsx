@@ -9,10 +9,10 @@ export function PageLayout() {
 
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col relative overflow-hidden bg-slate-950">
-      {/* Fondo catálogo: gradiente azul Duvan */}
+      {/* Fondo catálogo: gradiente azul Duvan con orbes animados */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 via-blue-950/15 via-40% to-black pointer-events-none" aria-hidden />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] h-[480px] bg-blue-500/15 rounded-full blur-[160px] pointer-events-none" aria-hidden />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" aria-hidden />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] h-[480px] bg-blue-500/20 rounded-full blur-[160px] pointer-events-none animate-[pulse-glow_6s_ease-in-out_infinite]" aria-hidden />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none animate-[pulse-glow_8s_ease-in-out_infinite]" style={{ animationDelay: '1s' }} aria-hidden />
 
       {!isHome && (
         <Link
