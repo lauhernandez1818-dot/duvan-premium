@@ -14,7 +14,7 @@ const iconById: Record<string, React.ReactNode> = {
 
 export function HomePage() {
   return (
-    <div className="link-bio-page relative min-h-screen min-h-[100dvh] flex flex-col items-center justify-center pt-[var(--safe-padding)] pb-8 sm:pb-12 px-[var(--page-padding-x)] antialiased overflow-hidden">
+    <div className="link-bio-page relative min-h-screen min-h-[100dvh] flex flex-col items-center justify-center pt-[var(--safe-padding)] pb-[max(2rem,env(safe-area-inset-bottom))] safe-padding-x antialiased overflow-hidden">
       {/* Fondo: foto de cocina a pantalla completa, más visible */}
       <div
         className="pointer-events-none absolute inset-0 bg-[url('/imagenes/comida7.webp')] bg-cover bg-center scale-105"
@@ -56,7 +56,7 @@ export function HomePage() {
             className="relative inline-flex items-center justify-center w-24 h-24 min-[380px]:w-28 min-[380px]:h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden"
           >
             {/* Glow pulsante detrás del logo */}
-            <div className="absolute inset-0 rounded-full bg-blue-400/40 blur-3xl scale-150 animate-[pulse-glow_3s_ease-in-out_infinite]" aria-hidden />
+            <div className="motion-glow absolute inset-0 rounded-full bg-blue-400/40 blur-3xl scale-150 animate-[pulse-glow_3s_ease-in-out_infinite]" aria-hidden />
             {/* Anillo azul premium */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-300/30 via-blue-500/15 to-blue-700/5 blur-3xl scale-110" aria-hidden />
             <div className="absolute inset-0 rounded-full border-2 border-blue-300/50 shadow-[0_0_50px_rgba(59,130,246,0.4),0_0_100px_rgba(37,99,235,0.2)]" aria-hidden />
@@ -78,16 +78,10 @@ export function HomePage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.5 }}
-            className="mt-5 sm:mt-6 text-2xl min-[380px]:text-3xl sm:text-4xl font-bold tracking-[0.14em] uppercase px-2"
+            className="mt-5 sm:mt-6 text-xl min-[360px]:text-2xl min-[380px]:text-3xl sm:text-4xl font-bold tracking-[0.1em] min-[380px]:tracking-[0.14em] uppercase px-2 break-words text-white"
             style={{
-              fontFamily: 'var(--font-display), Georgia, serif',
-              background: 'linear-gradient(135deg, #fff 0%, #bfdbfe 25%, #93c5fd 50%, #60a5fa 75%, #3b82f6 100%)',
-              backgroundSize: '200% 200%',
-              animation: 'gradient-shift 4s ease infinite',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.6)) drop-shadow(0 0 20px rgba(59,130,246,0.3))',
+              fontFamily: 'var(--font-heading), sans-serif',
+              textShadow: '0 2px 8px rgba(0,0,0,0.6)',
             }}
           >
             {config.title}
@@ -96,7 +90,8 @@ export function HomePage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.45 }}
-            className="text-sm min-[380px]:text-base sm:text-lg text-blue-100 font-medium mt-2 tracking-wide px-1"
+            className="text-sm min-[380px]:text-base sm:text-lg text-white font-medium mt-2 tracking-wide px-1"
+            style={{ fontFamily: 'var(--font-heading), sans-serif' }}
           >
             {config.subtitle}
           </motion.p>
@@ -116,10 +111,10 @@ export function HomePage() {
           transition={{ delay: 0.5, duration: 0.4 }}
           className="text-center mb-5 sm:mb-6"
         >
-          <p className="text-[11px] tracking-[0.4em] uppercase text-blue-300 font-semibold">
+          <p className="text-[11px] tracking-[0.4em] uppercase text-white font-semibold" style={{ fontFamily: 'var(--font-heading), sans-serif' }}>
             Bienvenido
           </p>
-          <p className="mt-1.5 text-xs text-blue-200/90">
+          <p className="mt-1.5 text-xs text-white/90" style={{ fontFamily: 'var(--font-heading), sans-serif' }}>
             Toca un botón para interactuar
           </p>
         </motion.div>
@@ -150,7 +145,8 @@ export function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="mt-8 sm:mt-10 text-center text-[11px] text-blue-300 tracking-[0.35em] uppercase font-semibold drop-shadow-[0_0_8px_rgba(59,130,246,0.4)]"
+          className="mt-8 sm:mt-10 text-center text-[11px] text-white tracking-[0.35em] uppercase font-semibold"
+          style={{ fontFamily: 'var(--font-heading), sans-serif', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
         >
           Almuerzos que inspiran
         </motion.p>

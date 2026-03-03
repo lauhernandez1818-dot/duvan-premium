@@ -9,7 +9,7 @@ const WHATSAPP_URL =
 
 export function CateringPage() {
   return (
-    <div className="pt-14 pb-16 px-[var(--page-padding-x)]">
+    <div className="pt-[max(3.5rem,env(safe-area-inset-top))] pb-[max(4rem,env(safe-area-inset-bottom))] safe-padding-x">
       <main className="w-full max-w-[min(460px,100%)] mx-auto">
         <motion.h1
           initial={pageEnter.initial}
