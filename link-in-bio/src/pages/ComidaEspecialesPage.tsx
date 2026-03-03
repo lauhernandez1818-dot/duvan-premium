@@ -52,8 +52,14 @@ export function ComidaEspecialesPage() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-2xl sm:text-3xl font-semibold text-white text-center mb-2 tracking-tight"
-          style={{ fontFamily: 'var(--font-display), Georgia, serif' }}
+          className="text-2xl sm:text-3xl font-semibold text-center mb-2 tracking-tight"
+          style={{
+            fontFamily: 'var(--font-display), Georgia, serif',
+            background: 'linear-gradient(180deg, #fff 0%, #fef3c7 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
         >
           {pageTitle}
         </motion.h1>
@@ -61,7 +67,7 @@ export function ComidaEspecialesPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.08, duration: 0.35 }}
-          className="text-sm text-gray-400 text-center mb-8"
+          className="text-sm text-amber-200/90 text-center mb-8"
         >
           {pageSubtitle}
         </motion.p>
@@ -73,7 +79,7 @@ export function ComidaEspecialesPage() {
               {...itemStagger(index)}
               className="list-none"
             >
-              <article className="rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden">
+              <article className="rounded-2xl border-2 border-amber-400/20 bg-gradient-to-b from-amber-950/30 to-amber-950/10 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
                 <img src={item.image} alt={item.title} className="w-full h-auto object-contain" />
                 <div className="p-4">
                   <h2 className="text-white font-semibold text-lg">{item.title}</h2>
@@ -83,7 +89,7 @@ export function ComidaEspecialesPage() {
                   <button
                     type="button"
                     onClick={() => openLightbox(index)}
-                    className="text-xs font-medium text-white/70 hover:text-white rounded-full px-3 py-1.5 transition-colors"
+                    className="text-xs font-semibold text-amber-300 hover:text-amber-200 rounded-full px-3 py-1.5 transition-colors"
                   >
                     Ver en grande
                   </button>
