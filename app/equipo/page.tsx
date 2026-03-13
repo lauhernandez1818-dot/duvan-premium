@@ -127,7 +127,7 @@ export default function EquipoPage() {
   }, [selectedImage]);
 
   return (
-    <div className="min-h-screen bg-[#020617] overflow-x-hidden w-full max-w-[100vw] min-w-0">
+    <div className="min-h-screen bg-[#08142c] overflow-x-hidden w-full max-w-[100vw] min-w-0">
       {/* Botón Flotante WhatsApp */}
       <motion.a
         href={WHATSAPP_URL}
@@ -153,7 +153,7 @@ export default function EquipoPage() {
       </motion.a>
 
       {/* Header/Navigation */}
-      <nav className="sticky top-0 z-40 bg-[#020617]/80 backdrop-blur-xl border-b border-white/10">
+      <nav className="sticky top-0 z-40 bg-[#08142c]/80 backdrop-blur-xl border-b border-white/10">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 py-3 sm:py-4 xl:py-5 min-[1920px]:py-6 max-w-[100vw] min-w-0">
           <div className="flex items-center justify-between gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-1 overflow-hidden">
@@ -194,7 +194,7 @@ export default function EquipoPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-16 sm:py-24 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
+      <section className="py-16 sm:py-24 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -222,7 +222,7 @@ export default function EquipoPage() {
       </section>
 
       {/* Gallery Grid - FULL RESPONSIVE */}
-      <section className="py-12 sm:py-16 md:py-20 xl:py-32 min-[1920px]:py-40 bg-[#020617] overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 xl:py-32 min-[1920px]:py-40 bg-[#08142c] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
           <div className="grid grid-cols-1 min-[800px]:grid-cols-2 gap-4 sm:gap-6 min-[800px]:gap-6 xl:gap-8 min-[1920px]:gap-10 max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto w-full min-w-0">
             {equipoTrabajo.map((area, index) => (
@@ -284,7 +284,7 @@ export default function EquipoPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#020617]/95 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#08142c]/95 backdrop-blur-xl"
             onClick={closeLightbox}
           >
             {/* Close button */}

@@ -114,7 +114,7 @@ export default function CatalogoPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] overflow-x-hidden w-full max-w-[100vw] min-w-0">
+    <div className="min-h-screen bg-[#08142c] overflow-x-hidden w-full max-w-[100vw] min-w-0">
       {/* WhatsApp flotante */}
       <motion.a
         href={WHATSAPP_URL}
@@ -138,7 +138,7 @@ export default function CatalogoPage() {
       </motion.a>
 
       {/* Nav */}
-      <nav className="sticky top-0 z-40 bg-[#020617]/80 backdrop-blur-xl border-b border-white/10">
+      <nav className="sticky top-0 z-40 bg-[#08142c]/80 backdrop-blur-xl border-b border-white/10">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 xl:px-8 py-3 sm:py-4 max-w-[100vw] min-w-0">
           <div className="flex items-center justify-between gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-1 overflow-hidden">
@@ -165,7 +165,7 @@ export default function CatalogoPage() {
       </nav>
 
       {/* Hero */}
-      <section className="py-16 sm:py-24 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
+      <section className="py-16 sm:py-24 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -270,7 +270,7 @@ export default function CatalogoPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#020617]/95 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#08142c]/95 backdrop-blur-md"
             style={{ minHeight: '100dvh' }}
             onClick={() => setSelectedIndex(null)}
           >
