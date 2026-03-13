@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Sparkles, X, Maximize2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles, X, Maximize2, UtensilsCrossed } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 
@@ -62,6 +62,14 @@ export default function CarouselBienestar() {
       document.body.style.overflow = 'unset';
     }
   }, [lightboxIndex]);
+
+  const nextImage = () => {
+    setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % imagenesBienestar.length));
+  };
+
+  const prevImage = () => {
+    setLightboxIndex((prev) => (prev === null ? null : (prev - 1 + imagenesBienestar.length) % imagenesBienestar.length));
+  };
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-12">
@@ -170,46 +178,102 @@ export default function CarouselBienestar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0d2159]/95 backdrop-blur-xl"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0d2159]"
             onClick={() => setLightboxIndex(null)}
           >
+            {/* Capa de fondo sólida como en video */}
+            <div className="absolute inset-0 z-0 bg-[#0d2159]" aria-hidden />
+
+            {/* Close button */}
             <button
               onClick={() => setLightboxIndex(null)}
-              className="absolute top-6 right-6 z-[110] p-4 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-all"
+              className="absolute top-3 right-3 sm:top-6 sm:right-6 z-[110] w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95"
             >
-              <X className="w-8 h-8" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </button>
 
+            {/* Info superior */}
+            <div className="absolute top-3 left-3 sm:top-6 sm:left-6 z-[110] flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
+                <UtensilsCrossed className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              </div>
+              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2">
+                <span className="text-white font-bold text-xs sm:text-sm">
+                  Foto {lightboxIndex + 1}/{imagenesBienestar.length}
+                </span>
+              </div>
+            </div>
+
+            {/* Image Container */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-5xl aspect-[16/10] px-4"
+              className="relative w-[90%] h-[70vh] sm:h-[80vh] max-w-5xl mx-auto z-10"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <Image
-                  src={imagenesBienestar[lightboxIndex].src!}
-                  alt={imagenesBienestar[lightboxIndex].text}
-                  fill
-                  className="object-cover"
-                  quality={100}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 p-8 sm:p-12">
-                  <h3 className="text-3xl sm:text-5xl font-black text-white mb-2 italic">
-                    {imagenesBienestar[lightboxIndex].text}
-                  </h3>
-                  <p className="text-lg sm:text-2xl text-gray-300">
-                    {imagenesBienestar[lightboxIndex].description}
-                  </p>
-                </div>
-              </div>
+              <Image
+                src={imagenesBienestar[lightboxIndex].src!}
+                alt={imagenesBienestar[lightboxIndex].text}
+                fill
+                className="object-contain"
+                quality={100}
+                priority
+              />
             </motion.div>
+
+            {/* Navegación inferior estilo Galería */}
+            <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-[110] flex items-center gap-3 sm:gap-6">
+              <button
+                onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
+              >
+                <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:-translate-x-0.5 transition-transform" />
+              </button>
+
+              <div className="bg-gradient-to-r from-red-600/80 to-blue-600/80 backdrop-blur-xl border border-white/30 rounded-xl sm:rounded-2xl px-4 sm:px-8 py-2 sm:py-3 shadow-2xl min-w-[120px] text-center">
+                <span className="text-white font-black text-sm sm:text-lg">
+                  {lightboxIndex + 1} <span className="text-white/70 font-normal">de</span> {imagenesBienestar.length}
+                </span>
+              </div>
+
+              <button
+                onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
+              >
+                <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:translate-x-0.5 transition-transform" />
+              </button>
+            </div>
+
+            {/* Keyboard Support Visual */}
+            <div className="hidden md:flex absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 gap-4 text-white/60 text-xs z-[110]">
+              <span>← → Teclado</span>
+              <span className="text-white/40">•</span>
+              <span>ESC Cerrar</span>
+            </div>
+
+            {/* Overlay de texto (opcional, como en video) */}
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm z-[110] md:hidden">
+              {imagenesBienestar[lightboxIndex].text}
+            </p>
           </motion.div>,
           document.body
         )}
       </AnimatePresence>
+
+      {/* Keyboard Navigation Handler */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-0"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setLightboxIndex(null);
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+          }}
+          tabIndex={0}
+          autoFocus
+        />
+      )}
     </div>
   );
 }
