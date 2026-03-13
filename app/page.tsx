@@ -359,7 +359,7 @@ export default function Home() {
       </section>
 
       {/* Sobre Nosotros - CON GALERÍA ESPECTACULAR - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
         {/* Background effects */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
@@ -477,7 +477,7 @@ export default function Home() {
 
 
       {/* Nuestra Propuesta Gastronómica - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -511,7 +511,7 @@ export default function Home() {
       </section>
 
       {/* Sección Calidad - Higiene y servicio premium */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -575,7 +575,7 @@ export default function Home() {
                 minWidth: '100vw',
                   height: '100%',
                 minHeight: '100dvh',
-                backgroundColor: '#08142c',
+                backgroundColor: '#0d2159',
               }}
               onClick={closeVideoLightbox}
             >
@@ -590,7 +590,7 @@ export default function Home() {
                   width: '100vw',
                   height: '100dvh',
                   minHeight: '100vh',
-                  backgroundColor: '#08142c',
+                  backgroundColor: '#0d2159',
                 }}
                 aria-hidden
               />
@@ -631,7 +631,7 @@ export default function Home() {
         )}
 
       {/* Por qué elegir a Duvan - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -735,7 +735,7 @@ export default function Home() {
       </section>
 
       {/* Misión - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -754,7 +754,7 @@ export default function Home() {
       </section>
 
       {/* Beneficios al contratarnos - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -803,7 +803,7 @@ export default function Home() {
       </section>
 
       {/* Testimonios - FULL RESPONSIVE (800x600 en adelante) */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
           <div className="max-w-7xl mx-auto min-w-0">
             <div className="text-center mb-12 sm:mb-16 md:mb-20">
@@ -884,7 +884,7 @@ export default function Home() {
       </section>
 
       {/* Tranquilidad y Bienestar - NUEVA SECCIÓN */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
@@ -934,7 +934,7 @@ export default function Home() {
       </section>
 
       {/* Proceso - FULL RESPONSIVE (800x600 en adelante) */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
           <div className="max-w-7xl xl:max-w-[90rem] min-[1920px]:max-w-[100rem] mx-auto min-w-0">
             <div className="text-center mb-12 sm:mb-16 md:mb-20 xl:mb-24 min-[1920px]:mb-28">
@@ -1045,7 +1045,7 @@ export default function Home() {
       </section>
 
       {/* Promedio de comidas diarias - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#08142c] via-[#0f172a] to-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1064,7 +1064,7 @@ export default function Home() {
       </section>
 
       {/* Eslogan - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#08142c] relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
@@ -1158,7 +1158,7 @@ export default function Home() {
       </section>
 
       {/* Footer - FULL RESPONSIVE */}
-      <footer className="bg-[#08142c] border-t border-white/10 text-white py-8 sm:py-12 xl:py-16 min-[1920px]:py-20 overflow-hidden">
+      <footer className="bg-[#0d2159] border-t border-white/10 text-white py-8 sm:py-12 xl:py-16 min-[1920px]:py-20 overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 min-w-0">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">

@@ -34,7 +34,7 @@ export default function CarouselBienestar() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-12">
       <div className="relative group p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-600 to-red-600">
-        <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-[#08142c]" ref={emblaRef}>
+        <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-[#0d2159]" ref={emblaRef}>
           <div className="flex touch-pan-y">
             {imagenesBienestar.map((item) => (
               <div
@@ -54,7 +54,7 @@ export default function CarouselBienestar() {
                 </div>
                 
                 {/* Decorative overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#08142c] via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d2159] via-transparent to-transparent opacity-60" />
               </div>
             ))}
           </div>
