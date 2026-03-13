@@ -39,7 +39,7 @@ export default function CarouselBienestar() {
             {imagenesBienestar.map((item) => (
               <div
                 key={item.id}
-                className="relative flex-[0_0_100%] min-w-0 aspect-[16/9] sm:aspect-[21/9] flex items-center justify-center bg-zinc-900/50"
+                className="relative flex-[0_0_100%] min-w-0 aspect-[16/9] sm:aspect-[21/9] flex items-center justify-center bg-gray-900/40"
               >
                 <div className="flex flex-col items-center gap-4 text-center px-4">
                   <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white/5 flex items-center justify-center border border-white/10 mb-4 animate-pulse">

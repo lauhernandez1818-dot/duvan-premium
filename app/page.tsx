@@ -575,7 +575,7 @@ export default function Home() {
                 minWidth: '100vw',
                   height: '100%',
                 minHeight: '100dvh',
-                backgroundColor: '#18181b',
+                backgroundColor: '#020617',
               }}
               onClick={closeVideoLightbox}
             >
@@ -590,7 +590,7 @@ export default function Home() {
                   width: '100vw',
                   height: '100dvh',
                   minHeight: '100vh',
-                  backgroundColor: '#18181b',
+                  backgroundColor: '#020617',
                 }}
                 aria-hidden
               />

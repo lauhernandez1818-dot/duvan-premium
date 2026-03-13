@@ -15,13 +15,21 @@ const imagenes = [
   { src: '/imagenes/comida5.webp', alt: 'Inversiones Duvan - Comida 5', label: null, video: null },
   { src: '/imagenes/comida6.webp', alt: 'Inversiones Duvan - Comida 6', label: null, video: null },
   { src: '/imagenes/comida7.webp', alt: 'Inversiones Duvan - Comida 7', label: null, video: null },
-  { src: '/imagenes/Hamburguesa.webp', alt: 'Hamburguesa Duvan', label: 'Hamburguesa Duvan', video: '/videos/HamburguesaV.mp4' },
+  { src: '/imagenes/comida8.webp', alt: 'Inversiones Duvan - Comida 8', label: null, video: null },
   { src: '/imagenes/comida9.webp', alt: 'Inversiones Duvan - Comida 9', label: null, video: null },
   { src: '/imagenes/comida10.webp', alt: 'Inversiones Duvan - Comida 10', label: null, video: null },
   { src: '/imagenes/comida11.webp', alt: 'Inversiones Duvan - Comida 11', label: null, video: null },
   { src: '/imagenes/comida12.webp', alt: 'Inversiones Duvan - Comida 12', label: null, video: null },
   { src: '/imagenes/comida13.webp', alt: 'Inversiones Duvan - Comida 13', label: null, video: null },
   { src: '/imagenes/comida14.webp', alt: 'Inversiones Duvan - Comida 14', label: null, video: null },
+  { src: '/imagenes/comida15.webp', alt: 'Inversiones Duvan - Comida 15', label: null, video: null },
+  { src: '/imagenes/comida16.webp', alt: 'Inversiones Duvan - Comida 16', label: null, video: null },
+  { src: '/imagenes/comida17.webp', alt: 'Inversiones Duvan - Comida 17', label: null, video: null },
+  { src: '/imagenes/comida18.webp', alt: 'Inversiones Duvan - Comida 18', label: null, video: null },
+  { src: '/imagenes/comida19.webp', alt: 'Inversiones Duvan - Comida 19', label: null, video: null },
+  { src: '/imagenes/comida20.webp', alt: 'Inversiones Duvan - Comida 20', label: null, video: null },
+  { src: '/imagenes/comida21.webp', alt: 'Inversiones Duvan - Comida 21', label: null, video: null },
+  { src: '/imagenes/Hamburguesa.webp', alt: 'Hamburguesa Duvan', label: 'Hamburguesa Duvan', video: '/videos/HamburguesaV.mp4' },
 ];
 
 export default function CarouselPropuesta() {

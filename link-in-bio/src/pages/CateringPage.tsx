@@ -3,9 +3,8 @@ import { MessageCircle } from 'lucide-react';
 import { cateringText } from '@/data/catering';
 import { pageEnter } from '@/lib/motion';
 
-const WHATSAPP_URL =
-  'https://wa.me/584241520170?text=' +
-  encodeURIComponent('Hola, me interesa solicitar información sobre catering corporativo.');
+const cateringPhone = import.meta.env.VITE_DUVAN_PHONE_1 || "";
+const WHATSAPP_URL = cateringPhone ? `https://wa.me/${cateringPhone}?text=${encodeURIComponent('Hola, me interesa solicitar información sobre catering corporativo.')}` : "#";
 
 export function CateringPage() {
   return (

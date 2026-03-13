@@ -42,7 +42,7 @@ export default function RootLayout({
     "@type": "LocalBusiness",
     "name": "Inversiones Duvan",
     "description": "Líderes en alimentación corporativa en la Gran Caracas. Servimos de 3,000 a 6,000 comidas diarias con 15+ años de experiencia.",
-    "telephone": "+584241520170",
+    "telephone": process.env.NEXT_PUBLIC_DUVAN_PHONE_1 || "",
     "areaServed": { "@type": "Place", "name": "Gran Caracas, Venezuela" },
     "url": "https://duvan-premium.vercel.app",
   };
