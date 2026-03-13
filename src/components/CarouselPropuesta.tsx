@@ -89,7 +89,7 @@ export default function CarouselPropuesta() {
     <div className="w-full max-w-[min(100%,64rem)] xl:max-w-[min(100%,76rem)] min-[1920px]:max-w-[min(100%,88rem)] mx-auto min-w-0 overflow-hidden">
       {/* Borde paleta marca: wrapper con gradiente rojo-azul */}
       <div className="p-1.5 sm:p-2 xl:p-2.5 min-[1920px]:p-3 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
-        <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-gray-900" ref={emblaRef}>
+        <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-[#020617]" ref={emblaRef}>
           <div className="flex touch-pan-y">
             {imagenes.map((img, index) => (
               <div
@@ -150,7 +150,7 @@ export default function CarouselPropuesta() {
                 minWidth: '100vw',
                 height: '100%',
                 minHeight: '100dvh',
-                backgroundColor: '#18181b',
+                backgroundColor: '#020617',
               }}
               onClick={() => setLightboxIndex(null)}
             >
@@ -165,7 +165,7 @@ export default function CarouselPropuesta() {
                   width: '100vw',
                   height: '100dvh',
                   minHeight: '100vh',
-                  backgroundColor: '#18181b',
+                  backgroundColor: '#020617',
                 }}
                 aria-hidden
               />

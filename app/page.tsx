@@ -27,13 +27,15 @@ import {
 } from 'lucide-react';
 import CalculadoraPedido from '@/src/components/CalculadoraPedido';
 import CarouselPropuesta from '@/src/components/CarouselPropuesta';
+import CarouselBienestar from '@/src/components/CarouselBienestar';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
-const WHATSAPP_URL = `https://wa.me/584241520170?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+const whatsappPhone = process.env.NEXT_PUBLIC_DUVAN_PHONE_1 || "";
+const WHATSAPP_URL = whatsappPhone ? `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(WHATSAPP_MSG)}` : "#";
 
 // Array del equipo de trabajo (orden alfabético)
 const equipoTrabajo = [
@@ -229,9 +231,9 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-                <a href="tel:+584241520170" className="flex items-center gap-1 sm:gap-2 text-white hover:text-white transition-colors min-h-[44px] items-center justify-center">
+                <a href={whatsappPhone ? `tel:+${whatsappPhone}` : "#"} className="flex items-center gap-1 sm:gap-2 text-white hover:text-white transition-colors min-h-[44px] items-center justify-center">
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  <span className="hidden sm:inline font-medium text-xs md:text-base">+58 424-1520170</span>
+                  {whatsappPhone && <span className="hidden sm:inline font-medium text-xs md:text-base">+{whatsappPhone}</span>}
                 </a>
                 <a href="#cotizacion" className="bg-gradient-to-r from-red-600 to-blue-600 text-white px-3 sm:px-6 py-2 min-h-[44px] flex items-center justify-center rounded-lg text-xs sm:text-sm font-bold hover:shadow-lg hover:shadow-blue-600/50 transition-all touch-manipulation">
                   Cotizar
@@ -323,7 +325,7 @@ export default function Home() {
                 className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 sm:px-4 w-full max-w-[100vw] min-w-0"
               >
                 <motion.a 
-                  href="tel:+584241520170"
+                  href={whatsappPhone ? `tel:+${whatsappPhone}` : "#"}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative w-full sm:w-auto max-w-full overflow-hidden rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-blue-600/50 transition-all duration-300 min-h-[48px] flex items-center justify-center touch-manipulation"
@@ -357,7 +359,7 @@ export default function Home() {
       </section>
 
       {/* Sobre Nosotros - CON GALERÍA ESPECTACULAR - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
         {/* Background effects */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
@@ -475,7 +477,7 @@ export default function Home() {
 
 
       {/* Nuestra Propuesta Gastronómica - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#020617] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -509,7 +511,7 @@ export default function Home() {
       </section>
 
       {/* Sección Calidad - Higiene y servicio premium */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#020617] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -629,7 +631,7 @@ export default function Home() {
         )}
 
       {/* Por qué elegir a Duvan - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -676,8 +678,8 @@ export default function Home() {
                   icon: Clock,
                   title: 'Puntualidad Total',
                   description: 'Horarios de entrega cumplidos sin excusas. Tu equipo come a tiempo, siempre.',
-                  gradient: 'from-blue-600 via-blue-500 to-cyan-500',
-                  shadowColor: 'shadow-blue-600/50',
+                  gradient: 'from-blue-400 via-blue-300 to-cyan-300',
+                  shadowColor: 'shadow-blue-400/50',
                 },
                 {
                   number: '03',
@@ -733,7 +735,7 @@ export default function Home() {
       </section>
 
       {/* Misión - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#020617] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -752,7 +754,7 @@ export default function Home() {
       </section>
 
       {/* Beneficios al contratarnos - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -801,7 +803,7 @@ export default function Home() {
       </section>
 
       {/* Testimonios - FULL RESPONSIVE (800x600 en adelante) */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
           <div className="max-w-7xl mx-auto min-w-0">
             <div className="text-center mb-12 sm:mb-16 md:mb-20">
@@ -881,6 +883,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Tranquilidad y Bienestar - NUEVA SECCIÓN */}
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#020617] relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16 xl:mb-20"
+          >
+            <h2 className="text-3xl sm:text-5xl md:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 px-2 break-words leading-tight">
+              TRANQUILIDAD Y BIENESTAR <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent italic">PARA TUS COLABORADORES!</span>
+            </h2>
+            <p className="text-lg sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-bold text-gray-400">
+              Para tu empresa
+            </p>
+          </motion.div>
+          
+          <CarouselBienestar />
+        </div>
+      </section>
+
       {/* Nuestras Opciones - FULL RESPONSIVE (800x600 en adelante) */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-zinc-900 overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
@@ -906,7 +934,7 @@ export default function Home() {
       </section>
 
       {/* Proceso - FULL RESPONSIVE (800x600 en adelante) */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
           <div className="max-w-7xl xl:max-w-[90rem] min-[1920px]:max-w-[100rem] mx-auto min-w-0">
             <div className="text-center mb-12 sm:mb-16 md:mb-20 xl:mb-24 min-[1920px]:mb-28">
@@ -1017,7 +1045,7 @@ export default function Home() {
       </section>
 
       {/* Promedio de comidas diarias - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1036,7 +1064,7 @@ export default function Home() {
       </section>
 
       {/* Eslogan - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#020617] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
@@ -1097,7 +1125,7 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full max-w-[100vw] min-w-0">
                 <motion.a 
-                  href="tel:+584241520170"
+                  href={whatsappPhone ? `tel:+${whatsappPhone}` : "#"}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative w-full sm:w-auto max-w-full overflow-hidden rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl min-h-[48px] flex items-center justify-center touch-manipulation"
@@ -1105,7 +1133,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-white" />
                   <div className="relative flex items-center justify-center gap-2 sm:gap-3 xl:gap-4 px-4 sm:px-12 xl:px-16 min-[1920px]:px-20 py-4 sm:py-7 xl:py-8 min-[1920px]:py-10 text-black font-black text-base sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl">
                     <Phone className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 xl:w-8 xl:h-8 min-[1920px]:w-10 min-[1920px]:h-10 group-hover:rotate-12 transition-transform flex-shrink-0" />
-                    <span className="hidden sm:inline">+58 424-1520170</span>
+                    {whatsappPhone && <span className="hidden sm:inline">+{whatsappPhone}</span>}
                     <span className="sm:hidden">LLAMAR</span>
                   </div>
                 </motion.a>
@@ -1130,7 +1158,7 @@ export default function Home() {
       </section>
 
       {/* Footer - FULL RESPONSIVE */}
-      <footer className="bg-zinc-900 border-t border-white/10 text-white py-8 sm:py-12 xl:py-16 min-[1920px]:py-20 overflow-hidden">
+      <footer className="bg-[#020617] border-t border-white/10 text-white py-8 sm:py-12 xl:py-16 min-[1920px]:py-20 overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 min-w-0">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -1149,9 +1177,9 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 xl:gap-8 min-[1920px]:gap-10 text-center sm:text-left flex-wrap justify-center">
-              <a href="tel:+584241520170" className="flex items-center gap-2 xl:gap-3 text-gray-400 hover:text-white transition-colors min-h-[44px] justify-center sm:justify-start">
+              <a href={whatsappPhone ? `tel:+${whatsappPhone}` : "#"} className="flex items-center gap-2 xl:gap-3 text-gray-400 hover:text-white transition-colors min-h-[44px] justify-center sm:justify-start">
                 <Phone className="w-4 h-4 xl:w-5 xl:h-5 min-[1920px]:w-6 min-[1920px]:h-6 flex-shrink-0" />
-                <span className="text-xs sm:text-base xl:text-lg min-[1920px]:text-xl">+58 424-1520170</span>
+                {whatsappPhone && <span className="text-xs sm:text-base xl:text-lg min-[1920px]:text-xl">+{whatsappPhone}</span>}
               </a>
               <Link href="/galeria" className="flex items-center gap-2 xl:gap-3 text-gray-400 hover:text-white transition-colors min-h-[44px] justify-center sm:justify-start">
                 <ChefHat className="w-4 h-4 xl:w-5 xl:h-5 min-[1920px]:w-6 min-[1920px]:h-6 flex-shrink-0" />

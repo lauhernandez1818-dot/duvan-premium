@@ -7,7 +7,8 @@ import { X, ChevronLeft, ChevronRight, Maximize2, Home, UtensilsCrossed, Phone }
 import Link from 'next/link';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
-const WHATSAPP_URL = `https://wa.me/584241520170?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+const whatsappPhone = process.env.NEXT_PUBLIC_DUVAN_PHONE_1 || "";
+const WHATSAPP_URL = whatsappPhone ? `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(WHATSAPP_MSG)}` : "#";
 
 const imagenes = [
   { id: 1, src: '/imagenes/Sobrenosotros (1).webp', alt: 'Inversiones Duvan - Instalaciones 1' },
@@ -46,7 +47,7 @@ export default function GaleriaPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-900 overflow-x-hidden w-full max-w-[100vw] min-w-0">
+    <div className="min-h-screen bg-[#020617] overflow-x-hidden w-full max-w-[100vw] min-w-0">
       {/* Botón Flotante WhatsApp - mismo que en home */}
       <motion.a
         href={WHATSAPP_URL}
@@ -72,7 +73,7 @@ export default function GaleriaPage() {
       </motion.a>
 
       {/* Header/Navigation - FULL RESPONSIVE */}
-      <nav className="sticky top-0 z-40 bg-zinc-900/80 backdrop-blur-xl border-b border-white/10">
+      <nav className="sticky top-0 z-40 bg-[#020617]/80 backdrop-blur-xl border-b border-white/10">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 py-3 sm:py-4 xl:py-5 min-[1920px]:py-6 max-w-[100vw] min-w-0">
           <div className="flex items-center justify-between gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-1 overflow-hidden">
@@ -94,7 +95,7 @@ export default function GaleriaPage() {
             </Link>
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <a
-                href="tel:+584241520170"
+                href={whatsappPhone ? `tel:+${whatsappPhone}` : "#"}
                 className="flex items-center gap-2 text-white hover:text-white/90 transition-colors min-h-[44px] items-center justify-center px-2 sm:px-3 rounded-lg hover:bg-white/10 touch-manipulation"
                 aria-label="Llamar"
               >
@@ -114,7 +115,7 @@ export default function GaleriaPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-16 sm:py-24 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -142,7 +143,7 @@ export default function GaleriaPage() {
       </section>
 
       {/* Gallery Grid - FULL RESPONSIVE */}
-      <section className="py-12 sm:py-16 md:py-20 xl:py-32 min-[1920px]:py-40 bg-zinc-900 overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 xl:py-32 min-[1920px]:py-40 bg-[#020617] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
           <div className="grid grid-cols-1 min-[800px]:grid-cols-2 gap-4 sm:gap-6 min-[800px]:gap-6 xl:gap-8 min-[1920px]:gap-10 max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto w-full min-w-0">
             {imagenes.map((imagen, index) => (
@@ -155,7 +156,7 @@ export default function GaleriaPage() {
                 className="relative group"
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 opacity-0 group-hover:opacity-30 rounded-2xl blur-xl transition-all duration-300" />
-                <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border border-white/10 rounded-2xl overflow-hidden group-hover:border-white/30 transition-all">
+                <div className="relative bg-gradient-to-br from-[#0f172a] to-[#020617] border border-white/10 rounded-2xl overflow-hidden group-hover:border-white/30 transition-all">
                   <div className="relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden">
                     <Image
                       src={imagen.src}
@@ -174,7 +175,7 @@ export default function GaleriaPage() {
                       </button>
                     </div>
                   </div>
-                  <div className="p-6 bg-gradient-to-br from-gray-800 to-zinc-900 border-t border-white/10">
+                  <div className="p-6 bg-gradient-to-br from-[#0f172a] to-[#020617] border-t border-white/10">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg flex items-center justify-center">
                         <UtensilsCrossed className="w-5 h-5 text-white" />
@@ -203,7 +204,7 @@ export default function GaleriaPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/95 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#020617]/95 backdrop-blur-xl"
             onClick={closeLightbox}
           >
             {/* Close button */}

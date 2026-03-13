@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { X, ChevronLeft, ChevronRight, Home, UtensilsCrossed, Phone, ImageIcon, Video, Building2 } from 'lucide-react';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
-const WHATSAPP_URL = `https://wa.me/584241520170?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+const whatsappPhone = process.env.NEXT_PUBLIC_DUVAN_PHONE_1 || "";
+const WHATSAPP_URL = whatsappPhone ? `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(WHATSAPP_MSG)}` : "#";
 
 type CatalogType = 'plato' | 'informativo' | 'video';
 
@@ -105,7 +106,7 @@ export default function CatalogoPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-900 overflow-x-hidden w-full max-w-[100vw] min-w-0">
+    <div className="min-h-screen bg-[#020617] overflow-x-hidden w-full max-w-[100vw] min-w-0">
       {/* WhatsApp flotante */}
       <motion.a
         href={WHATSAPP_URL}
@@ -129,7 +130,7 @@ export default function CatalogoPage() {
       </motion.a>
 
       {/* Nav */}
-      <nav className="sticky top-0 z-40 bg-zinc-900/80 backdrop-blur-xl border-b border-white/10">
+      <nav className="sticky top-0 z-40 bg-[#020617]/80 backdrop-blur-xl border-b border-white/10">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 xl:px-8 py-3 sm:py-4 max-w-[100vw] min-w-0">
           <div className="flex items-center justify-between gap-2 min-w-0">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-1 overflow-hidden">
@@ -142,7 +143,7 @@ export default function CatalogoPage() {
               </div>
             </Link>
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <a href="tel:+584241520170" className="flex items-center gap-2 text-white hover:text-white/90 transition-colors min-h-[44px] items-center justify-center px-2 sm:px-3 rounded-lg hover:bg-white/10" aria-label="Llamar">
+              <a href={whatsappPhone ? `tel:+${whatsappPhone}` : "#"} className="flex items-center gap-2 text-white hover:text-white/90 transition-colors min-h-[44px] items-center justify-center px-2 sm:px-3 rounded-lg hover:bg-white/10" aria-label="Llamar">
                 <Phone className="w-4 h-4 flex-shrink-0" />
                 <span className="hidden sm:inline text-sm font-medium">Llamar</span>
               </a>
@@ -156,7 +157,7 @@ export default function CatalogoPage() {
       </nav>
 
       {/* Hero */}
-      <section className="py-14 sm:py-20 xl:py-32 bg-gradient-to-b from-zinc-900 via-gray-800 to-zinc-900 relative overflow-hidden">
+      <section className="py-16 sm:py-24 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -261,7 +262,7 @@ export default function CatalogoPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-zinc-900"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#020617]/95 backdrop-blur-md"
             style={{ minHeight: '100dvh' }}
             onClick={() => setSelectedIndex(null)}
           >

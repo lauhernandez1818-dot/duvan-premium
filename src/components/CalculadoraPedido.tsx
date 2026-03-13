@@ -19,7 +19,7 @@ const planes: Plan[] = [
     name: 'Plan Esencial',
     minPersonas: 50,
     maxPersonas: 150,
-    precioReferencia: 'Desde $8/persona',
+    precioReferencia: 'Cotización personalizada',
     beneficios: [
       'Menú diario balanceado',
       'Entrega puntual garantizada',
@@ -32,7 +32,7 @@ const planes: Plan[] = [
     name: 'Plan Corporativo',
     minPersonas: 151,
     maxPersonas: 500,
-    precioReferencia: 'Desde $7/persona',
+    precioReferencia: 'Cotización personalizada',
     beneficios: [
       'Menú personalizado según preferencias',
       'Gestor de cuenta dedicado',
@@ -46,7 +46,7 @@ const planes: Plan[] = [
     name: 'Plan Grande',
     minPersonas: 501,
     maxPersonas: 2000,
-    precioReferencia: 'Desde $6.50/persona',
+    precioReferencia: 'Cotización personalizada',
     beneficios: [
       'Menús premium personalizados',
       'Múltiples puntos de entrega',
@@ -253,13 +253,10 @@ export default function CalculadoraPedido() {
               </div>
               
               <div className={`bg-gradient-to-r ${planRecomendado.gradient} rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 xl:p-10 min-[1920px]:p-12 mb-4 sm:mb-6 xl:mb-8 shadow-2xl`}>
-                <h5 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl min-[1920px]:text-6xl font-black text-white mb-2 sm:mb-3 xl:mb-4">
+                <h5 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl min-[1920px]:text-6xl font-black text-white mb-1">
                   {planRecomendado.name}
                 </h5>
-                <p className="text-white/90 text-xl sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-black mb-2 xl:mb-3">
-                  {planRecomendado.precioReferencia}
-                </p>
-                <p className="text-white/70 text-xs sm:text-sm md:text-base xl:text-lg min-[1920px]:text-xl font-medium">
+                <p className="text-white/90 text-sm sm:text-lg md:text-xl xl:text-2xl min-[1920px]:text-3xl font-bold">
                   Perfecto para {planRecomendado.minPersonas} - {planRecomendado.maxPersonas} personas
                 </p>
               </div>
@@ -286,7 +283,7 @@ export default function CalculadoraPedido() {
               </div>
 
               <motion.a
-                href={`https://wa.me/584241520170?text=${encodeURIComponent(`Hola, me interesa solicitar cotización para el ${planRecomendado.name} (${planRecomendado.minPersonas}-${planRecomendado.maxPersonas} personas).`)}`}
+                href={process.env.NEXT_PUBLIC_DUVAN_PHONE_1 ? `https://wa.me/${process.env.NEXT_PUBLIC_DUVAN_PHONE_1}?text=${encodeURIComponent(`Hola, me interesa solicitar cotización para el ${planRecomendado.name} (${planRecomendado.minPersonas}-${planRecomendado.maxPersonas} personas).`)}` : "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02, y: -2 }}
