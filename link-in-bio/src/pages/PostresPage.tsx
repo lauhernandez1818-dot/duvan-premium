@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
 import { postres } from '@/data/postres';
-import { itemStagger, lightboxOverlay, lightboxCard } from '@/lib/motion';
+import { itemStagger } from '@/lib/motion';
+import ProfessionalModal from '../components/ProfessionalModal';
 
 const pageTitle = 'Postres';
 const pageSubtitle = 'Dulces y repostería para cerrar tu menú.';
@@ -20,8 +21,6 @@ export function PostresPage() {
     if (activeIndex === null) return;
     setActiveIndex((prev) => (prev === postres.length - 1 ? 0 : (prev ?? 0) + 1));
   };
-
-  const current = activeIndex !== null ? postres[activeIndex] : null;
 
   return (
     <div className="pt-[max(3.5rem,env(safe-area-inset-top))] pb-[max(4rem,env(safe-area-inset-bottom))] safe-padding-x">
@@ -80,68 +79,21 @@ export function PostresPage() {
         </ul>
       </main>
 
-      <AnimatePresence>
-        {current && activeIndex !== null && (
-          <motion.div
-            className="fixed inset-0 z-40 bg-black/90 flex items-center justify-center px-4"
-            initial={lightboxOverlay.initial}
-            animate={lightboxOverlay.animate}
-            exit={lightboxOverlay.exit}
-            transition={lightboxOverlay.transition}
-            onClick={closeLightbox}
-          >
-            <motion.div
-              className="relative w-full max-w-md"
-              initial={lightboxCard.initial}
-              animate={lightboxCard.animate}
-              exit={lightboxCard.exit}
-              transition={lightboxCard.transition}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={closeLightbox}
-                className="absolute -top-10 right-0 text-white/80 hover:text-white p-1"
-                aria-label="Cerrar"
-              >
-                <X className="w-6 h-6" />
-              </button>
-              <div className="rounded-2xl border border-white/10 bg-zinc-900/95 overflow-hidden">
-                <div className="bg-black">
-                  <img
-                    src={current.image}
-                    alt={current.title}
-                    className="w-full max-h-[65vh] object-contain"
-                  />
-                </div>
-                <div className="p-4">
-                  <h2 className="text-white font-semibold text-lg">{current.title}</h2>
-                  {current.descripcion && (
-                    <p className="text-gray-400 text-sm mt-1">{current.descripcion}</p>
-                  )}
-                  <div className="flex items-center justify-between mt-4 text-xs text-gray-400">
-                    <button
-                      type="button"
-                      onClick={goPrev}
-                      className="text-white/80 hover:text-white font-medium"
-                    >
-                      ← Anterior
-                    </button>
-                    <span>{activeIndex + 1} / {postres.length}</span>
-                    <button
-                      type="button"
-                      onClick={goNext}
-                      className="text-white/80 hover:text-white font-medium"
-                    >
-                      Siguiente →
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <ProfessionalModal
+        isOpen={activeIndex !== null}
+        onClose={closeLightbox}
+        items={postres.map(item => ({
+          src: item.image,
+          alt: item.title,
+          title: item.title,
+          description: item.descripcion
+        }))}
+        currentIndex={activeIndex ?? 0}
+        onNext={goNext}
+        onPrev={goPrev}
+        categoryLabel="Postres"
+        icon={Sparkles}
+      />
     </div>
   );
 }

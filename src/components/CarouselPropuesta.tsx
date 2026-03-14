@@ -6,6 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Maximize2, X, UtensilsCrossed } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ProfessionalModal from './ProfessionalModal';
 
 const imagenes = [
   { src: '/imagenes/comida1.webp', alt: 'Inversiones Duvan - Comida 1', label: null as string | null, video: null as string | null },
@@ -44,8 +45,6 @@ export default function CarouselPropuesta() {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const scrollPositionRef = useRef(0);
-  const prevLightboxRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -57,41 +56,6 @@ export default function CarouselPropuesta() {
   }, [emblaApi]);
 
   const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
-
-  useEffect(() => {
-    const wasOpen = prevLightboxRef.current !== null;
-    const isOpen = lightboxIndex !== null;
-    if (isOpen) {
-      if (!wasOpen) {
-        const scrollY = window.scrollY ?? document.documentElement.scrollTop;
-        scrollPositionRef.current = scrollY;
-      }
-      const scrollY = scrollPositionRef.current;
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-    } else {
-      const savedY = scrollPositionRef.current;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      requestAnimationFrame(() => {
-        window.scrollTo(0, savedY);
-      });
-    }
-    prevLightboxRef.current = lightboxIndex;
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-    };
-  }, [lightboxIndex]);
 
   return (
     <div className="w-full max-w-[min(100%,64rem)] xl:max-w-[min(100%,76rem)] min-[1920px]:max-w-[min(100%,88rem)] mx-auto min-w-0 overflow-hidden">
@@ -137,136 +101,21 @@ export default function CarouselPropuesta() {
         </div>
       </div>
 
-      {/* Lightbox fotos - portal a body, fondo opaco tapa todo */}
-      {typeof document !== 'undefined' &&
-        lightboxIndex !== null &&
-        createPortal(
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              role="dialog"
-              aria-modal="true"
-              className="fixed z-[9999] flex flex-col items-center justify-center overflow-hidden pointer-events-auto"
-              style={{
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                width: '100%',
-                minWidth: '100vw',
-                height: '100%',
-                minHeight: '100dvh',
-                backgroundColor: '#0d2159',
-              }}
-              onClick={() => setLightboxIndex(null)}
-            >
-              {/* Capa de fondo que tapa todo: no se ve nada de la página */}
-              <div
-                className="absolute inset-0 z-0"
-                style={{
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  width: '100vw',
-                  height: '100dvh',
-                  minHeight: '100vh',
-                  backgroundColor: '#0d2159',
-                }}
-                aria-hidden
-              />
-            {/* Cerrar - arriba derecha como galería */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxIndex(null);
-              }}
-              className="absolute top-3 right-3 sm:top-6 sm:right-6 z-[70] w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95"
-              aria-label="Cerrar"
-            >
-              <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </button>
-
-            {/* Info superior - como galería */}
-            <div className="absolute top-3 left-3 sm:top-6 sm:left-6 z-[70] flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                <UtensilsCrossed className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-              </div>
-              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2">
-                <span className="text-white font-bold text-xs sm:text-sm">
-                  Foto {lightboxIndex + 1} de {imagenes.length}
-                </span>
-              </div>
-            </div>
-
-            {/* Imagen y opcionalmente video (ej. Hamburguesa Duvan) */}
-            <motion.div
-              key={lightboxIndex}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-[90%] max-w-4xl mx-auto flex flex-col items-center gap-4 overflow-y-auto max-h-[85vh] py-4"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative w-full flex-[0_0_auto] h-[50vh] sm:h-[60vh] min-h-[200px]">
-                <Image
-                  src={imagenes[lightboxIndex].src}
-                  alt={imagenes[lightboxIndex].alt}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              {imagenes[lightboxIndex].video && (
-                <div className="w-full max-w-2xl flex-shrink-0 rounded-xl overflow-hidden bg-black/40 border border-white/20">
-                  <p className="text-white font-semibold text-center py-2 text-sm">{imagenes[lightboxIndex].label ?? 'Video'}</p>
-                  <video
-                    src={imagenes[lightboxIndex].video!}
-                    controls
-                    className="w-full max-h-[35vh] object-contain"
-                    playsInline
-                  />
-                </div>
-              )}
-            </motion.div>
-
-            {/* Controles inferiores - como galería, paleta rojo/azul */}
-            <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-[70] flex items-center gap-3 sm:gap-6">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLightboxIndex((prev) => (prev == null ? 0 : prev === 0 ? imagenes.length - 1 : prev - 1));
-                }}
-                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
-                aria-label="Foto anterior"
-              >
-                <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:-translate-x-0.5 transition-transform" />
-              </button>
-              <div className="bg-gradient-to-r from-red-600/80 to-blue-600/80 backdrop-blur-xl border border-white/30 rounded-xl sm:rounded-2xl px-4 sm:px-8 py-2 sm:py-3 shadow-2xl">
-                <span className="text-white font-black text-sm sm:text-lg">
-                  {lightboxIndex + 1} <span className="text-white/70 font-normal">de</span> {imagenes.length}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLightboxIndex((prev) => (prev == null ? 0 : prev === imagenes.length - 1 ? 0 : prev + 1));
-                }}
-                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
-                aria-label="Foto siguiente"
-              >
-                <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:translate-x-0.5 transition-transform" />
-              </button>
-            </div>
-          </motion.div>
-          </AnimatePresence>,
-          document.body
-        )}
+      {/* Lightbox Modal - Using Shared Component */}
+      <ProfessionalModal
+        isOpen={lightboxIndex !== null}
+        onClose={() => setLightboxIndex(null)}
+        items={imagenes.map(img => ({
+          src: img.src,
+          alt: img.alt,
+          title: img.label || img.alt,
+          video: img.video
+        }))}
+        currentIndex={lightboxIndex ?? 0}
+        onNext={() => setLightboxIndex((prev) => (prev == null ? 0 : (prev + 1) % imagenes.length))}
+        onPrev={() => setLightboxIndex((prev) => (prev == null ? 0 : (prev - 1 + imagenes.length) % imagenes.length))}
+        categoryLabel="Propuesta Gastronómica"
+      />
 
       {/* Flechas minimalistas */}
       <div className="flex items-center justify-center gap-4 mt-4 sm:mt-6">

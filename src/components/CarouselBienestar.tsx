@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Sparkles, X, Maximize2, UtensilsCrossed } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
+import ProfessionalModal from './ProfessionalModal';
 
 const imagenesBienestar = [
   { 
@@ -54,15 +55,6 @@ export default function CarouselBienestar() {
     emblaApi.on('reInit', onSelect);
   }, [emblaApi, onSelect]);
 
-  // Bloquear scroll cuando el lightbox está abierto
-  useEffect(() => {
-    if (lightboxIndex !== null) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [lightboxIndex]);
-
   const nextImage = () => {
     setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % imagenesBienestar.length));
   };
@@ -76,13 +68,13 @@ export default function CarouselBienestar() {
       <div className="relative group p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-600 to-red-600">
         <div className="overflow-hidden rounded-xl sm:rounded-2xl bg-[#0d2159]" ref={emblaRef}>
           <div className="flex touch-pan-y">
-            {imagenesBienestar.map((item) => (
+            {imagenesBienestar.map((item, index) => (
               <div
                 key={item.id}
                 className="relative flex-[0_0_100%] min-w-0 aspect-[16/9] sm:aspect-[21/9] flex items-center justify-center bg-gray-900/40"
               >
                 {item.src ? (
-                  <div className="relative w-full h-full cursor-pointer group/zoom" onClick={() => setLightboxIndex(item.id - 1)}>
+                  <div className="relative w-full h-full cursor-pointer group/zoom" onClick={() => setLightboxIndex(index)}>
                     <Image
                       src={item.src}
                       alt={item.text}
@@ -91,8 +83,11 @@ export default function CarouselBienestar() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                       priority={item.id === 1}
                     />
-                    <div className="absolute top-4 right-4 z-10 p-3 bg-black/50 backdrop-blur-md rounded-full border border-white/20 opacity-0 group-hover/zoom:opacity-100 transition-opacity">
-                      <Maximize2 className="w-5 h-5 text-white" />
+                    <div className="absolute inset-0 bg-black/0 group-hover/zoom:bg-black/50 transition-all duration-300 ease-out flex items-center justify-center pointer-events-none">
+                      <div className="opacity-0 group-hover/zoom:opacity-100 transition-all duration-300 ease-out flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border-2 border-white/40 scale-90 group-hover/zoom:scale-100">
+                        <Maximize2 className="w-5 h-5 text-white" />
+                        <span className="text-white font-semibold text-sm">Ver en grande</span>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -171,109 +166,21 @@ export default function CarouselBienestar() {
         </div>
       </div>
 
-      {/* Lightbox Portal */}
-      <AnimatePresence>
-        {lightboxIndex !== null && createPortal(
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0d2159]"
-            onClick={() => setLightboxIndex(null)}
-          >
-            {/* Capa de fondo sólida como en video */}
-            <div className="absolute inset-0 z-0 bg-[#0d2159]" aria-hidden />
-
-            {/* Close button */}
-            <button
-              onClick={() => setLightboxIndex(null)}
-              className="absolute top-3 right-3 sm:top-6 sm:right-6 z-[110] w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95"
-            >
-              <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </button>
-
-            {/* Info superior */}
-            <div className="absolute top-3 left-3 sm:top-6 sm:left-6 z-[110] flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                <UtensilsCrossed className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-              </div>
-              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2">
-                <span className="text-white font-bold text-xs sm:text-sm">
-                  Foto {lightboxIndex + 1}/{imagenesBienestar.length}
-                </span>
-              </div>
-            </div>
-
-            {/* Image Container */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-[90%] h-[70vh] sm:h-[80vh] max-w-5xl mx-auto z-10"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={imagenesBienestar[lightboxIndex].src!}
-                alt={imagenesBienestar[lightboxIndex].text}
-                fill
-                className="object-contain"
-                quality={100}
-                priority
-              />
-            </motion.div>
-
-            {/* Navegación inferior estilo Galería */}
-            <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-[110] flex items-center gap-3 sm:gap-6">
-              <button
-                onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
-              >
-                <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:-translate-x-0.5 transition-transform" />
-              </button>
-
-              <div className="bg-gradient-to-r from-red-600/80 to-blue-600/80 backdrop-blur-xl border border-white/30 rounded-xl sm:rounded-2xl px-4 sm:px-8 py-2 sm:py-3 shadow-2xl min-w-[120px] text-center">
-                <span className="text-white font-black text-sm sm:text-lg">
-                  {lightboxIndex + 1} <span className="text-white/70 font-normal">de</span> {imagenesBienestar.length}
-                </span>
-              </div>
-
-              <button
-                onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
-              >
-                <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:translate-x-0.5 transition-transform" />
-              </button>
-            </div>
-
-            {/* Keyboard Support Visual */}
-            <div className="hidden md:flex absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 gap-4 text-white/60 text-xs z-[110]">
-              <span>← → Teclado</span>
-              <span className="text-white/40">•</span>
-              <span>ESC Cerrar</span>
-            </div>
-
-            {/* Overlay de texto (opcional, como en video) */}
-            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm z-[110] md:hidden">
-              {imagenesBienestar[lightboxIndex].text}
-            </p>
-          </motion.div>,
-          document.body
-        )}
-      </AnimatePresence>
-
-      {/* Keyboard Navigation Handler */}
-      {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-0"
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') setLightboxIndex(null);
-            if (e.key === 'ArrowRight') nextImage();
-            if (e.key === 'ArrowLeft') prevImage();
-          }}
-          tabIndex={0}
-          autoFocus
-        />
-      )}
+      {/* Lightbox Modal - Using Shared Component */}
+      <ProfessionalModal
+        isOpen={lightboxIndex !== null}
+        onClose={() => setLightboxIndex(null)}
+        items={imagenesBienestar.map(img => ({
+          src: img.src!,
+          alt: img.text,
+          title: img.text,
+          description: img.description
+        }))}
+        currentIndex={lightboxIndex ?? 0}
+        onNext={nextImage}
+        onPrev={prevImage}
+        categoryLabel="Tranquilidad y Bienestar"
+      />
     </div>
   );
 }

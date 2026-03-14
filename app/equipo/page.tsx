@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight, Maximize2, Home, Users, Phone } from 'lucide-react';
 import Link from 'next/link';
+import ProfessionalModal from '@/src/components/ProfessionalModal';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
 const whatsappPhone = process.env.NEXT_PUBLIC_DUVAN_PHONE_1 || "";
@@ -76,7 +77,6 @@ const equipoTrabajo = [
 
 export default function EquipoPage() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const scrollPositionRef = useRef(0);
 
   const openLightbox = (index: number) => {
     setSelectedImage(index);
@@ -98,33 +98,7 @@ export default function EquipoPage() {
     }
   };
 
-  // Efecto para manejar scroll cuando se abre/cierra el lightbox
-  useEffect(() => {
-    if (selectedImage !== null) {
-      const scrollY = window.scrollY ?? document.documentElement.scrollTop;
-      scrollPositionRef.current = scrollY;
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-    } else {
-      const savedY = scrollPositionRef.current;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      window.scrollTo(0, savedY);
-    }
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-    };
-  }, [selectedImage]);
+
 
   return (
     <div className="min-h-screen bg-[#0d2159] overflow-x-hidden w-full max-w-[100vw] min-w-0">
@@ -277,100 +251,22 @@ export default function EquipoPage() {
         </div>
       </section>
 
-      {/* Lightbox/Modal */}
-      <AnimatePresence>
-        {selectedImage !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0d2159]/95 backdrop-blur-xl"
-            onClick={closeLightbox}
-          >
-            {/* Close button */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-3 right-3 sm:top-6 sm:right-6 z-50 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95"
-            >
-              <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </button>
-
-            {/* Info superior */}
-            <div className="absolute top-3 left-3 sm:top-6 sm:left-6 z-50 flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
-                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-              </div>
-              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2">
-                <span className="text-white font-bold text-xs sm:text-sm">
-                  {selectedImage + 1} de {equipoTrabajo.length}
-                </span>
-              </div>
-            </div>
-
-            {/* Image */}
-            <motion.div
-              key={selectedImage}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-[90%] min-[800px]:w-[85%] h-[70vh] sm:h-[80vh] min-[800px]:h-[80vh] mx-auto max-w-[100vw]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={equipoTrabajo[selectedImage].imagen}
-                alt={`Inversiones Duvan - ${equipoTrabajo[selectedImage].nombre}`}
-                fill
-                className="object-contain"
-                priority
-              />
-            </motion.div>
-
-            {/* Controles inferiores */}
-            <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 sm:gap-6">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prevImage();
-                }}
-                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
-              >
-                <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:-translate-x-0.5 transition-transform" />
-              </button>
-
-              <div className="bg-gradient-to-r from-red-600/80 to-blue-600/80 backdrop-blur-xl border border-white/30 rounded-xl sm:rounded-2xl px-4 sm:px-8 py-2 sm:py-3 shadow-2xl">
-                <span className="text-white font-black text-sm sm:text-lg">
-                  {selectedImage + 1} <span className="text-white/70 font-normal">de</span> {equipoTrabajo.length}
-                </span>
-              </div>
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  nextImage();
-                }}
-                className="group w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl flex items-center justify-center transition-all border border-white/20 hover:border-white/40 active:scale-95 touch-manipulation"
-              >
-                <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:translate-x-0.5 transition-transform" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Keyboard navigation */}
-      {selectedImage !== null && (
-        <div
-          className="fixed inset-0 z-40"
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight') nextImage();
-            if (e.key === 'ArrowLeft') prevImage();
-          }}
-          tabIndex={0}
-        />
-      )}
-
+      {/* Lightbox Modal - Using Shared Component */}
+      <ProfessionalModal
+        isOpen={selectedImage !== null}
+        onClose={closeLightbox}
+        items={equipoTrabajo.map(area => ({
+          src: area.imagen,
+          alt: area.nombre,
+          title: area.nombre,
+          description: area.descripcion
+        }))}
+        currentIndex={selectedImage ?? 0}
+        onNext={nextImage}
+        onPrev={prevImage}
+        categoryLabel="Nuestro Equipo"
+        icon={Users}
+      />
     </div>
   );
 }

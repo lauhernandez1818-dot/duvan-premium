@@ -1,10 +1,9 @@
-'use client';
-
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { X, ChevronLeft, ChevronRight, Home, UtensilsCrossed, Phone, ImageIcon, Video, Building2 } from 'lucide-react';
+import { Home, UtensilsCrossed, Phone, ImageIcon, Video, Building2, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import ProfessionalModal from '@/src/components/ProfessionalModal';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
 const whatsappPhone = process.env.NEXT_PUBLIC_DUVAN_PHONE_1 || "";
@@ -67,43 +66,10 @@ const filters: { value: 'todo' | CatalogType; label: string; icon: typeof Utensi
 export default function CatalogoPage() {
   const [filter, setFilter] = useState<'todo' | CatalogType>('todo');
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const scrollPositionRef = useRef(0);
-  const prevOpenRef = useRef(false);
 
   const filtered = filter === 'todo' ? catalogItems : catalogItems.filter((i) => i.type === filter);
-  const selectedItem = selectedIndex !== null ? filtered[selectedIndex] : null;
 
-  useEffect(() => {
-    const isOpen = selectedIndex !== null;
-    if (isOpen) {
-      if (!prevOpenRef.current) {
-        scrollPositionRef.current = window.scrollY ?? document.documentElement.scrollTop;
-      }
-      const scrollY = scrollPositionRef.current;
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-    } else {
-      const savedY = scrollPositionRef.current;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      requestAnimationFrame(() => window.scrollTo(0, savedY));
-    }
-    prevOpenRef.current = isOpen;
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-    };
-  }, [selectedIndex]);
-
+  const closeLightbox = () => setSelectedIndex(null);
   const goPrev = () => {
     if (selectedIndex === null) return;
     setSelectedIndex(selectedIndex === 0 ? filtered.length - 1 : selectedIndex - 1);
@@ -263,78 +229,21 @@ export default function CatalogoPage() {
         </div>
       </section>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedItem && selectedIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0d2159]/95 backdrop-blur-md"
-            style={{ minHeight: '100dvh' }}
-            onClick={() => setSelectedIndex(null)}
-          >
-            <div className="absolute inset-0 z-0" aria-hidden />
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); setSelectedIndex(null); }}
-              className="absolute top-2 right-2 sm:top-6 sm:right-6 z-[70] w-9 h-9 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center border border-white/20 touch-manipulation"
-              aria-label="Cerrar"
-            >
-              <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </button>
-            <div className="absolute top-2 left-2 sm:top-6 sm:left-6 z-[70] flex items-center gap-1.5 sm:gap-2 bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 max-w-[calc(100vw-5rem)] sm:max-w-none">
-              <span className="text-white font-bold text-xs sm:text-sm truncate">{selectedItem.title}</span>
-              <span className="text-white/70 text-[10px] sm:text-xs flex-shrink-0">({selectedIndex + 1}/{filtered.length})</span>
-            </div>
-
-            <motion.div
-              key={selectedIndex}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="relative w-full sm:w-[92%] max-w-4xl flex flex-col items-center gap-2 sm:gap-4 z-10 py-2 sm:py-4 overflow-y-auto max-h-[100dvh] sm:max-h-[85vh] px-1 sm:px-0"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {selectedItem.type !== 'video' && (
-                <div className="relative w-full h-[78dvh] min-h-[60dvh] sm:h-auto sm:aspect-video sm:max-h-[55vh] rounded-lg sm:rounded-xl overflow-hidden flex-shrink-0">
-                  <Image
-                    src={selectedItem.image}
-                    alt={selectedItem.alt}
-                    fill
-                    className="object-contain"
-                    sizes="100vw"
-                    priority
-                  />
-                </div>
-              )}
-              {selectedItem.video && (
-                <div className="w-full rounded-lg sm:rounded-xl overflow-hidden bg-black/50 border border-white/20 flex-shrink-0">
-                  <video
-                    src={selectedItem.video}
-                    controls
-                    autoPlay={selectedItem.type === 'video'}
-                    playsInline
-                    className="w-full max-h-[50dvh] sm:max-h-[40vh] object-contain"
-                  />
-                  <p className="text-white/80 text-center py-2 text-sm">{selectedItem.title}</p>
-                </div>
-              )}
-            </motion.div>
-
-            <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[70] flex items-center gap-3 sm:gap-4">
-              <button type="button" onClick={(e) => { e.stopPropagation(); goPrev(); }} className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 rounded-xl flex items-center justify-center border border-white/20" aria-label="Anterior">
-                <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-              </button>
-              <span className="text-white font-bold text-sm bg-white/10 px-4 py-2 rounded-xl">{selectedIndex + 1} / {filtered.length}</span>
-              <button type="button" onClick={(e) => { e.stopPropagation(); goNext(); }} className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 hover:bg-white/20 rounded-xl flex items-center justify-center border border-white/20" aria-label="Siguiente">
-                <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <ProfessionalModal
+        isOpen={selectedIndex !== null}
+        onClose={closeLightbox}
+        items={filtered.map(item => ({
+          src: item.image,
+          alt: item.alt,
+          title: item.title,
+          video: item.video
+        }))}
+        currentIndex={selectedIndex ?? 0}
+        onNext={goNext}
+        onPrev={goPrev}
+        categoryLabel="Catálogo"
+        icon={ImageIcon}
+      />
     </div>
   );
 }

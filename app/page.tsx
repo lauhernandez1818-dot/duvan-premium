@@ -898,7 +898,7 @@ export default function Home() {
             className="text-center mb-12 sm:mb-16 xl:mb-20"
           >
             <h2 className="text-3xl sm:text-5xl md:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 px-2 break-words leading-tight">
-              TRANQUILIDAD Y BIENESTAR <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent italic">PARA TUS COLABORADORES!</span>
+              TRANQUILIDAD Y BIENESTAR <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent italic pe-2">PARA TUS COLABORADORES!</span>
             </h2>
             <p className="text-lg sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-bold text-gray-400">
               Para tu empresa
