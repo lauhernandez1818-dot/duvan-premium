@@ -1021,6 +1021,29 @@ export default function Home() {
               ))}
             </div>
 
+            {/* Botón Ver Catálogo */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mt-12 sm:mt-16 md:mt-20"
+            >
+              <Link href="/catalogo">
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black text-lg sm:text-xl shadow-2xl hover:shadow-blue-600/50 transition-all overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                  <span className="relative">VER CAT&#193;LOGO</span>
+                  <ChevronRight className="relative w-6 h-6 sm:w-7 sm:h-7 group-hover:translate-x-2 transition-transform" />
+                </motion.button>
+              </Link>
+              <p className="text-gray-400 mt-4 text-sm sm:text-base">
+                Platos, informaci&#243;n y videos en un solo lugar
+              </p>
+            </motion.div>
+
           </div>
         </div>
       </section>

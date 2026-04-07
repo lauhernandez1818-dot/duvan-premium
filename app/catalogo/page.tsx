@@ -59,19 +59,23 @@ export default function CatalogoPage() {
             initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 180, damping: 18, delay: 0.1 }}
-            className="relative inline-flex items-center justify-center w-24 h-24 min-[380px]:w-28 min-[380px]:h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden"
+            className="relative mx-auto flex items-center justify-center w-24 h-24 min-[380px]:w-28 min-[380px]:h-28 sm:w-32 sm:h-32"
           >
             {/* Glow pulsante detrás del logo */}
             <div className="absolute inset-0 rounded-full bg-blue-400/40 blur-3xl scale-150 animate-pulse" aria-hidden />
+            {/* Anillo exterior */}
             <div className="absolute inset-0 rounded-full border-2 border-blue-300/50 shadow-[0_0_50px_rgba(59,130,246,0.4)]" aria-hidden />
-            <div className="relative w-full h-full rounded-full border-2 border-blue-300/40 bg-white p-2.5 sm:p-3">
+            {/* Círculo blanco con logo perfectamente centrado */}
+            <div className="relative w-full h-full rounded-full border-2 border-blue-300/40 bg-white flex items-center justify-center overflow-hidden p-2.5 sm:p-3">
               <img
                 src={config.logoUrl}
                 alt="Logo Inversiones Duvan"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain object-center"
+                style={{ display: 'block', margin: '0 auto' }}
               />
             </div>
           </motion.div>
+
 
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
