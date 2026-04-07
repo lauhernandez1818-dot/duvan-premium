@@ -510,6 +510,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Proceso - FULL RESPONSIVE (800x600 en adelante) */}
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
+          <div className="max-w-7xl xl:max-w-[90rem] min-[1920px]:max-w-[100rem] mx-auto min-w-0">
+            <div className="text-center mb-12 sm:mb-16 md:mb-20 xl:mb-24 min-[1920px]:mb-28">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 sm:px-4 break-words">
+                CÓMO <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">TRABAJAMOS</span>
+              </h2>
+              <p className="text-base sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 px-4">Proceso simple y transparente</p>
+            </div>
+
+            <div className="grid grid-cols-1 min-[800px]:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 min-[800px]:gap-6 xl:gap-8 min-[1920px]:gap-10">
+              {[
+                { icon: MessageCircle, title: 'Cotización', description: 'Nos cuentas tus necesidades y en 24h recibes propuesta personalizada', color: 'from-red-600 to-red-500' },
+                { icon: Calendar, title: 'Planificación', description: 'Definimos menú, horarios y logística adaptados a tu empresa', color: 'from-blue-600 to-blue-500' },
+                { icon: ChefHat, title: 'Preparación', description: 'Elaboramos todo fresco el día de entrega con ingredientes de primera', color: 'from-slate-400 to-slate-500' },
+                { icon: Truck, title: 'Entrega', description: 'Transporte térmico puntual directamente a tus instalaciones', color: 'from-red-600 to-blue-600' },
+              ].map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="text-center relative"
+                >
+                  {/* Connecting line */}
+                  {index < 3 && (
+                    <div className="hidden md:block absolute top-10 sm:top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-white/20 to-transparent" />
+                  )}
+                  
+                  <div className="relative">
+                    <div className={`w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 min-[1920px]:w-32 min-[1920px]:h-32 bg-gradient-to-br ${step.color} rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto shadow-2xl mb-4 sm:mb-6 xl:mb-8 group-hover:scale-110 transition-transform`}>
+                      <step.icon className="w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14 min-[1920px]:w-16 min-[1920px]:h-16 text-white" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 xl:-top-4 xl:-right-4 min-[1920px]:-top-5 min-[1920px]:-right-5 w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14 min-[1920px]:w-16 min-[1920px]:h-16 bg-white rounded-full flex items-center justify-center font-black text-black shadow-lg border-2 sm:border-4 xl:border-[5px] border-black text-sm sm:text-base xl:text-lg min-[1920px]:text-xl">
+                      {index + 1}
+                    </div>
+                  </div>
+                  <h3 className="text-lg sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl font-black text-white mb-2 sm:mb-3 xl:mb-4">{step.title}</h3>
+                  <p className="text-sm sm:text-base xl:text-lg min-[1920px]:text-xl text-gray-400 leading-relaxed">{step.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Sección Calidad - Higiene y servicio premium */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
@@ -747,7 +795,7 @@ export default function Home() {
               NUESTRA <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">MISIÓN</span>
             </h2>
             <p className="text-lg sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-300 leading-relaxed">
-              Transformar la alimentación corporativa en una experiencia memorable, con sabor de hogar y eficiencia en cada entrega.
+              Nuestra misión es transformar la alimentación corporativa en Venezuela, convirtiendo cada almuerzo en una experiencia de bienestar, sabor y eficiencia. Nos comprometemos a ser el aliado estratégico de las empresas, garantizando la salud y satisfacción de sus colaboradores a través de procesos certificados, ingredientes de primera calidad y una logística impecable que honra la puntualidad y el compromiso con la excelencia.
             </p>
           </motion.div>
         </div>
@@ -898,7 +946,7 @@ export default function Home() {
             className="text-center mb-12 sm:mb-16 xl:mb-20"
           >
             <h2 className="text-3xl sm:text-5xl md:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 px-2 break-words leading-tight">
-              TRANQUILIDAD Y BIENESTAR <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent italic pe-2">PARA TUS COLABORADORES!</span>
+              TRANQUILIDAD Y BIENESTAR <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent italic pe-2">PARA TUS COLABORADORES</span>
             </h2>
             <p className="text-lg sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-bold text-gray-400">
               Para tu empresa
@@ -929,54 +977,6 @@ export default function Home() {
               </div>
               <CalculadoraPedido />
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Proceso - FULL RESPONSIVE (800x600 en adelante) */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
-          <div className="max-w-7xl xl:max-w-[90rem] min-[1920px]:max-w-[100rem] mx-auto min-w-0">
-            <div className="text-center mb-12 sm:mb-16 md:mb-20 xl:mb-24 min-[1920px]:mb-28">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 sm:px-4 break-words">
-                CÓMO <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">TRABAJAMOS</span>
-              </h2>
-              <p className="text-base sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 px-4">Proceso simple y transparente</p>
-            </div>
-
-            <div className="grid grid-cols-1 min-[800px]:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 min-[800px]:gap-6 xl:gap-8 min-[1920px]:gap-10">
-              {[
-                { icon: MessageCircle, title: 'Cotización', description: 'Nos cuentas tus necesidades y en 24h recibes propuesta personalizada', color: 'from-red-600 to-red-500' },
-                { icon: Calendar, title: 'Planificación', description: 'Definimos menú, horarios y logística adaptados a tu empresa', color: 'from-blue-600 to-blue-500' },
-                { icon: ChefHat, title: 'Preparación', description: 'Elaboramos todo fresco el día de entrega con ingredientes de primera', color: 'from-slate-400 to-slate-500' },
-                { icon: Truck, title: 'Entrega', description: 'Transporte térmico puntual directamente a tus instalaciones', color: 'from-red-600 to-blue-600' },
-              ].map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center relative"
-                >
-                  {/* Connecting line */}
-                  {index < 3 && (
-                    <div className="hidden md:block absolute top-10 sm:top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-white/20 to-transparent" />
-                  )}
-                  
-                  <div className="relative">
-                    <div className={`w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 min-[1920px]:w-32 min-[1920px]:h-32 bg-gradient-to-br ${step.color} rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto shadow-2xl mb-4 sm:mb-6 xl:mb-8 group-hover:scale-110 transition-transform`}>
-                      <step.icon className="w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14 min-[1920px]:w-16 min-[1920px]:h-16 text-white" />
-                    </div>
-                    <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 xl:-top-4 xl:-right-4 min-[1920px]:-top-5 min-[1920px]:-right-5 w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14 min-[1920px]:w-16 min-[1920px]:h-16 bg-white rounded-full flex items-center justify-center font-black text-black shadow-lg border-2 sm:border-4 xl:border-[5px] border-black text-sm sm:text-base xl:text-lg min-[1920px]:text-xl">
-                      {index + 1}
-                    </div>
-                  </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl font-black text-white mb-2 sm:mb-3 xl:mb-4">{step.title}</h3>
-                  <p className="text-sm sm:text-base xl:text-lg min-[1920px]:text-xl text-gray-400 leading-relaxed">{step.description}</p>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

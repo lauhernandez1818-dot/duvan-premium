@@ -16,62 +16,50 @@ const equipoTrabajo = [
   {
     id: 1,
     nombre: 'Ayudantes de Cocina',
-    imagen: '/imagenes/Ayudantes-de-cocina.webp',
-    descripcion: 'Apoyo fundamental en la preparación diaria, asegurando eficiencia y organización en cada proceso culinario.',
+    imagen: '/imagenes/Ayudantes de Cocina.webp',
+    descripcion: 'Soporte vital en la preparación diaria, garantizando fluidez, organización y los más altos niveles de higiene en nuestra cocina.',
   },
   {
     id: 2,
-    nombre: 'Carnicería',
-    imagen: '/imagenes/Carniceria.webp',
-    descripcion: 'Selección y preparación de carnes de primera calidad, garantizando frescura y los más altos estándares.',
+    nombre: 'Carniceros',
+    imagen: '/imagenes/Carniceros.webp',
+    descripcion: 'Expertos en el procesamiento y selección de proteínas premium, asegurando que cada corte cumpla con nuestra promesa de frescura y calidad.',
   },
   {
     id: 3,
     nombre: 'Cocineros Principales',
-    imagen: '/imagenes/Cocineros-principales.webp',
-    descripcion: 'Líderes culinarios que transforman ingredientes frescos en platos excepcionales con técnicas profesionales.',
+    imagen: '/imagenes/Cocineros Principales.webp',
+    descripcion: 'Maestros culinarios dedicados a la creación de platos excepcionales, fusionando técnicas tradicionales con innovación gastronómica.',
   },
   {
     id: 4,
     nombre: 'Frutería',
-    imagen: '/imagenes/Panaderia-pasteleria-y-fruteria.webp',
-    descripcion: 'Selección y preparación de frutas frescas para complementos saludables y postres naturales.',
+    imagen: '/imagenes/Fruteria.webp',
+    descripcion: 'Especialistas en la selección de las mejores frutas de temporada, procesadas con cuidado para ofrecer frescura natural en cada servicio.',
   },
   {
     id: 5,
-    nombre: 'Hortalizas',
-    imagen: '/imagenes/Hortalizas.webp',
-    descripcion: 'Manejo especializado de vegetales frescos, asegurando calidad y nutrición en cada preparación.',
+    nombre: 'Inventario',
+    imagen: '/imagenes/Invetario.webp',
+    descripcion: 'Gestión estratégica de suministros y materias primas, asegurando la disponibilidad constante de ingredientes frescos y de alta calidad.',
   },
   {
     id: 6,
-    nombre: 'Inventario',
-    imagen: '/imagenes/Inventario.webp',
-    descripcion: 'Control y gestión de suministros para mantener disponibilidad constante y optimizar recursos.',
+    nombre: 'Panadería y Pastelería',
+    imagen: '/imagenes/Panaderia y Pasteleria.webp',
+    descripcion: 'Artesanos del horneado dedicados a crear panes frescos y postres delicados que aportan el toque gourmet y hogareño a nuestros menús.',
   },
   {
     id: 7,
-    nombre: 'Panadería Pastelería',
-    imagen: '/imagenes/Panaderia-pasteleria-y-fruteria.webp',
-    descripcion: 'Elaboración artesanal de panes frescos y postres que complementan cada menú con calidad premium.',
+    nombre: 'Personal de Empaque y Distribución',
+    imagen: '/imagenes/Personal de Empaque y Distribución.webp',
+    descripcion: 'Garantía de excelencia en el despacho final, asegurando que cada pedido llegue perfectamente presentado, protegido y a tiempo.',
   },
   {
     id: 8,
-    nombre: 'Personal de Empaque y Distribución',
-    imagen: '/imagenes/Personal-de-empanque-y-distribucion.webp',
-    descripcion: 'Empaque profesional y distribución eficiente, garantizando que cada comida llegue en perfectas condiciones.',
-  },
-  {
-    id: 9,
     nombre: 'Servicios Generales',
-    imagen: '/imagenes/Servicios-generales.webp',
-    descripcion: 'Mantenimiento y limpieza de instalaciones, asegurando un ambiente sanitario óptimo en todas las áreas.',
-  },
-  {
-    id: 10,
-    nombre: 'Transportista',
-    imagen: '/imagenes/Transportistas.webp',
-    descripcion: 'Logística especializada con transporte térmico para entregas puntuales manteniendo la temperatura ideal.',
+    imagen: '/imagenes/Servicios Generales.webp',
+    descripcion: 'Pilares fundamentales para mantener un ambiente de trabajo impecable y seguro, cumpliendo con estrictos protocolos de sanitización.',
   },
 ];
 
@@ -209,13 +197,13 @@ export default function EquipoPage() {
                 className="relative group"
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 opacity-0 group-hover:opacity-30 rounded-2xl blur-xl transition-all duration-300" />
-                <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border border-white/10 rounded-2xl overflow-hidden group-hover:border-white/30 transition-all">
-                  <div className="relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden bg-gray-900 flex items-center justify-center">
+                <div className="relative h-full flex flex-col bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-2xl overflow-hidden group-hover:border-white/30 transition-all">
+                  <div className="relative aspect-video overflow-hidden bg-gray-950 flex items-center justify-center p-1 sm:p-2">
                     <Image
                       src={area.imagen}
                       alt={`Inversiones Duvan - ${area.nombre}`}
                       fill
-                      className="object-contain transition-transform duration-500 group-hover:scale-105"
+                      className="object-contain transition-all duration-500 group-hover:scale-105"
                       sizes="(max-width: 800px) 100vw, 50vw"
                     />
                     {/* Overlay on hover */}
@@ -229,16 +217,16 @@ export default function EquipoPage() {
                       </button>
                     </div>
                   </div>
-                  <div className="p-6 bg-gradient-to-br from-gray-800 to-zinc-900 border-t border-white/10">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-blue-600 rounded-lg flex items-center justify-center">
-                        <Users className="w-5 h-5 text-white" />
+                  <div className="p-6 bg-gradient-to-br from-gray-800 to-zinc-900 border-t border-white/10 flex-1 flex flex-col">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 animate-pulse-subtle">
+                        <Users className="w-6 h-6 text-white" />
                       </div>
-                      <div>
-                        <h3 className="text-lg sm:text-xl font-bold text-white">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-xl sm:text-2xl font-black text-white mb-2 leading-tight">
                           {area.nombre}
                         </h3>
-                        <p className="text-gray-400 text-sm sm:text-base">
+                        <p className="text-gray-400 text-sm sm:text-base leading-relaxed line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
                           {area.descripcion}
                         </p>
                       </div>
