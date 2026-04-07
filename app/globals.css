@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  /* Resoluciones PC: desde 800x600 en adelante */
+  --background: #0a0a0a;
+  --foreground: #ededed;
   --safe-padding: clamp(0.75rem, 2vw, 1.5rem);
 }
 
@@ -12,21 +11,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  /* Breakpoint PC: 800px en adelante (800x600, 1024x768, 1280x720, 1920x1080, etc.) */
   --breakpoint-pc: 800px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 html {
   overflow-x: hidden;
   max-width: 100vw;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 *,
@@ -42,6 +36,9 @@ body {
   overflow-x: hidden;
   max-width: 100vw;
   min-width: 0;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Contenedores seguros para todas las resoluciones PC (800px+) */
@@ -49,6 +46,30 @@ body {
   .container {
     max-width: 100%;
   }
+}
+
+/* Reducir animaciones para usuarios que lo prefieran (accesibilidad) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Imágenes y videos responsive por defecto */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Optimización de secciones off-screen */
+section {
+  contain: layout style;
 }
 
 @layer utilities {
@@ -59,5 +80,15 @@ body {
 
   .animate-pulse-subtle {
     animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Gradiente animado para CTA buttons */
+  @keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .animate-gradient {
+    animation: gradient 3s ease infinite;
   }
 }

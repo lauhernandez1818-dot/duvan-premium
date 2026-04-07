@@ -194,6 +194,7 @@ export default function Home() {
             muted
             loop
             playsInline
+            preload="none"
             className="absolute inset-0 w-full h-full object-cover"
             aria-hidden
           >
@@ -585,6 +586,7 @@ export default function Home() {
                   muted
                   loop
                   playsInline
+                  preload="none"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   aria-hidden
                 >
@@ -664,6 +666,7 @@ export default function Home() {
                   muted
                   loop
                   playsInline
+                  preload="metadata"
                   className="absolute inset-0 w-full h-full object-contain"
                   controls
                 >
@@ -1145,6 +1148,7 @@ export default function Home() {
                   src="/imagenes/logo-duvan.png"
                   alt="Inversiones Duvan"
                   fill
+                  loading="lazy"
                   className="object-contain"
                   sizes="(max-width: 640px) 40px, 48px"
                 />
@@ -1179,15 +1183,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <style jsx global>{`
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient {
-          animation: gradient 3s ease infinite;
-        }
-      `}</style>
+
     </div>
   );
 }

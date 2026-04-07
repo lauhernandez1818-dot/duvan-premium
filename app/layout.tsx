@@ -5,15 +5,21 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const viewport: Viewport = {
   themeColor: "#18181b",
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
 };
 
 export const metadata: Metadata = {
@@ -29,7 +35,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/imagenes/logo-duvan.png",
+    shortcut: "/imagenes/logo-duvan.png",
+    apple: "/imagenes/logo-duvan.png",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  metadataBase: new URL("https://duvan-premium.vercel.app"),
 };
 
 export default function RootLayout({

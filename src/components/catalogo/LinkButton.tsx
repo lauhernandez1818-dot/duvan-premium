@@ -2,7 +2,7 @@
 
 import { type ReactNode } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 
 export interface LinkItem {
   id: string;
@@ -17,7 +17,7 @@ interface LinkButtonProps {
   index: number;
 }
 
-const listItemVariants = {
+const listItemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
