@@ -48,7 +48,6 @@ export const comidasNormales: PlatoComida[] = [
     title: 'Hamburguesa Duvan',
     image: '/imagenes/Hamburguesa.webp',
     contiene: 'La joya de la corona. Carne premium, queso fundido y pan artesanal.',
-    video: '/videos/HamburguesaV.mp4',
   },
   {
     id: 'pescado-frito-patacones',

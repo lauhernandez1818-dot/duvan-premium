@@ -26,7 +26,7 @@ import {
   X,
 } from 'lucide-react';
 import CalculadoraPedido from '@/src/components/CalculadoraPedido';
-import CarouselPropuesta from '@/src/components/CarouselPropuesta';
+import CollagePropuesta from '@/src/components/CollagePropuesta';
 import CarouselBienestar from '@/src/components/CarouselBienestar';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -35,7 +35,7 @@ import { createPortal } from 'react-dom';
 
 const WHATSAPP_MSG = 'Hola, me interesa solicitar una cotización de almuerzos corporativos.';
 const whatsappPhone = process.env.NEXT_PUBLIC_DUVAN_PHONE_1 || "";
-const WHATSAPP_URL = whatsappPhone ? `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(WHATSAPP_MSG)}` : "#";
+const WHATSAPP_URL = "#"; // Botón inactivo temporalmente según instrucciones
 
 // Array del equipo de trabajo (orden alfabético)
 const equipoTrabajo = [
@@ -93,52 +93,46 @@ const equipoTrabajo = [
 
 export default function Home() {
   const heroRef = useRef(null);
-  const videoCalidadRef = useRef<HTMLVideoElement>(null);
-  const [showVideoCalidadLightbox, setShowVideoCalidadLightbox] = useState(false);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
   });
 
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]); // En PC no desaparece del todo para mantener el color azul
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]); // Escala más suave en PC
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [selectedStation, setSelectedStation] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!showVideoCalidadLightbox) return;
-    const scrollY = window.scrollY ?? document.documentElement.scrollTop;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    const t = setTimeout(() => {
-      videoCalidadRef.current?.requestFullscreen().catch(() => {});
-    }, 150);
-    return () => {
-      clearTimeout(t);
-      const prevScrollY = document.body.style.top;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      if (prevScrollY) window.scrollTo(0, parseInt(prevScrollY || '0', 10) * -1);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
     };
-  }, [showVideoCalidadLightbox]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const closeVideoLightbox = () => {
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-    setShowVideoCalidadLightbox(false);
-  };
-
+  const apoyoStations = [
+    { id: 'comercializacion', nombre: 'Comercialización', desc: 'Gestión comercial y estrategia de ventas para garantizar contratos corporativos de calidad y relaciones duraderas con nuestros clientes.', img: '/imagenes/Sobrenosotros (1).webp' },
+    { id: 'administracion', nombre: 'Administración', desc: 'Control financiero, gestión de contratos y coordinación administrativa para garantizar operaciones fluidas y transparentes.', img: '/imagenes/Sobrenosotros (2).webp' },
+    { id: 'inventarios-a', nombre: 'Inventarios', desc: 'Control y gestión de suministros para mantener disponibilidad constante y optimizar recursos con eficiencia.', img: '/imagenes/Invetario.webp' },
+    { id: 'servicios', nombre: 'Servicios Generales', desc: 'Mantenimiento y limpieza de instalaciones, asegurando un ambiente sanitario óptimo en todas las áreas de producción.', img: '/imagenes/Servicios Generales.webp' },
+  ];
+  const prodStations = [
+    { id: 'produccion', nombre: 'Producción', desc: 'Cocina principal donde nuestros chefs transforman ingredientes frescos en platos excepcionales con técnicas profesionales.', img: '/imagenes/Cocineros Principales.webp' },
+    { id: 'empaquetado', nombre: 'Empaquetado', desc: 'Empaque profesional que garantiza presentación y temperatura perfecta de cada comida hasta su destino final.', img: '/imagenes/Personal de Empaque y Distribución.webp' },
+    { id: 'distribucion', nombre: 'Distribución', desc: 'Logística especializada con transporte térmico para entregas puntuales manteniendo la temperatura ideal de cada plato.', img: '/imagenes/Sobrenosotros (3).webp' },
+    { id: 'panaderia', nombre: 'Panadería y Pastería', desc: 'Elaboración artesanal diaria de panes frescos y postres premium que complementan cada menú corporativo.', img: '/imagenes/Panaderia y Pasteleria.webp' },
+    { id: 'carniceria', nombre: 'Carnicería', desc: 'Selección y preparación de carnes de primera calidad garantizando frescura y los más altos estándares sanitarios.', img: '/imagenes/Carniceros.webp' },
+    { id: 'inventarios-p', nombre: 'Inventarios', desc: 'Gestión rigurosa de insumos de producción para garantizar disponibilidad de ingredientes frescos cada día.', img: '/imagenes/Invetario.webp' },
+  ];
 
   return (
         <div className="min-h-screen bg-black overflow-x-hidden w-full max-w-[100vw] min-w-0">
       {/* Botón Flotante de WhatsApp */}
       <motion.a
         href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        onClick={(e) => { e.preventDefault(); }} // Evita que salte hacia arriba al pulsar el #
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.35 }}
@@ -146,103 +140,96 @@ export default function Home() {
         whileTap={{ scale: 0.9 }}
         className="fixed bottom-6 right-6 z-50 group"
       >
-        {/* Tooltip */}
-        <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <div className="bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-lg whitespace-nowrap shadow-xl">
-            Chatea con nosotros
-            <div className="absolute top-full right-4 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-900"></div>
-          </div>
-        </div>
-
-        {/* Botón */}
-        <div className="relative">
-          {/* Anillo de pulso - animación ligera para no causar lag en móvil */}
-          <motion.div
-            animate={{ 
-              scale: [1, 1.3, 1],
-              opacity: [0.5, 0, 0.5],
-            }}
-            transition={{ 
-              duration: 2.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute inset-0 bg-green-500 rounded-full"
-          />
-          
-          {/* Botón principal */}
-          <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-2xl hover:shadow-green-500/50 transition-all">
-            {/* Ícono de WhatsApp */}
-            <svg
-              className="w-9 h-9 sm:w-11 sm:h-11 text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-            </svg>
-          </div>
+        {/* Botón principal */}
+        <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-2xl hover:shadow-green-500/50 transition-all">
+          {/* Ícono de WhatsApp */}
+          <svg
+            className="w-9 h-9 sm:w-11 sm:h-11 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
         </div>
       </motion.a>
 
-      {/* Hero Section - video de fondo + overlay */}
-      <section ref={heroRef} className="relative overflow-hidden bg-black min-h-screen flex items-center">
-        {/* Video de fondo */}
-        <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden
-          >
-            <source src="/videos/video1.mp4" type="video/mp4" />
-          </video>
-          {/* Overlay negro 50% para que el título resalte */}
-          <div className="absolute inset-0 bg-black/50" aria-hidden />
-        </div>
-
-        {/* Floating navigation - animación rápida para menos lag */}
-        <motion.nav 
-          initial={{ y: -20, opacity: 0.9 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.25 }}
-          className="absolute top-0 left-0 right-0 z-50"
-        >
-          <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 py-3 sm:py-6 max-w-[100vw] min-w-0">
-            <div className="flex items-center justify-between gap-2 sm:gap-4 min-[800px]:gap-4 xl:gap-6 backdrop-blur-xl bg-gray-900/90 border border-white/10 rounded-full px-3 sm:px-6 md:px-8 min-[800px]:px-6 xl:px-8 min-[1920px]:px-10 py-2.5 sm:py-4 min-w-0">
-              <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-                {/* Logo con fondo claro para que se vea bien sobre oscuro */}
-                <div className="relative w-9 h-9 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg sm:rounded-xl bg-white p-1 sm:p-1.5 shadow-md">
-                  <Image
-                    src="/imagenes/logo-duvan.png"
-                    alt="Inversiones Duvan"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 640px) 36px, 48px"
-                    priority
-                  />
-                </div>
-                {/* Pantallas pequeñas: 2 líneas. Pantallas grandes (sm+): 1 línea "Inversiones Duvan" */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1 min-w-0 leading-tight">
-                  <span className="text-[11px] sm:text-base md:text-xl font-black text-white tracking-tight whitespace-nowrap">INVERSIONES</span>
-                  <span className="text-[11px] sm:text-base md:text-xl font-black bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent whitespace-nowrap">DUVAN</span>
-                </div>
+      {/* NAV FIJO - fuera del hero para garantizar fixed positioning sin interferencia de overflow:hidden/transforms */}
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, type: 'spring', damping: 20 }}
+        className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 pointer-events-none ${isScrolled ? 'py-1 sm:py-2' : 'py-2 sm:py-4'}`}
+      >
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 xl:px-8 max-w-[100vw] min-w-0 pointer-events-auto">
+          <div className={`flex items-center justify-between gap-2 sm:gap-4 border rounded-full px-3 sm:px-6 md:px-8 transition-all duration-500 shadow-2xl ${
+            isScrolled 
+              ? 'bg-gray-900/60 backdrop-blur-md border-white/10 py-2 sm:py-3 shadow-blue-900/10' 
+              : 'bg-gray-900/95 backdrop-blur-xl border-white/20 py-2.5 sm:py-4 shadow-blue-900/20'
+          }`}>
+            <Link href="/" className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1 group">
+              <div className="relative w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 rounded-lg sm:rounded-xl bg-white p-1 sm:p-1.5 shadow-md group-hover:scale-105 transition-transform">
+                <Image src="/imagenes/logo-duvan.png" alt="Inversiones Duvan" fill className="object-contain" sizes="(max-width: 640px) 36px, 48px" priority />
               </div>
-              <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-                <a href={whatsappPhone ? `tel:+${whatsappPhone}` : "#"} className="flex items-center gap-1 sm:gap-2 text-white hover:text-white transition-colors min-h-[44px] items-center justify-center">
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  {whatsappPhone && <span className="hidden sm:inline font-medium text-xs md:text-base">+{whatsappPhone}</span>}
-                </a>
-                <a href="#cotizacion" className="bg-gradient-to-r from-red-600 to-blue-600 text-white px-3 sm:px-6 py-2 min-h-[44px] flex items-center justify-center rounded-lg text-xs sm:text-sm font-bold hover:shadow-lg hover:shadow-blue-600/50 transition-all touch-manipulation">
-                  Cotizar
-                </a>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1 min-w-0 leading-tight">
+                <span className="text-[11px] sm:text-base md:text-lg font-black text-white tracking-tight whitespace-nowrap">INVERSIONES</span>
+                <span className="text-[11px] sm:text-base md:text-lg font-black bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent whitespace-nowrap">DUVAN</span>
               </div>
+            </Link>
+            <div className="hidden min-[900px]:flex items-center gap-6 xl:gap-8 mx-4">
+              <Link href="/equipo" className="text-white/70 hover:text-white font-bold text-sm xl:text-base transition-colors relative group">
+                ¿Quiénes Somos?
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-blue-600 group-hover:w-full transition-all duration-300"></span>
+              </Link>
+              <a href="/catalogo" className="text-white/70 hover:text-white font-bold text-sm xl:text-base transition-colors relative group">
+                Catálogo
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-blue-600 group-hover:w-full transition-all duration-300"></span>
+              </a>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+              <a href="#" onClick={(e) => e.preventDefault()} className="hidden sm:flex items-center gap-1 sm:gap-2 text-white hover:text-blue-400 transition-colors min-h-[44px] justify-center">
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <span className="font-bold text-xs md:text-sm">Contáctanos</span>
+              </a>
+              <a href="#cotizacion" className="bg-gradient-to-r from-red-600 to-blue-600 text-white px-4 sm:px-6 py-2.5 min-h-[44px] flex items-center justify-center rounded-full text-xs sm:text-sm font-black hover:shadow-lg hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all touch-manipulation border border-white/20">COTIZAR</a>
             </div>
           </div>
-        </motion.nav>
+        </div>
+      </motion.nav>
+
+      {/* Hero Section - video de fondo + overlay */}
+      <section ref={heroRef} className="relative overflow-hidden bg-black min-h-screen flex items-center">
+        {/* Fondo llamativo con degradado azul corporativo */}
+        <div className="absolute inset-0 bg-[#0d2159]">
+          {/* Orbes de luz animados para un efecto visual impactante */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <motion.div 
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3],
+                x: [0, 50, 0],
+                y: [0, 30, 0]
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] bg-red-600/20 rounded-full blur-[120px]" 
+            />
+            <motion.div 
+              animate={{ 
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.4, 0.2],
+                x: [0, -40, 0],
+                y: [0, -20, 0]
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute -bottom-[10%] -right-[10%] w-[50vw] h-[50vw] bg-blue-600/20 rounded-full blur-[120px]" 
+            />
+          </div>
+          {/* Sutil patrón de malla para profundidad */}
+          <div className="absolute inset-0 opacity-[0.15]" 
+               style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)', backgroundSize: '40px 40px' }} 
+          />
+          <div className="absolute inset-0 bg-black/20" aria-hidden />
+        </div>
 
         {/* Hero Content - FULL RESPONSIVE */}
         <motion.div 
@@ -265,29 +252,24 @@ export default function Home() {
                 <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               </motion.div>
               
-              {/* Main Headline - 3 líneas como en Vercel (sin depender de br) */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl min-[1920px]:text-9xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 leading-tight tracking-tighter px-1 sm:px-2 break-words">
-                <span className="block">ALIMENTACIÓN</span>
-                <span className="relative block">
-                  <span className="relative z-10 text-white">CORPORATIVA</span>
+              {/* Main Headline - una línea compacta */}
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-4 sm:mb-6 xl:mb-8 leading-tight tracking-tighter px-1 sm:px-2 break-words">
+                Alimentación Corporativa de{' '}
+                <span className="relative">
+                  <span className="text-red-500">alto</span>{' '}
+                  <span className="text-blue-400">impacto</span>
                   <motion.div
-                    animate={{ scale: [1, 1.05, 1], opacity: [0.6, 0.9, 0.6] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute -inset-2 bg-gradient-to-r from-red-600/50 via-blue-600/50 to-red-600/50 blur-2xl -z-10"
+                    animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.7, 0.4] }}
+                    transition={{ duration: 2.5, repeat: Infinity }}
+                    className="absolute -inset-2 bg-gradient-to-r from-red-600/30 via-blue-600/30 to-red-600/30 blur-2xl -z-10"
                   />
                 </span>
-                <span className="block">DE <span className="text-red-600">ALTO</span> <span className="text-blue-600">IMPACTO</span></span>
               </h1>
-              
-              {/* Tagline - mensaje de valor sin repetir números */}
-              <div className="text-sm sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl text-white mb-8 sm:mb-12 xl:mb-16 min-[1920px]:mb-20 max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto leading-relaxed font-light px-2 sm:px-4 break-words">
-                <p className="mb-2">
-                  <span className="font-bold">Somos tu mejor opción</span>
-                </p>
-                <p>
-                  en la Gran Caracas
-                </p>
-              </div>
+
+              {/* Tagline actualizado */}
+              <p className="text-base sm:text-xl md:text-2xl xl:text-3xl text-white/80 mb-8 sm:mb-12 xl:mb-16 max-w-3xl xl:max-w-4xl mx-auto leading-relaxed font-light px-2 sm:px-4">
+                Transformando la experiencia gastronómica empresarial en Venezuela.
+              </p>
 
               {/* Stats Bar - FULL RESPONSIVE - CON ANIMACIONES COMO EL RESTO */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 xl:gap-6 min-[1920px]:gap-8 mb-8 sm:mb-12 xl:mb-16 min-[1920px]:mb-20 max-w-5xl xl:max-w-6xl min-[1920px]:max-w-7xl mx-auto px-1 sm:px-2 w-full min-w-0">
@@ -343,10 +325,20 @@ export default function Home() {
                 </motion.a>
                 
                 <motion.a 
+                  href="#sobre-nosotros"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative w-full sm:w-auto max-w-full flex items-center justify-center gap-2 sm:gap-3 xl:gap-4 bg-white/10 backdrop-blur-md border-2 border-white/40 text-white px-4 sm:px-10 xl:px-12 py-3 sm:py-6 rounded-xl sm:rounded-2xl font-black text-sm sm:text-xl hover:bg-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-white/10 min-h-[48px] touch-manipulation"
+                >
+                  <Users className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-300" />
+                  <span>¿QUIÉNES SOMOS?</span>
+                </motion.a>
+
+                <motion.a 
                   href="#cotizacion"
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative w-full sm:w-auto max-w-full flex items-center justify-center gap-2 sm:gap-3 xl:gap-4 bg-white/5 backdrop-blur-sm border-2 border-white/35 text-white px-4 sm:px-10 xl:px-12 min-[1920px]:px-16 py-3 sm:py-6 xl:py-7 min-[1920px]:py-8 rounded-xl sm:rounded-2xl font-black text-sm sm:text-xl xl:text-2xl min-[1920px]:text-3xl hover:bg-white/10 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl min-h-[48px] touch-manipulation"
+                  className="group relative w-full sm:w-auto max-w-full flex items-center justify-center gap-2 sm:gap-3 xl:gap-4 bg-gradient-to-r from-red-600 to-blue-600 text-white px-4 sm:px-10 xl:px-12 py-3 sm:py-6 rounded-xl sm:rounded-2xl font-black text-sm sm:text-xl hover:shadow-xl hover:shadow-blue-600/40 transition-all duration-300 min-h-[48px] touch-manipulation"
                 >
                   <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-300" />
                   <span className="hidden sm:inline">SOLICITAR COTIZACIÓN</span>
@@ -359,123 +351,150 @@ export default function Home() {
 
       </section>
 
-      {/* Sobre Nosotros - CON GALERÍA ESPECTACULAR - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
-        {/* Background effects */}
+
+      {/* Misión y Visión - FULL RESPONSIVE */}
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 bg-[#0d2159] relative overflow-hidden">
+        {/* Background elements for depth */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[120px] -translate-y-1/2" />
+          <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] -translate-y-1/2" />
         </div>
 
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="max-w-7xl xl:max-w-[90rem] min-[1920px]:max-w-[100rem] mx-auto"
-          >
-            {/* Section Header - FULL RESPONSIVE */}
-            <div className="text-center mb-12 sm:mb-16 md:mb-20 xl:mb-24 min-[1920px]:mb-28">
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-red-600/20 to-blue-600/20 backdrop-blur-xl border border-red-600/30 rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-6 sm:mb-8"
-              >
-                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
-                <span className="text-white font-bold text-sm sm:text-base">QUIÉNES SOMOS</span>
-              </motion.div>
-              <p className="text-base sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 max-w-3xl xl:max-w-4xl min-[1920px]:max-w-5xl mx-auto px-4">
-                Líderes en alimentación corporativa desde hace más de una década
-              </p>
-            </div>
-
-            {/* Botón Ver Galería - SIN FOTOS PREVIEW */}
+          <div className="max-w-7xl xl:max-w-[90rem] min-[1920px]:max-w-[100rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
+            {/* Misión */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="mb-12 sm:mb-16 md:mb-20"
-            >
-              <div className="text-center">
-                <Link href="/galeria">
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black text-lg sm:text-xl shadow-2xl hover:shadow-blue-600/50 transition-all overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    <ChefHat className="relative w-6 h-6 sm:w-7 sm:h-7 group-hover:rotate-12 transition-transform duration-500" />
-                    <span className="relative">VER GALERÍA</span>
-                    <ChevronRight className="relative w-6 h-6 sm:w-7 sm:h-7 group-hover:translate-x-2 transition-transform" />
-                  </motion.button>
-                </Link>
-                <p className="text-gray-400 mt-4 text-sm sm:text-base">
-                  Conoce nuestras instalaciones y equipo profesional
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Texto descriptivo - FULL RESPONSIVE */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 via-blue-600/10 to-red-600/10 rounded-2xl sm:rounded-3xl blur-2xl" />
-              <div className="relative bg-gradient-to-br from-gray-800 to-zinc-900 border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-12 md:p-16">
-                <div className="max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto">
-                  <p className="text-base sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl leading-relaxed text-gray-300 mb-6 sm:mb-8 xl:mb-10 min-[1920px]:mb-12">
-                    Somos <span className="text-white font-bold">líderes en alimentación corporativa</span> en la Gran Caracas. 
-                    Atendemos a <span className="text-red-500 font-bold">bancos, clínicas, industria, empresas pequeñas y medianas, entes e instituciones</span>,
-                    con menús personalizados, trazabilidad total y <span className="text-blue-500 font-bold">normas sanitarias certificadas</span>. 
-                    Calidad, frescura y puntualidad en cada entrega.
-                  </p>
-                  <p className="text-sm sm:text-xl xl:text-2xl min-[1920px]:text-3xl text-gray-400 leading-relaxed">
-                    Detrás de cada comida hay un equipo apasionado por la excelencia. Nuestros fundadores y su equipo 
-                    se dedican diariamente a transformar la alimentación corporativa en una experiencia memorable, 
-                    con instalaciones preparadas y procesos que priorizan la seguridad y el sabor.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Nuestro Equipo de Trabajo - FULL RESPONSIVE */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="mt-16 sm:mt-20 md:mt-24"
+              className="group relative"
             >
-              <div className="text-center mb-8 sm:mb-12">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 sm:mb-6 px-2 break-words">
-                  NUESTRO <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">EQUIPO DE TRABAJO</span>
-                </h3>
-                <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4 mb-6 sm:mb-8">
-                  Profesionales especializados en cada área para garantizar la excelencia
+              <div className="absolute -inset-1 bg-gradient-to-br from-red-600 to-blue-600 opacity-20 blur-xl group-hover:opacity-40 transition-opacity rounded-[2rem]" />
+              <div className="relative h-full bg-gray-900/40 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-8 sm:p-12 xl:p-16">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-red-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-red-600/20">
+                  <Target className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-black text-white mb-6 tracking-tighter">
+                  NUESTRA <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent">MISIÓN</span>
+                </h2>
+                <p className="text-lg sm:text-2xl text-gray-300 leading-relaxed font-light">
+                  Transformar la alimentación corporativa en una experiencia memorable, con sabor de hogar y eficiencia en cada entrega, garantizando el bienestar de cada colaborador.
                 </p>
-                {/* Botón para ir a la página del equipo */}
-                <Link href="/equipo">
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-blue-600 text-white px-6 sm:px-10 py-4 sm:py-5 rounded-2xl font-black text-base sm:text-lg shadow-2xl hover:shadow-blue-600/50 transition-all overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    <Users className="relative w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform duration-500" />
-                    <span className="relative">CONOCE MÁS DE NOSOTROS</span>
-                    <ChevronRight className="relative w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform" />
-                  </motion.button>
-                </Link>
               </div>
             </motion.div>
-          </motion.div>
+
+            {/* Visión */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="group relative"
+            >
+              <div className="absolute -inset-1 bg-gradient-to-br from-blue-600 to-red-600 opacity-20 blur-xl group-hover:opacity-40 transition-opacity rounded-[2rem]" />
+              <div className="relative h-full bg-gray-900/40 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-8 sm:p-12 xl:p-16">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-500 rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-blue-600/20">
+                  <TrendingUp className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-3xl sm:text-5xl font-black text-white mb-6 tracking-tighter">
+                  NUESTRA <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">VISIÓN</span>
+                </h2>
+                <p className="text-lg sm:text-2xl text-gray-300 leading-relaxed font-light">
+                  Ser el referente líder en soluciones gastronómicas corporativas en Venezuela, reconocidos por nuestra innovación, calidad certificada y compromiso inquebrantable con la excelencia.
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
+      {/* Nuestras Estaciones - Hoja 3 */}
+      <section id="estaciones" className="py-12 sm:py-20 bg-[#0f172a] relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
+        </div>
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 xl:px-8 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-7xl mx-auto">
+            <div className="text-center mb-10 sm:mb-14">
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-3 tracking-tighter">
+                NUESTRAS <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">ESTACIONES</span>
+              </h2>
+            </div>
+            {/* ÁREAS DE APOYO */}
+            <div className="mb-10">
+              <p className="text-xs sm:text-sm font-bold text-white/50 uppercase tracking-widest text-center mb-5">
+                Áreas de Apoyo: Comercialización · Administración · Inventarios · Servicios Generales
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4">
+                {apoyoStations.map((st) => (
+                  <motion.button key={st.id} onClick={() => setSelectedStation(selectedStation === st.id ? null : st.id)}
+                    whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                    className={`p-4 sm:p-6 rounded-2xl border-2 text-left transition-all duration-200 ${
+                      selectedStation === st.id ? 'border-red-500 bg-red-600/20 shadow-lg shadow-red-600/20' : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
+                    }`}>
+                    <span className="block font-black text-white text-sm sm:text-base leading-tight">{st.nombre}</span>
+                    <span className="block text-xs text-white/40 mt-1">{selectedStation === st.id ? 'Cerrar ▲' : 'Ver más ▼'}</span>
+                  </motion.button>
+                ))}
+              </div>
+              <AnimatePresence>
+                {apoyoStations.find(s => s.id === selectedStation) && (
+                  <motion.div key={selectedStation} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                    {(() => { const st = apoyoStations.find(s => s.id === selectedStation)!; return (
+                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 bg-gray-900/60 border border-white/10 rounded-2xl p-5 sm:p-8 mt-1">
+                        <div className="relative w-full sm:w-72 h-52 flex-shrink-0 rounded-xl overflow-hidden">
+                          <Image src={st.img} alt={st.nombre} fill className="object-cover" sizes="(max-width:640px) 100vw, 288px" />
+                        </div>
+                        <div className="flex flex-col justify-center">
+                          <h4 className="text-xl sm:text-2xl font-black text-white mb-3">{st.nombre}</h4>
+                          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{st.desc}</p>
+                        </div>
+                      </div>
+                    ); })()}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            {/* ESTACIONES DE PRODUCCIÓN */}
+            <div>
+              <p className="text-xs sm:text-sm font-bold text-white/50 uppercase tracking-widest text-center mb-5">
+                Estaciones de Producción
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4 mb-4">
+                {prodStations.map((st) => (
+                  <motion.button key={st.id} onClick={() => setSelectedStation(selectedStation === st.id ? null : st.id)}
+                    whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                    className={`p-4 sm:p-5 rounded-2xl border-2 text-left transition-all duration-200 ${
+                      selectedStation === st.id ? 'border-blue-500 bg-blue-600/20 shadow-lg shadow-blue-600/20' : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
+                    }`}>
+                    <span className="block font-black text-white text-xs sm:text-sm leading-tight">{st.nombre}</span>
+                    <span className="block text-xs text-white/40 mt-1">{selectedStation === st.id ? 'Cerrar ▲' : 'Ver ▼'}</span>
+                  </motion.button>
+                ))}
+              </div>
+              <AnimatePresence>
+                {prodStations.find(s => s.id === selectedStation) && (
+                  <motion.div key={selectedStation} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                    {(() => { const st = prodStations.find(s => s.id === selectedStation)!; return (
+                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 bg-gray-900/60 border border-white/10 rounded-2xl p-5 sm:p-8 mt-1">
+                        <div className="relative w-full sm:w-72 h-52 flex-shrink-0 rounded-xl overflow-hidden">
+                          <Image src={st.img} alt={st.nombre} fill className="object-cover" sizes="(max-width:640px) 100vw, 288px" />
+                        </div>
+                        <div className="flex flex-col justify-center">
+                          <h4 className="text-xl sm:text-2xl font-black text-white mb-3">{st.nombre}</h4>
+                          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{st.desc}</p>
+                        </div>
+                      </div>
+                    ); })()}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Nuestra Propuesta Gastronómica - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
@@ -505,181 +524,20 @@ export default function Home() {
               viewport={{ once: true }}
               className="relative w-full max-w-[100vw] min-w-0 px-2 sm:px-4"
             >
-              <CarouselPropuesta />
+              <CollagePropuesta />
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Proceso - FULL RESPONSIVE (800x600 en adelante) */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
-          <div className="max-w-7xl xl:max-w-[90rem] min-[1920px]:max-w-[100rem] mx-auto min-w-0">
-            <div className="text-center mb-12 sm:mb-16 md:mb-20 xl:mb-24 min-[1920px]:mb-28">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 sm:px-4 break-words">
-                CÓMO <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">TRABAJAMOS</span>
-              </h2>
-              <p className="text-base sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 px-4">Proceso simple y transparente</p>
-            </div>
 
-            <div className="grid grid-cols-1 min-[800px]:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6 min-[800px]:gap-6 xl:gap-8 min-[1920px]:gap-10">
-              {[
-                { icon: MessageCircle, title: 'Cotización', description: 'Nos cuentas tus necesidades y en 24h recibes propuesta personalizada', color: 'from-red-600 to-red-500' },
-                { icon: Calendar, title: 'Planificación', description: 'Definimos menú, horarios y logística adaptados a tu empresa', color: 'from-blue-600 to-blue-500' },
-                { icon: ChefHat, title: 'Preparación', description: 'Elaboramos todo fresco el día de entrega con ingredientes de primera', color: 'from-slate-400 to-slate-500' },
-                { icon: Truck, title: 'Entrega', description: 'Transporte térmico puntual directamente a tus instalaciones', color: 'from-red-600 to-blue-600' },
-              ].map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center relative"
-                >
-                  {/* Connecting line */}
-                  {index < 3 && (
-                    <div className="hidden md:block absolute top-10 sm:top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-white/20 to-transparent" />
-                  )}
-                  
-                  <div className="relative">
-                    <div className={`w-20 h-20 sm:w-24 sm:h-24 xl:w-28 xl:h-28 min-[1920px]:w-32 min-[1920px]:h-32 bg-gradient-to-br ${step.color} rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto shadow-2xl mb-4 sm:mb-6 xl:mb-8 group-hover:scale-110 transition-transform`}>
-                      <step.icon className="w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14 min-[1920px]:w-16 min-[1920px]:h-16 text-white" />
-                    </div>
-                    <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 xl:-top-4 xl:-right-4 min-[1920px]:-top-5 min-[1920px]:-right-5 w-10 h-10 sm:w-12 sm:h-12 xl:w-14 xl:h-14 min-[1920px]:w-16 min-[1920px]:h-16 bg-white rounded-full flex items-center justify-center font-black text-black shadow-lg border-2 sm:border-4 xl:border-[5px] border-black text-sm sm:text-base xl:text-lg min-[1920px]:text-xl">
-                      {index + 1}
-                    </div>
-                  </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl font-black text-white mb-2 sm:mb-3 xl:mb-4">{step.title}</h3>
-                  <p className="text-sm sm:text-base xl:text-lg min-[1920px]:text-xl text-gray-400 leading-relaxed">{step.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Sección Calidad - Higiene y servicio premium */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6 px-2 break-words">
-                HIGIENE Y <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">SERVICIO PREMIUM</span>
-              </h2>
-              <p className="text-base sm:text-lg xl:text-xl min-[1920px]:text-2xl text-gray-400 max-w-2xl xl:max-w-3xl min-[1920px]:max-w-4xl mx-auto px-4">
-                Preparación con los más altos estándares de higiene y calidad
-              </p>
-            </div>
-            <div className="p-1 sm:p-1.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-red-600 to-blue-600">
-              <div
-                className="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-video bg-black group cursor-pointer"
-                onClick={() => setShowVideoCalidadLightbox(true)}
-              >
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  aria-hidden
-                >
-                  <source src="/videos/video2.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-3 border border-white/30">
-                    <Maximize2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                    <span className="text-white font-semibold text-sm sm:text-base">Ver en pantalla completa</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Lightbox video Calidad - portal a body, fondo opaco tapa todo */}
-      {typeof document !== 'undefined' &&
-        showVideoCalidadLightbox &&
-        createPortal(
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              role="dialog"
-              aria-modal="true"
-              className="fixed z-[9999] flex items-center justify-center overflow-hidden pointer-events-auto"
-              style={{
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                width: '100%',
-                minWidth: '100vw',
-                  height: '100%',
-                minHeight: '100dvh',
-                backgroundColor: '#0d2159',
-              }}
-              onClick={closeVideoLightbox}
-            >
-              {/* Capa de fondo que tapa todo: no se ve nada de la página */}
-              <div
-                className="absolute inset-0 z-0"
-                style={{
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  width: '100vw',
-                  height: '100dvh',
-                  minHeight: '100vh',
-                  backgroundColor: '#0d2159',
-                }}
-                aria-hidden
-              />
-              <button
-                type="button"
-                onClick={closeVideoLightbox}
-                className="absolute top-3 right-3 sm:top-6 sm:right-6 z-[70] w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all border border-white/20"
-                aria-label="Cerrar"
-              >
-                <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </button>
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="relative w-full h-[90vh] sm:h-[85vh] max-w-5xl mx-auto bg-black rounded-xl overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <video
-                  ref={videoCalidadRef}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  className="absolute inset-0 w-full h-full object-contain"
-                  controls
-                >
-                  <source src="/videos/video2.mp4" type="video/mp4" />
-                </video>
-              </motion.div>
-              <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm z-[70]">
-                Higiene y servicio premium
-              </p>
-            </motion.div>
-          </AnimatePresence>,
-          document.body
-        )}
+
+
+
+
+
 
       {/* Por qué elegir a Duvan - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
@@ -785,24 +643,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Misión - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto text-center"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl min-[1920px]:text-7xl font-black text-white mb-6 sm:mb-8 xl:mb-10 min-[1920px]:mb-12 px-2 break-words">
-              NUESTRA <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">MISIÓN</span>
-            </h2>
-            <p className="text-lg sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-300 leading-relaxed">
-              Nuestra misión es transformar la alimentación corporativa en Venezuela, convirtiendo cada almuerzo en una experiencia de bienestar, sabor y eficiencia. Nos comprometemos a ser el aliado estratégico de las empresas, garantizando la salud y satisfacción de sus colaboradores a través de procesos certificados, ingredientes de primera calidad y una logística impecable que honra la puntualidad y el compromiso con la excelencia.
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Beneficios al contratarnos - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
@@ -853,7 +693,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonios - FULL RESPONSIVE (800x600 en adelante) */}
+      {/* Tranquilidad y Bienestar - Hoja 7 */}
+      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
+        </div>
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12 sm:mb-16 xl:mb-20">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 px-2 break-words leading-tight">
+              TRANQUILIDAD Y BIENESTAR <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent italic pe-2">PARA TUS COLABORADORES</span>
+            </h2>
+            <p className="text-lg sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-bold text-gray-400">Para tu empresa</p>
+          </motion.div>
+          <CarouselBienestar />
+        </div>
+      </section>
+
+      {/* Testimonios - Hoja 8 - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
           <div className="max-w-7xl mx-auto min-w-0">
@@ -934,31 +791,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tranquilidad y Bienestar - NUEVA SECCIÓN */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
-        </div>
-        
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16 xl:mb-20"
-          >
-            <h2 className="text-3xl sm:text-5xl md:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 px-2 break-words leading-tight">
-              TRANQUILIDAD Y BIENESTAR <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent italic pe-2">PARA TUS COLABORADORES</span>
-            </h2>
-            <p className="text-lg sm:text-2xl md:text-3xl xl:text-4xl min-[1920px]:text-5xl font-bold text-gray-400">
-              Para tu empresa
-            </p>
-          </motion.div>
-          
-          <CarouselBienestar />
-        </div>
-      </section>
+
 
       {/* Nuestras Opciones - FULL RESPONSIVE (800x600 en adelante) */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-zinc-900 overflow-hidden">
@@ -1048,24 +881,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Promedio de comidas diarias - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto text-center"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl min-[1920px]:text-7xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 break-words">
-              PROMEDIO DE <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">COMIDAS DIARIAS</span>
-            </h2>
-            <p className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl min-[1920px]:text-6xl font-black text-white">
-              <span className="text-red-500">3.000</span> a <span className="text-blue-500">6.000</span> comidas diarias
-            </p>
-          </motion.div>
-        </div>
-      </section>
+
+
 
       {/* Eslogan - FULL RESPONSIVE */}
       <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
