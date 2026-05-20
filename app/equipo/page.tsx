@@ -183,61 +183,7 @@ export default function EquipoPage() {
         </div>
       </section>
 
-      {/* Gallery Grid - FULL RESPONSIVE */}
-      <section className="py-12 sm:py-16 md:py-20 xl:py-32 min-[1920px]:py-40 bg-[#0d2159] overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 max-w-[100vw] min-w-0">
-          <div className="grid grid-cols-1 min-[800px]:grid-cols-2 gap-4 sm:gap-6 min-[800px]:gap-6 xl:gap-8 min-[1920px]:gap-10 max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto w-full min-w-0">
-            {equipoTrabajo.map((area, index) => (
-              <motion.div
-                key={area.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative group"
-              >
-                <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-blue-600 opacity-0 group-hover:opacity-30 rounded-2xl blur-xl transition-all duration-300" />
-                <div className="relative h-full flex flex-col bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-2xl overflow-hidden group-hover:border-white/30 transition-all">
-                  <div className="relative aspect-video overflow-hidden bg-gray-950 flex items-center justify-center p-1 sm:p-2">
-                    <Image
-                      src={area.imagen}
-                      alt={`Inversiones Duvan - ${area.nombre}`}
-                      fill
-                      className="object-contain transition-all duration-500 group-hover:scale-105"
-                      sizes="(max-width: 800px) 100vw, 50vw"
-                    />
-                    {/* Overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-8">
-                      <button
-                        onClick={() => openLightbox(index)}
-                        className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg hover:shadow-blue-600/50 transition-all transform translate-y-4 group-hover:translate-y-0"
-                      >
-                        <Maximize2 className="w-5 h-5" />
-                        Ver en grande
-                      </button>
-                    </div>
-                  </div>
-                  <div className="p-6 bg-gradient-to-br from-gray-800 to-zinc-900 border-t border-white/10 flex-1 flex flex-col">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 animate-pulse-subtle">
-                        <Users className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-xl sm:text-2xl font-black text-white mb-2 leading-tight">
-                          {area.nombre}
-                        </h3>
-                        <p className="text-gray-400 text-sm sm:text-base leading-relaxed line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
-                          {area.descripcion}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Lightbox Modal - Using Shared Component */}
       <ProfessionalModal

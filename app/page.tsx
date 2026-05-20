@@ -325,7 +325,7 @@ export default function Home() {
                 </motion.a>
                 
                 <motion.a 
-                  href="#sobre-nosotros"
+                  href="/equipo"
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative w-full sm:w-auto max-w-full flex items-center justify-center gap-2 sm:gap-3 xl:gap-4 bg-white/10 backdrop-blur-md border-2 border-white/40 text-white px-4 sm:px-10 xl:px-12 py-3 sm:py-6 rounded-xl sm:rounded-2xl font-black text-sm sm:text-xl hover:bg-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-white/10 min-h-[48px] touch-manipulation"
@@ -496,39 +496,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Nuestra Propuesta Gastronómica - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
-        </div>
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 xl:px-8 min-[1920px]:px-12 relative z-10 max-w-[100vw] min-w-0">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl xl:max-w-5xl min-[1920px]:max-w-6xl mx-auto"
-          >
-            <div className="text-center mb-8 sm:mb-12 xl:mb-16 min-[1920px]:mb-20">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl min-[1920px]:text-8xl font-black text-white mb-4 sm:mb-6 xl:mb-8 min-[1920px]:mb-10 px-2 sm:px-4 break-words">
-                NUESTRA PROPUESTA <span className="bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">GASTRONÓMICA</span>
-              </h2>
-              <p className="text-base sm:text-lg xl:text-xl min-[1920px]:text-2xl text-gray-400 max-w-2xl xl:max-w-3xl min-[1920px]:max-w-4xl mx-auto px-4">
-                Menús variados, ingredientes de primera y servicio premium
-              </p>
-            </div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative w-full max-w-[100vw] min-w-0 px-2 sm:px-4"
-            >
-              <CollagePropuesta />
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+
 
 
 
