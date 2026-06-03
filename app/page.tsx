@@ -41,28 +41,23 @@ const WHATSAPP_URL = "#"; // Botón inactivo temporalmente según instrucciones
 const equipoTrabajo = [
   {
     nombre: 'Ayudantes de Cocina',
-    imagen: '/imagenes/Ayudantes-de-cocina.webp',
+    imagen: '/imagenes/Ayudantes de Cocina.webp',
     descripcion: 'Apoyo fundamental en la preparación diaria, asegurando eficiencia y organización en cada proceso culinario.',
   },
   {
     nombre: 'Carnicería',
-    imagen: '/imagenes/Carniceria.webp',
+    imagen: '/imagenes/Carniceros.webp',
     descripcion: 'Selección y preparación de carnes de primera calidad, garantizando frescura y los más altos estándares.',
   },
   {
     nombre: 'Cocineros Principales',
-    imagen: '/imagenes/Cocineros-principales.webp',
+    imagen: '/imagenes/Cocineros Principales.webp',
     descripcion: 'Líderes culinarios que transforman ingredientes frescos en platos excepcionales con técnicas profesionales.',
   },
   {
     nombre: 'Frutería',
-    imagen: '/imagenes/Panaderia-pasteleria-y-fruteria.webp',
+    imagen: '/imagenes/Fruteria.webp',
     descripcion: 'Selección y preparación de frutas frescas para complementos saludables y postres naturales.',
-  },
-  {
-    nombre: 'Hortalizas',
-    imagen: '/imagenes/Hortalizas.webp',
-    descripcion: 'Manejo especializado de vegetales frescos, asegurando calidad y nutrición en cada preparación.',
   },
   {
     nombre: 'Inventario',
@@ -70,24 +65,19 @@ const equipoTrabajo = [
     descripcion: 'Control y gestión de suministros para mantener disponibilidad constante y optimizar recursos.',
   },
   {
-    nombre: 'Panadería Pastelería',
-    imagen: '/imagenes/Panaderia-pasteleria-y-fruteria.webp',
+    nombre: 'Panadería y Pastelería',
+    imagen: '/imagenes/Panaderia y Pasteleria.webp',
     descripcion: 'Elaboración artesanal de panes frescos y postres que complementan cada menú con calidad premium.',
   },
   {
     nombre: 'Personal de Empaque y Distribución',
-    imagen: '/imagenes/Personal-de-empanque-y-distribucion.webp',
+    imagen: '/imagenes/Personal de Empaque y Distribución.webp',
     descripcion: 'Empaque profesional y distribución eficiente, garantizando que cada comida llegue en perfectas condiciones.',
   },
   {
     nombre: 'Servicios Generales',
-    imagen: '/imagenes/Servicios-generales.webp',
+    imagen: '/imagenes/Servicios Generales.webp',
     descripcion: 'Mantenimiento y limpieza de instalaciones, asegurando un ambiente sanitario óptimo en todas las áreas.',
-  },
-  {
-    nombre: 'Transportista',
-    imagen: '/imagenes/Transportistas.webp',
-    descripcion: 'Logística especializada con transporte térmico para entregas puntuales manteniendo la temperatura ideal.',
   },
 ];
 
@@ -115,16 +105,14 @@ export default function Home() {
   const apoyoStations = [
     { id: 'comercializacion', nombre: 'Comercialización', desc: 'Gestión comercial y estrategia de ventas para garantizar contratos corporativos de calidad y relaciones duraderas con nuestros clientes.', img: '/imagenes/Sobrenosotros (1).webp' },
     { id: 'administracion', nombre: 'Administración', desc: 'Control financiero, gestión de contratos y coordinación administrativa para garantizar operaciones fluidas y transparentes.', img: '/imagenes/Sobrenosotros (2).webp' },
-    { id: 'inventarios-a', nombre: 'Inventarios', desc: 'Control y gestión de suministros para mantener disponibilidad constante y optimizar recursos con eficiencia.', img: '/imagenes/Invetario.webp' },
+    { id: 'logistica', nombre: 'Logística', desc: 'Coordinación eficiente de recursos y rutas para asegurar el cumplimiento de nuestros compromisos operativos y logísticos.', img: '/imagenes/Sobrenosotros (3).webp' },
     { id: 'servicios', nombre: 'Servicios Generales', desc: 'Mantenimiento y limpieza de instalaciones, asegurando un ambiente sanitario óptimo en todas las áreas de producción.', img: '/imagenes/Servicios Generales.webp' },
   ];
   const prodStations = [
     { id: 'produccion', nombre: 'Producción', desc: 'Cocina principal donde nuestros chefs transforman ingredientes frescos en platos excepcionales con técnicas profesionales.', img: '/imagenes/Cocineros Principales.webp' },
-    { id: 'empaquetado', nombre: 'Empaquetado', desc: 'Empaque profesional que garantiza presentación y temperatura perfecta de cada comida hasta su destino final.', img: '/imagenes/Personal de Empaque y Distribución.webp' },
-    { id: 'distribucion', nombre: 'Distribución', desc: 'Logística especializada con transporte térmico para entregas puntuales manteniendo la temperatura ideal de cada plato.', img: '/imagenes/Sobrenosotros (3).webp' },
-    { id: 'panaderia', nombre: 'Panadería y Pastería', desc: 'Elaboración artesanal diaria de panes frescos y postres premium que complementan cada menú corporativo.', img: '/imagenes/Panaderia y Pasteleria.webp' },
-    { id: 'carniceria', nombre: 'Carnicería', desc: 'Selección y preparación de carnes de primera calidad garantizando frescura y los más altos estándares sanitarios.', img: '/imagenes/Carniceros.webp' },
-    { id: 'inventarios-p', nombre: 'Inventarios', desc: 'Gestión rigurosa de insumos de producción para garantizar disponibilidad de ingredientes frescos cada día.', img: '/imagenes/Invetario.webp' },
+    { id: 'panaderia', nombre: 'Panadería y Pastelería', desc: 'Elaboración artesanal diaria de panes frescos y postres premium que complementan cada menú corporativo.', img: '/imagenes/Panaderia y Pasteleria.webp' },
+    { id: 'empaquetado', nombre: 'Servicio de envasado, empaquetado y distribución', desc: 'Empaque profesional y logística especializada con transporte térmico para entregas puntuales manteniendo la temperatura ideal.', img: '/imagenes/Personal de Empaque y Distribución.webp' },
+    { id: 'servicio', nombre: 'Servicio', desc: 'Área dedicada a garantizar la mejor atención, presentación y experiencia para todos nuestros clientes corporativos.', img: '/imagenes/Sobrenosotros (2).webp' },
   ];
 
   return (
@@ -379,7 +367,10 @@ export default function Home() {
                   NUESTRA <span className="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent">MISIÓN</span>
                 </h2>
                 <p className="text-lg sm:text-2xl text-gray-300 leading-relaxed font-light">
-                  Transformar la alimentación corporativa en una experiencia memorable, con sabor de hogar y eficiencia en cada entrega, garantizando el bienestar de cada colaborador.
+                  En Duvan, estamos comprometidos en garantizar el bienestar de nuestros clientes a través de la preparación y distribución de alimentos preparados bajo los más estrictos estándares de higiene, ofreciendo un servicio profesional y humano que integre frescura y eficiencia logística, que permita asegurar que cada cliente reciba nutrición confiable y de alta calidad.
+                </p>
+                <p className="text-base sm:text-xl text-gray-400 leading-relaxed font-light mt-4">
+                  Además, estamos orientados a potenciar continuamente nuestro talento humano para el aseguramiento de las expectativas de los aliados comerciales con una cadena de suministros segura y puntual, donde de manera integrada impulse el éxito empresarial bilateral a través de una logística impecable y un servicio excepcional, transformando la nutrición corporativa en una experiencia de bienestar y productividad.
                 </p>
               </div>
             </motion.div>
@@ -401,7 +392,7 @@ export default function Home() {
                   NUESTRA <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">VISIÓN</span>
                 </h2>
                 <p className="text-lg sm:text-2xl text-gray-300 leading-relaxed font-light">
-                  Ser el referente líder en soluciones gastronómicas corporativas en Venezuela, reconocidos por nuestra innovación, calidad certificada y compromiso inquebrantable con la excelencia.
+                  Consolidarnos como el referente indiscutible y aliado estratégico líder en nutrición corporativa en Venezuela, transformando la alimentación masiva en un motor de bienestar, salud y competitividad. En Duvan, proyectamos un futuro donde la excelencia logística y seguridad alimentaria impulsen el éxito colaborativo, expandiendo nuestro modelo de servicio con el establecimiento sostenido de vínculos estrechos que definan el estándar de calidad en atención dirigidos a organizaciones de alto nivel.
                 </p>
               </div>
             </motion.div>
@@ -425,7 +416,7 @@ export default function Home() {
             {/* ÁREAS DE APOYO */}
             <div className="mb-10">
               <p className="text-xs sm:text-sm font-bold text-white/50 uppercase tracking-widest text-center mb-5">
-                Áreas de Apoyo: Comercialización · Administración · Inventarios · Servicios Generales
+                Áreas de Apoyo: Comercialización · Administración · Logística · Servicios Generales
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4">
                 {apoyoStations.map((st) => (
@@ -443,14 +434,9 @@ export default function Home() {
                 {apoyoStations.find(s => s.id === selectedStation) && (
                   <motion.div key={selectedStation} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                     {(() => { const st = apoyoStations.find(s => s.id === selectedStation)!; return (
-                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 bg-gray-900/60 border border-white/10 rounded-2xl p-5 sm:p-8 mt-1">
-                        <div className="relative w-full sm:w-72 h-52 flex-shrink-0 rounded-xl overflow-hidden">
-                          <Image src={st.img} alt={st.nombre} fill className="object-cover" sizes="(max-width:640px) 100vw, 288px" />
-                        </div>
-                        <div className="flex flex-col justify-center">
-                          <h4 className="text-xl sm:text-2xl font-black text-white mb-3">{st.nombre}</h4>
-                          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{st.desc}</p>
-                        </div>
+                      <div className="bg-gray-900/60 border border-white/10 rounded-2xl p-5 sm:p-8 mt-1">
+                        <h4 className="text-xl sm:text-2xl font-black text-white mb-3">{st.nombre}</h4>
+                        <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{st.desc}</p>
                       </div>
                     ); })()}
                   </motion.div>
@@ -462,7 +448,7 @@ export default function Home() {
               <p className="text-xs sm:text-sm font-bold text-white/50 uppercase tracking-widest text-center mb-5">
                 Estaciones de Producción
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4 mb-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4">
                 {prodStations.map((st) => (
                   <motion.button key={st.id} onClick={() => setSelectedStation(selectedStation === st.id ? null : st.id)}
                     whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
@@ -478,14 +464,9 @@ export default function Home() {
                 {prodStations.find(s => s.id === selectedStation) && (
                   <motion.div key={selectedStation} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                     {(() => { const st = prodStations.find(s => s.id === selectedStation)!; return (
-                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 bg-gray-900/60 border border-white/10 rounded-2xl p-5 sm:p-8 mt-1">
-                        <div className="relative w-full sm:w-72 h-52 flex-shrink-0 rounded-xl overflow-hidden">
-                          <Image src={st.img} alt={st.nombre} fill className="object-cover" sizes="(max-width:640px) 100vw, 288px" />
-                        </div>
-                        <div className="flex flex-col justify-center">
-                          <h4 className="text-xl sm:text-2xl font-black text-white mb-3">{st.nombre}</h4>
-                          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{st.desc}</p>
-                        </div>
+                      <div className="bg-gray-900/60 border border-white/10 rounded-2xl p-5 sm:p-8 mt-1">
+                        <h4 className="text-xl sm:text-2xl font-black text-white mb-3">{st.nombre}</h4>
+                        <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{st.desc}</p>
                       </div>
                     ); })()}
                   </motion.div>
@@ -546,23 +527,23 @@ export default function Home() {
                   number: '01',
                   icon: TrendingUp,
                   title: 'Capacidad Comprobada',
-                  description: 'Escala sin sacrificar calidad: desde empresas medianas hasta grandes operaciones. Misma excelencia desde el primer hasta el último plato.',
+                  description: 'Rapidez sin sacrificar calidad desde medianas hasta grandes empresas. Garantía de excelencia desde el primer hasta el último plato.',
                   gradient: 'from-red-600 via-red-500 to-orange-500',
                   shadowColor: 'shadow-red-600/50',
                 },
                 {
                   number: '02',
-                  icon: Clock,
-                  title: 'Puntualidad Total',
-                  description: 'Horarios de entrega cumplidos sin excusas. Tu equipo come a tiempo, siempre.',
+                  icon: Zap,
+                  title: 'Frescura Garantizada',
+                  description: 'Alimentos recién elaborados. Transporte térmico especializado para mantener la temperatura ideal.',
                   gradient: 'from-blue-400 via-blue-300 to-cyan-300',
                   shadowColor: 'shadow-blue-400/50',
                 },
                 {
                   number: '03',
-                  icon: Zap,
-                  title: 'Frescura Garantizada',
-                  description: 'Preparación el mismo día + transporte térmico especializado = comida como recién hecha',
+                  icon: Clock,
+                  title: 'Puntualidad Total',
+                  description: 'Entregas oportunas sin excusas. Tu equipo come a tiempo, siempre.',
                   gradient: 'from-gray-600 via-gray-500 to-slate-500',
                   shadowColor: 'shadow-gray-500/50',
                 },
@@ -613,7 +594,7 @@ export default function Home() {
 
 
       {/* Beneficios al contratarnos - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
+      <section className="pt-16 sm:pt-24 md:pt-32 xl:pt-40 min-[1920px]:pt-48 pb-8 sm:pb-12 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -635,7 +616,7 @@ export default function Home() {
               {[
                 { icon: Truck, title: 'Logística 360°', description: 'Cobertura total en toda la Gran Caracas con transporte especializado', color: 'from-red-600 to-red-500', iconBg: 'bg-red-600' },
                 { icon: Shield, title: 'Certificación Total', description: 'Cumplimos con todas las normas sanitarias y de seguridad alimentaria', color: 'from-blue-600 to-blue-500', iconBg: 'bg-blue-600' },
-                { icon: Clock, title: 'Puntualidad Extrema', description: 'Cumplimos horarios de entrega sin excusas. Tu equipo come a tiempo, siempre', color: 'from-gray-600 to-gray-700', iconBg: 'bg-gray-600' },
+                { icon: Clock, title: 'Puntualidad Extrema', description: 'Cumplimos con los horarios requeridos', color: 'from-gray-600 to-gray-700', iconBg: 'bg-gray-600' },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -658,11 +639,30 @@ export default function Home() {
               ))}
             </div>
           </motion.div>
+          {/* Botón Catálogo después de Beneficios */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-12 sm:mt-16 xl:mt-20 flex justify-center"
+          >
+            <Link 
+              href="/catalogo"
+              className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-2xl font-black text-lg sm:text-xl hover:shadow-2xl hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+              <span className="relative z-10 flex items-center gap-2">
+                VER CATÁLOGO
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* Tranquilidad y Bienestar - Hoja 7 */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-[#0d2159] relative overflow-hidden">
+      <section className="pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-12 md:pb-16 bg-[#0d2159] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
@@ -679,7 +679,7 @@ export default function Home() {
       </section>
 
       {/* Testimonios - Hoja 8 - FULL RESPONSIVE */}
-      <section className="py-16 sm:py-24 md:py-32 xl:py-40 min-[1920px]:py-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
+      <section className="pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-24 md:pb-32 xl:pb-40 min-[1920px]:pb-48 bg-gradient-to-b from-[#0d2159] via-[#0f172a] to-[#0d2159] overflow-hidden">
         <div className="container mx-auto px-3 sm:px-4 md:px-6 min-[800px]:px-6 max-w-[100vw] min-w-0">
           <div className="max-w-7xl mx-auto min-w-0">
             <div className="text-center mb-12 sm:mb-16 md:mb-20">
@@ -747,10 +747,6 @@ export default function Home() {
                       ))}
                     </div>
                     <p className="text-sm sm:text-base md:text-lg xl:text-xl min-[1920px]:text-2xl text-gray-300 mb-4 sm:mb-6 xl:mb-8 leading-relaxed italic">&quot;{testimonial.quote}&quot;</p>
-                    <div className="border-t border-white/10 pt-4 xl:pt-6">
-                      <p className="font-bold text-white text-base sm:text-lg xl:text-xl min-[1920px]:text-2xl">{testimonial.author}</p>
-                      <p className="text-sm sm:text-base xl:text-lg min-[1920px]:text-xl text-gray-400">{testimonial.company}</p>
-                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -822,28 +818,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Botón Ver Catálogo */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mt-12 sm:mt-16 md:mt-20"
-            >
-              <Link href="/catalogo">
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black text-lg sm:text-xl shadow-2xl hover:shadow-blue-600/50 transition-all overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                  <span className="relative">VER CAT&#193;LOGO</span>
-                  <ChevronRight className="relative w-6 h-6 sm:w-7 sm:h-7 group-hover:translate-x-2 transition-transform" />
-                </motion.button>
-              </Link>
-              <p className="text-gray-400 mt-4 text-sm sm:text-base">
-                Platos, informaci&#243;n y videos en un solo lugar
-              </p>
-            </motion.div>
 
           </div>
         </div>

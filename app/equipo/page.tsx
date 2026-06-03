@@ -40,7 +40,7 @@ const equipoTrabajo = [
   {
     id: 5,
     nombre: 'Inventario',
-    imagen: '/imagenes/Invetario.webp',
+    imagen: '/imagenes/Inventario.webp',
     descripcion: 'Gestión estratégica de suministros y materias primas, asegurando la disponibilidad constante de ingredientes frescos y de alta calidad.',
   },
   {
@@ -179,10 +179,54 @@ export default function EquipoPage() {
             <p className="text-sm sm:text-xl md:text-2xl xl:text-3xl min-[1920px]:text-4xl text-gray-400 max-w-3xl xl:max-w-4xl min-[1920px]:max-w-5xl mx-auto px-2 sm:px-4 break-words">
               Profesionales especializados en cada área para garantizar la excelencia
             </p>
+           </motion.div>
+
+          {/* PDF Viewer */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-5xl mx-auto"
+          >
+            <div className="relative rounded-2xl border border-white/10 bg-gray-900/50 overflow-hidden shadow-2xl">
+              {/* Mobile View: Image */}
+              <div className="w-full block md:hidden">
+                <img
+                  src="/imagenes/Fondopdf.webp"
+                  alt="Documento Corporativo Inversiones Duvan"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              {/* Desktop View: PDF Iframe */}
+              <div className="w-full hidden md:block" style={{ height: '70vh', minHeight: '500px' }}>
+                <iframe
+                  src="/imagenes/Pdf1.pdf"
+                  className="w-full h-full border-0"
+                  title="Documento Corporativo Inversiones Duvan"
+                />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 to-transparent pointer-events-none" />
+            </div>
+
+            <div className="mt-6 sm:mt-8 flex justify-center">
+              <a
+                href="/imagenes/Pdf1.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 to-blue-600 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-2xl font-black text-lg sm:text-xl hover:shadow-2xl hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                <span className="relative z-10 flex items-center gap-2">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  VER DOCUMENTO COMPLETO
+                </span>
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
-
 
 
       {/* Lightbox Modal - Using Shared Component */}

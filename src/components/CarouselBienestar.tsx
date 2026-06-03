@@ -31,7 +31,7 @@ const imagenesBienestar = [
     id: 4, 
     src: '/imagenes/catering2.webp',
     text: 'Gestión Eficiente',
-    description: 'Nos encargamos de todo para que tú no tengas que preocuparte.'
+    description: 'Nos encargamos de la logística para evitar preocupaciones.'
   },
 ];
 

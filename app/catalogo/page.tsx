@@ -1,58 +1,81 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, UtensilsCrossed, Sparkles, Cake, ChefHat } from 'lucide-react';
+import {
+  UtensilsCrossed,
+  Salad,
+  WheatOff,
+  Apple,
+  Leaf,
+  ShieldAlert,
+  Cake,
+  CookingPot,
+  ChefHat,
+  Star,
+  Coffee,
+  Cookie,
+  HandPlatter,
+} from 'lucide-react';
 import { LinkButton } from '@/src/components/catalogo/LinkButton';
 import { FloatingParticles } from '@/src/components/catalogo/FloatingParticles';
 
 const config = {
   title: 'INVERSIONES DUVAN',
-  subtitle: 'Almuerzos corporativos',
+  subtitle: 'Catálogo de Servicios',
   logoUrl: '/imagenes/logo-duvan.png',
   links: [
-    { id: 'ubicacion', label: 'Ubicación', to: '/ubicacion' },
-    { id: 'comida', label: 'Comida', to: '/comida' },
-    { id: 'comida_especiales', label: 'Comida Especiales', to: '/comida-especiales' },
-    { id: 'postres', label: 'Postres', to: '/postres' },
+    { id: 'masivos', label: 'Masivos', to: '/almuerzos-masivos' },
+    { id: 'bajos-calorias', label: 'Bajos en Calorías', to: '/bajos-calorias' },
+    { id: 'celiacos', label: 'Celíacos', to: '/celiacos' },
+    { id: 'dietas', label: 'Dietas', to: '/dietas' },
+    { id: 'veganos', label: 'Veganos', to: '/veganos' },
+    { id: 'alergicos', label: 'Alérgicos', to: '/alergicos' },
+    { id: 'pasteleria', label: 'Pastelería', to: '/pasteleria' },
+    { id: 'panaderia', label: 'Panadería', to: '/panaderia' },
+    { id: 'especiales', label: 'Especiales', to: '/especiales' },
+    { id: 'refrigerios', label: 'Refrigerios', to: '/refrigerios' },
+    { id: 'snacks', label: 'Snacks', to: '/snacks' },
     { id: 'catering', label: 'Catering', to: '/catering' },
   ],
 } as const;
 
 const iconById: Record<string, React.ReactNode> = {
-  ubicacion: <MapPin className="w-5 h-5" aria-hidden />,
-  comida: <UtensilsCrossed className="w-5 h-5" aria-hidden />,
-  comida_especiales: <Sparkles className="w-5 h-5" aria-hidden />,
-  postres: <Cake className="w-5 h-5" aria-hidden />,
-  catering: <ChefHat className="w-5 h-5" aria-hidden />,
+  'masivos': <UtensilsCrossed className="w-5 h-5" aria-hidden />,
+  'bajos-calorias': <Salad className="w-5 h-5" aria-hidden />,
+  'celiacos': <WheatOff className="w-5 h-5" aria-hidden />,
+  'dietas': <Apple className="w-5 h-5" aria-hidden />,
+  'veganos': <Leaf className="w-5 h-5" aria-hidden />,
+  'alergicos': <ShieldAlert className="w-5 h-5" aria-hidden />,
+  'pasteleria': <Cake className="w-5 h-5" aria-hidden />,
+  'panaderia': <CookingPot className="w-5 h-5" aria-hidden />,
+  'especiales': <Star className="w-5 h-5" aria-hidden />,
+  'refrigerios': <Coffee className="w-5 h-5" aria-hidden />,
+  'snacks': <Cookie className="w-5 h-5" aria-hidden />,
+  'catering': <HandPlatter className="w-5 h-5" aria-hidden />,
 };
 
 export default function CatalogoPage() {
   return (
     <div className="link-bio-page relative min-h-screen min-h-[100dvh] flex flex-col items-center justify-center pt-[max(3.5rem,env(safe-area-inset-top))] pb-[max(2rem,env(safe-area-inset-bottom))] antialiased overflow-hidden bg-black">
-      {/* Fondo: foto de cocina a pantalla completa */}
       <div
         className="pointer-events-none absolute inset-0 bg-[url('/imagenes/comida7.webp')] bg-cover bg-center scale-105 opacity-40"
         aria-hidden="true"
       />
-      {/* Gradiente catálogo: azul Duvan arriba, transición rica */}
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-blue-900/40 from-0% via-blue-950/60 via-30% via-black/80 via-60% to-black to-100%"
         aria-hidden="true"
       />
-      {/* Resplandor azul superior */}
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_50%_-10%,rgba(59,130,246,0.2),transparent_60%)]"
         aria-hidden="true"
       />
-      
-      {/* Partículas flotantes */}
       <FloatingParticles />
 
       <motion.main
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="relative z-10 w-full max-w-[460px] mx-auto flex flex-col flex-1 justify-center px-4"
+        className="relative z-10 w-full max-w-[720px] mx-auto flex flex-col flex-1 justify-center px-4"
       >
         <header className="text-center mb-6 sm:mb-8">
           <motion.div
@@ -61,11 +84,8 @@ export default function CatalogoPage() {
             transition={{ type: 'spring', stiffness: 180, damping: 18, delay: 0.1 }}
             className="relative mx-auto flex items-center justify-center w-24 h-24 min-[380px]:w-28 min-[380px]:h-28 sm:w-32 sm:h-32"
           >
-            {/* Glow pulsante detrás del logo */}
             <div className="absolute inset-0 rounded-full bg-blue-400/40 blur-3xl scale-150 animate-pulse" aria-hidden />
-            {/* Anillo exterior */}
             <div className="absolute inset-0 rounded-full border-2 border-blue-300/50 shadow-[0_0_50px_rgba(59,130,246,0.4)]" aria-hidden />
-            {/* Círculo blanco con logo perfectamente centrado */}
             <div className="relative w-full h-full rounded-full border-2 border-blue-300/40 bg-white flex items-center justify-center overflow-hidden p-2.5 sm:p-3">
               <img
                 src={config.logoUrl}
@@ -75,7 +95,6 @@ export default function CatalogoPage() {
               />
             </div>
           </motion.div>
-
 
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
@@ -94,7 +113,6 @@ export default function CatalogoPage() {
           >
             {config.subtitle}
           </motion.p>
-          {/* Línea decorativa */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -127,7 +145,7 @@ export default function CatalogoPage() {
             },
             hidden: {},
           }}
-          className="flex flex-col gap-4 sm:gap-5"
+          className="grid grid-cols-3 gap-3 sm:gap-4"
           aria-label="Enlaces principales"
         >
           {config.links.map((item, index) => (
@@ -147,7 +165,7 @@ export default function CatalogoPage() {
           className="mt-8 sm:mt-10 text-center text-[11px] text-white tracking-[0.35em] uppercase font-semibold"
           style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
         >
-          Almuerzos que inspiran
+          Gastronomía que inspira
         </motion.p>
       </motion.main>
     </div>
